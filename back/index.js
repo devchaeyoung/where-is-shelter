@@ -17,8 +17,5 @@ const ATLAS_URL_CORRECT =
 // mongoose 연결 - require 버전
 const mongoose = require("mongoose");
 
-// mongoose 연결 - import 버전
-import mongoose from "mongoose";
-
 mongoose.connect(ATLAS_URL_CORRECT);
 db.on("connected", () => console.log("정상적으로 연결되었습니다."));
