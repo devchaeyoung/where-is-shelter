@@ -23,6 +23,6 @@ db.on("connected", () => console.log("정상적으로 연결되었습니다."));
 
 db.on("error", (error) =>
   console.error(
-    "MongoDB 연결에 실패하였습니다...\n" + ATLAS_URL_CORRECT + "\n" + error
+    "MongoDB 연결에 실패하였습니다.\n" + ATLAS_URL_CORRECT + "\n" + error
   )
 );
