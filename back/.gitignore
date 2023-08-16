@@ -8,4 +8,6 @@ yarn.lock
 yarn-error
 logs
 log
+
+# misc
 .DS_store
