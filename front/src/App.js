@@ -1,5 +1,9 @@
-import logo from './logo.svg';
-import './App.css';
+import './index.css';
+import * as Api from "./api";
+import PoiPage from "./pages/PoiPage";
+import WeatherPage from "./pages/WeatherPage";
+import InfographicPage from "./pages/InfographicPage";
+import MyPage from "./pages/MyPage";
 
 function App() {
   return (
