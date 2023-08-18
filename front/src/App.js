@@ -4,7 +4,7 @@ import PoiPage from "./pages/PoiPage";
 import WeatherPage from "./pages/WeatherPage";
 import InfographicPage from "./pages/InfographicPage";
 import MyPage from "./pages/MyPage";
-import { Route,Routes, Link } from 'react-router-dom';
+import { Route, Routes, Link } from 'react-router-dom';
 
 function App() {
   return (
