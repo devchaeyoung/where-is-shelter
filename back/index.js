@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import db from "./models/index";
+import db from "./configs/dbConfig";
 
 dotenv.config();
 db();
