@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "babel-node index.js ",
+    "dev": "yarn start --watch"
   },
   "author": "",
   "license": "ISC",
@@ -14,5 +15,16 @@
     "express": "^4.18.2",
     "mongoose": "^7.4.3",
     "node": "^20.5.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.22.10",
+    "@babel/core": "^7.22.10",
+    "@babel/node": "^7.22.10",
+    "@babel/preset-env": "^7.22.10"
+  },
+  "babel": {
+    "presets": [
+      "@babel/env"
+    ]
   }
 }
