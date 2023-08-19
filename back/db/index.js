@@ -1,5 +1,5 @@
-import { User } from "./schemas/User";
-import { Shelter } from "./schemas/Shelter";
-import { Review } from "./schemas/Review";
+import { User } from "./schemas/user";
+import { Shelter } from "./schemas/shelter";
+import { Review } from "./schemas/review";
 
 export { User, Shelter, Review };
