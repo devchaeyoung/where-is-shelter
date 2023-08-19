@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
+/** 쉼터 후기 스키마 */
 const reviewSchema = new Schema(
   {
     description: {

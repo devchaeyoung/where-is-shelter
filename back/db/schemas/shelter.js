@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
+/**쉼터 */
 const shelterSchema = new Schema(
   {
     name: {
