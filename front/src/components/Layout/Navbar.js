@@ -1,8 +1,4 @@
 import { React } from 'react';
-import PoiPage from "../../pages/PoiPage";
-import WeatherPage from "../../pages/WeatherPage";
-import InfographicPage from "../../pages/InfographicPage";
-import MyPage from "../../pages/MyPage";
 
 function Navbar () {
     return (
@@ -21,12 +17,5 @@ function Navbar () {
         </div>
     )
 }
-/*
-<Routes>
-<Route path="/PoiPage" element={<PoiPage />}></Route>
-<Route path="/WeatherPage" element={<WeatherPage />}></Route>
-<Route path="/InfographicPage" element={<InfographicPage />}></Route>
-<Route path="/Mypage" element={<MyPage />}></Route>
-</Routes>
-*/
+
 export default Navbar;
