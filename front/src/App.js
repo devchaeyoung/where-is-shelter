@@ -1,14 +1,13 @@
-import { Link, Route, Routes } from 'react-router-dom';
+import { Routes, Route, Link, Outlet } from 'react-router-dom';
 
 import './index.css';
 // import * as Api from "./apis/api";
 
 import LayoutPage from "./pages/LayoutPage";
-import PoiPage from "./pages/LayoutPage";
-import WeatherPage from "./pages/LayoutPage";
-import InfographicPage from "./pages/LayoutPage";
-import MyPage from "./pages/LayoutPage";
-
+import PoiPage from "./pages/PoiPage";
+import WeatherPage from "./pages/WeatherPage";
+import InfographicPage from "./pages/InfographicPage";
+import MyPage from "./pages/MyPage";
 
 function App() {
   return (
@@ -17,12 +16,14 @@ function App() {
       {/* 나중에 HTML 차원에서 meta viewport를 지정하는것으로 해결해야 합니다. */}
 
       <Routes>
-        <Route path="/" element={<LayoutPage />}></Route>
-        <Route path="/poi" element={<PoiPage />}></Route>
-        <Route path="/weather" element={<WeatherPage />}></Route>
-        <Route path="/infographic" element={<InfographicPage />}></Route>
-        <Route path="/mypage" element={<MyPage />}></Route>
+        <Route path="/" element={<LayoutPage />}>
+          <Route path="/poi" element={<PoiPage />}></Route>
+          <Route path="/weather" element={<WeatherPage />}></Route>
+          <Route path="/infographic" element={<InfographicPage />}></Route>
+          <Route path="/mypage" element={<MyPage />}></Route>
+        </Route>
       </Routes>
+    
     </div>
   );
 }

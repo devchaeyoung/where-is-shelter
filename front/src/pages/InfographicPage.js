@@ -1,3 +1,5 @@
+import LayoutPage from "./LayoutPage";
+
 const InfographicPage = () => {
   return (
     <div>
