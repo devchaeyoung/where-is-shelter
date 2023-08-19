@@ -4,6 +4,11 @@ import './index.css';
 // import * as Api from "./apis/api";
 
 import LayoutPage from "./pages/LayoutPage";
+import PoiPage from "./pages/LayoutPage";
+import WeatherPage from "./pages/LayoutPage";
+import InfographicPage from "./pages/LayoutPage";
+import MyPage from "./pages/LayoutPage";
+
 
 function App() {
   return (
@@ -13,6 +18,10 @@ function App() {
 
       <Routes>
         <Route path="/" element={<LayoutPage />}></Route>
+        <Route path="/poi" element={<PoiPage />}></Route>
+        <Route path="/weather" element={<WeatherPage />}></Route>
+        <Route path="/infographic" element={<InfographicPage />}></Route>
+        <Route path="/mypage" element={<MyPage />}></Route>
       </Routes>
     </div>
   );
