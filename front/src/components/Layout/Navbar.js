@@ -8,12 +8,12 @@ import MyPage from "../../pages/MyPage";
 
 function Navbar () {
     return (
-        <div className="w-full h-20">
+        <div className="flex flex-row w-full h-20">
 
             <Link to="/PoiPage">극한날씨 쉼터</Link>
             <Link to="/WeatherPage">기상정보</Link>
             <Link to="/InfographicPage">인포그래픽</Link>
-            <Link to="/Mypage">마이페이지</Link>
+            <Link to="/Mypage">마이페이지</Link>df
 
             <Routes>
                 <Route path="/PoiPage" element={<PoiPage />}></Route>
