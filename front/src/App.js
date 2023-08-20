@@ -1,7 +1,7 @@
 import { Routes, Route, Link, Outlet } from 'react-router-dom';
 
 import './index.css';
-// import * as Api from "./apis/api";
+import * as Api from "./apis/api";
 
 import LayoutPage from "./pages/LayoutPage";
 import PoiPage from "./pages/PoiPage";
