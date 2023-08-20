@@ -1,13 +1,15 @@
 import express from "express";
 import dotenv from "dotenv";
 import db from "./configs/dbConfig";
+import { shelterRouter } from "./routers/shelterRouter";
 
 dotenv.config();
 db();
+const port = process.env.SERVER_PORT;
 
 const app = express();
 
-const port = process.env.SERVER_PORT;
+app.use(shelterRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

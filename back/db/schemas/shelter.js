@@ -3,6 +3,11 @@ import mongoose, { Schema } from "mongoose";
 /**쉼터 */
 const shelterSchema = new Schema(
   {
+    id: {
+      type: Number,
+      index: true,
+      unique: true,
+    },
     name: {
       type: String,
       required: true,
