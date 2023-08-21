@@ -23,6 +23,10 @@ const shelterSchema = new Schema(
       type: String,
       required: true,
     },
+    district: {
+      type: String,
+      required: true,
+    },
     authority_name: {
       type: String,
     },
