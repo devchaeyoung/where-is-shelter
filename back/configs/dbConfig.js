@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const ATLAS_URL_CORRECT =
   "mongodb+srv://elice_3_team:1234@cluster0.orhh1yn.mongodb.net/shelter";
 
-function databaseConntection() {
+function databaseConnection() {
   // mongoose 연결 - require 버전
   const db = mongoose.connection;
 
@@ -17,4 +17,4 @@ function databaseConntection() {
   );
 }
 
-export default databaseConntection;
+export default databaseConnection;
