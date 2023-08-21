@@ -1,4 +1,4 @@
-import ShelterModel from "../db/models/shelterModel";
+import ShelterModel from "../db/index";
 
 class ShelterService {
   static async getShelters() {

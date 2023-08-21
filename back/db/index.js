@@ -1,5 +1,5 @@
-import { User } from "./schemas/user";
-import { Shelter } from "./schemas/shelter";
-import { Review } from "./schemas/review";
+import { UserModel } from "./models/userModel";
+import { ShelterModel } from "./models/shelterModel";
+import { ReviewModel } from "./models/reviewModel";
 
-export { User, Shelter, Review };
+export { UserModel, ShelterModel, ReviewModel };
