@@ -46,23 +46,19 @@ const CurrentLocation = () => {
 
 const PoiPage = () => {
   return (
-    <div className="flex flex-col overflow-y-auto h-full">
-      <div className="flex-none">
-        <div id="poi-toolbar" className="flex flex-row justify-between items-center px-8 mb-5">
+    <div className="flex flex-col overflow-y-auto">
+      <div id="poi-toolbar-wrapper" className="flex-none">
+        <div id="poi-toolbar" className="flex flex-row justify-between items-center h-12 px-8 mb-5">
           <DistrictSelector />
           <CurrentLocation />
         </div>
       </div>
-      <div className="grow overflow-y-auto">
-        <div className="">
-          <div className="flex flex-row">
-            <div className="flex-1">
-              <PoiMap />
-            </div>
-            <div className="w-[33%]">
-              <PoiList />
-            </div>
-          </div>
+      <div id="poi-content-wrapper" className="grow overflow-y-auto flex flex-row">
+        <div className="flex-1 w-[60vh]">
+            <PoiMap />
+        </div>
+        <div className="w-[40vh] h-[calc(10rem)]">
+            <PoiList />
         </div>
       </div>  
     </div>
