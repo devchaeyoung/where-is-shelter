@@ -11,11 +11,11 @@ const reviewSchema = new Schema(
     },
     user_id: {
       type: Number,
-      ref: User._id,
+      // ref: User._id,
     },
     shelter_id: {
       type: Number,
-      ref: shelter._id,
+      // ref: shelter._id,
     },
   },
   {
