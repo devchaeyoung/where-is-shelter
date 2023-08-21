@@ -1,4 +1,4 @@
-import ShelterModel from "../db/index";
+import { ShelterModel } from "../db/index";
 
 class ShelterService {
   static async getShelters() {
@@ -14,7 +14,16 @@ class ShelterService {
     try {
       const shelter = await ShelterModel.findById(id);
       return shelter;
-    } catch (e) {}
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  static async getShelterByAuthorigyName(authority_name) {
+    try {
+      const authority_shelters = await ShelterModel.findById(authority_name);
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
 
