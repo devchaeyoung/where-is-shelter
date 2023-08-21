@@ -1,9 +1,9 @@
 import { React, useState, useContext } from 'react';
 
 
-const PoiDetails = () => {
+const PoiDetailed = () => {
   
 
 }
 
-export default PoiDetails;
+export default PoiDetailed;
