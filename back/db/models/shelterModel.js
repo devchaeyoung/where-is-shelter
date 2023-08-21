@@ -20,4 +20,4 @@ class ShelterModel {
   }
 }
 
-export default ShelterModel;
+export { ShelterModel };

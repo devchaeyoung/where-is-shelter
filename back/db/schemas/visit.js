@@ -1,6 +1,5 @@
 import mongoose, { Schema } from "mongoose";
 
-/**방문 횟수 */
 const visitSchema = new Schema(
   {
     user_id: {
@@ -8,7 +7,8 @@ const visitSchema = new Schema(
       required: true,
     },
     shelter_id: {
-      type: Number,
+      type: Schema.Types.ObjectId,
+      ref: "shelter",
       required: true,
     },
     visited_at: {
