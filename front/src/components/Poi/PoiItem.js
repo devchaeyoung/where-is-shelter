@@ -1,4 +1,5 @@
 const PoiItem = (props) => {
+  
   return (
     <div className="flex flex-col p-4">
       <h1 className="font-bold">{props.poiData.name}</h1>

@@ -19,5 +19,4 @@ const PoiList = () => {
   );
 };
 
-
 export default PoiList;
