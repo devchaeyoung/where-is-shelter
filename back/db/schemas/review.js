@@ -9,14 +9,14 @@ const reviewSchema = new Schema(
     rating: {
       type: Number,
     },
-    // user_id: {
-    //   type: Number,
-    //   ref: User._id,
-    // },
-    // shelter_id: {
-    //   type: Number,
-    //   ref: shelter._id,
-    // },
+    user_id: {
+      type: Number,
+      // ref: User._id,
+    },
+    shelter_id: {
+      type: Number,
+      // ref: shelter._id,
+    },
   },
   {
     timestamps: true,

@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import db from "./configs/dbConfig";
+import cors from "cors";
 import { shelterRouter } from "./routers/shelterRouter";
 const userRouter = require("./routers/userRouter")
 
@@ -13,7 +14,6 @@ const app = express();
 
 app.use(cors())
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 
 app.use(shelterRouter);
 app.use(userRouter);

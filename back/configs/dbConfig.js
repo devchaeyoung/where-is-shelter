@@ -15,6 +15,11 @@ function databaseConntection() {
       "MongoDB 연결에 실패하였습니다.\n" + ATLAS_URL_CORRECT + "\n" + error
     )
   );
+
+  db.on("disconnected", () => {
+    console.log("mongoDB 연결이 끊겼습니다. 연결을 재시도 합니다.");
+    connect(ATLAS_URL_CORRECT);
+  });
 }
 
 export default databaseConntection;
