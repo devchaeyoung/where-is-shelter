@@ -9,4 +9,4 @@ class ReviewModel {
   static async;
 }
 
-export default ReviewModel;
+export { ReviewModel };
