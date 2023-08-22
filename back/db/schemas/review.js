@@ -1,4 +1,6 @@
 import mongoose, { Schema } from "mongoose";
+import { User } from "./user";
+import { Shelter } from "./shelter";
 
 /** 쉼터 후기 스키마 */
 const reviewSchema = new Schema(
@@ -14,14 +16,12 @@ const reviewSchema = new Schema(
       type: Number,
     },
     user_id: {
-      type: Number,
-      required: true,
-      ref: "user._id",
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
     shelter_id: {
-      type: Number,
-      required: true,
-      ref: "shelter._id",
+      type: Schema.Types.ObjectId,
+      ref: "Shelter",
     },
   },
   {
