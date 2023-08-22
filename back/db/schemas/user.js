@@ -2,6 +2,10 @@ import mongoose, { Schema } from "mongoose";
 
 const userSchema = new Schema(
   {
+    id: {
+      type: String,
+      required: true,
+    },
     email: {
       type: String,
       required: true,
@@ -19,16 +23,13 @@ const userSchema = new Schema(
       required: false,
     },
     count_visit: {
-      type: String,
+      type: Number,
       required: false,
-    },
-    eco_level: {
-      type: String,
-      required: false,
+      default: 0
     },
   },
   {
-    timestaps: true,
+    timestamps: true,
   }
 );
 
