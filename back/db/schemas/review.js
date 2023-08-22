@@ -5,9 +5,6 @@ const reviewSchema = new Schema(
   {
     id: {
       type: Number,
-      required: true,
-      index: true,
-      unique: true,
     },
     description: {
       type: String,
@@ -19,12 +16,12 @@ const reviewSchema = new Schema(
     user_id: {
       type: Number,
       required: true,
-      // ref: User._id,
+      ref: "user._id",
     },
     shelter_id: {
       type: Number,
       required: true,
-      // ref: shelter._id,
+      ref: "shelter._id",
     },
   },
   {

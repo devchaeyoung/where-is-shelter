@@ -13,21 +13,24 @@ class ShelterController {
   }
   /**특정 쉼터 조회 */
   static async getShelter(req, res, next) {
+    const id = req.params.id;
     try {
-      const id = req.params.id;
-      const shlter = await ShelterService.getShelterById(id);
-      res.status(StatusCodes.OK).json(shlter);
+      const shelter = await ShelterService.getShelterById(id);
+      res.status(StatusCodes.OK).json(shelter);
     } catch (e) {
       console.log(e);
     }
   }
 
   static async getDistrictShelter(req, res, next) {
+    const district = req.params.district;
     try {
-      // const district = req.params.id;
-      // res.status(StatusCodes.OK).json({});
+      const shelterDistrict = await ShelterService.getShelterByDistrict(
+        district
+      );
+      res.status(StatusCodes.OK).json(shelterDistrict);
     } catch (e) {
-      console.log(e);
+      console.log(`${e}\n 쉼터 위치별 정보를 조회할 수 없습니다.`);
     }
   }
 }
