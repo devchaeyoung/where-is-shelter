@@ -3,8 +3,7 @@ import cors from "cors";
 import db from "./configs/dbConfig";
 import { shelterRouter } from "./routers/shelterRouter";
 import { reviewRouter } from "./routers/reviewRouter";
-
-const userRouter = require("./routers/userRouter")
+const userRouter = require("./routers/userRouter");
 
 require("dotenv").config();
 db();

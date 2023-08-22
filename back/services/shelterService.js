@@ -18,19 +18,13 @@ class ShelterService {
       console.log(e);
     }
   }
-  static async getShelterByAuthorigyName(authority_name) {
-    try {
-      const authority_shelters = await ShelterModel.findById(authority_name);
-    } catch (e) {
-      console.log(e);
-    }
-  }
   static async getShelterByDistrict(district) {
     try {
-      const district_shelter = await ShelterModel.createCollection(district); //한번 더 체크해보기 -> 객체로 받아야하는 건가?
-      // const district_shelter = await ShelterModel.findById(district);
+      const district_shelter = await ShelterModel.findByDistrict(district);
+      console.log(district_shelter);
+      return district_shelter;
     } catch (e) {
-      console.log(e);
+      console.log(`${e}\n 해당지역의 쉼터가 없습니다.`);
     }
   }
 }
