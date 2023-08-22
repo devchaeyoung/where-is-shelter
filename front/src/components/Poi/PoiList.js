@@ -10,8 +10,8 @@ const PoiList = () => {
 
   return (
     <PoiDataContext.Consumer>
-      {PoiData =>
-        PoiData.map(item => (
+      {poiData =>
+        poiData.map(item => (
          <PoiItem key={item.id} poiData={item} />
         ))
       }

@@ -9,6 +9,7 @@ const documentHeight = () => {
   doc.style.setProperty("--doc-height", `${window.innerHeight}px`);
 }
 
+// [참고] 자동 숨김 주소창 등의 기능으로 뷰포트가 고정되지 않는 모바일 환경에서, 뷰포트를 브라우저의 실제 innerHeight로 강제해주는 코드입니다.
 window.addEventListener("resize", documentHeight);
 documentHeight();
 

@@ -104,7 +104,7 @@ const PoiPage = () => {
           <div className="flex-1 w-[60vw]">
               <PoiMap />
           </div>
-          <div className="w-[40vw] h-[10rem]">
+          <div className="w-[40vw] overflow-y-scroll max-h-[calc(100vh-12rem)]">
               <PoiList />
           </div>
         </div>  
