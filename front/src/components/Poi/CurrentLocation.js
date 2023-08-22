@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react';
 
-const CurrentLocation = ({handleLatLngState}) => {
+const CurrentLocation = ({handleState}) => {
 
   const currentLatitude = '';
   const currentLongitude = '';
@@ -29,12 +29,15 @@ const CurrentLocation = ({handleLatLngState}) => {
   
   function getCurrentPosition() {
     navigator.geolocation.getCurrentPosition(success, error, options);
-    handleLatLngState(currentLatitude, currentLongitude)
+
+    // 1. 부모 컴포넌트인 PoiPage로부터 전달받은 handleState 함수를 사용해서,
+    // 2. 부모 컴포넌트인 PoiPage 및 자식 컴포넌트의 PoiMap의 latitude와 longitude 상태값을 갱신시켜 줍니다.
+    // handleState(currentLatitude, currentLongitude)
   }
 
   function handleToggle() {
-    // 2. 부모 컴포넌트인 PoiPage로부터 전달받은 handleState 함수를 사용해서,
-    // 3. 부모 컴포넌트인 PoiPage 및 자식 컴포넌트의 PoiMap의 latitude와 longitude 상태값을 갱신시켜 줍니다.
+
+    getCurrentPosition();
 
     if(isActive){
       /*
@@ -56,7 +59,8 @@ const CurrentLocation = ({handleLatLngState}) => {
     <div>
       <button id="current-position-btn" 
               className={isActive ? `bg-green-400 px-3 py-1 rounded-xl` : `bg-slate-200 px-3 py-1 rounded-xl`}
-              onClick={handleToggle}>현재 위치
+              onClick={handleToggle}>
+          {isActive ? `위치 표시 중...` : `현재 위치`}
       </button>
     </div>
   )

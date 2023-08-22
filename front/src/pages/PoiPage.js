@@ -27,7 +27,7 @@ const PoiPage = () => {
   // 사용자가 선택한 지역은 자식 컴포넌트인 DistrictSelector를 통해서 처리됩니다.
   // 자식 컴포넌트인 DistrictSelector가 부모 컴포넌트인 PoiPage의 district 상태값을 변경시킬 수 있도록 state handler를 사용합니다.
   // DistrictSelector.js를 참고하세요.
-  const [district, setDistrict] = useState("");
+  const [district, setDistrict] = useState("gangnam");
   function handleDistrictState(selectedDistrict) {
     setDistrict(selectedDistrict)
   }
@@ -41,13 +41,6 @@ const PoiPage = () => {
   // 백엔드로부터 데이터를 받아오다가 오류가 발생했는지를 체크하는 상태값입니다.
   const [error, setError] = useState("");
   
-  // API 요청에 사용되는 endpoint를 지정해줍니다.
-  const endpoint = '/test';
-  
-  // 사용자가 선택한 행정구역 정보를 담고 있는 district 상태값을 라우팅 파라미터인 params로써 API 요청에 반영합니다.
-  // const params = district;
-  const params = '';
-
   useEffect(() => {
     const fetchDistrictPoiData = async () => {
       try{
@@ -58,7 +51,13 @@ const PoiPage = () => {
         //       옵션 1. .catch() 체이닝을 통해서 Axios 차원에서 에러 핸들링을 해주기
         //       옵션 2. Api 함수에 await을 적용해 변수에 대입해서 사용하기
 
-        Api.getData(endpoint, params)
+        // API 요청에 사용되는 endpoint를 지정해줍니다.
+        const endpoint = '/home';
+  
+        // 사용자가 선택한 행정구역 정보를 담고 있는 district 상태값을 라우팅 파라미터인 params로써 API 요청에 반영합니다.
+        const params = `/${district}`;
+
+        await Api.getData(endpoint, params)
         .then((res) => {
           console.log(res.data)
           setDistrictPoiData(res.data);
@@ -75,7 +74,7 @@ const PoiPage = () => {
     }
 
     fetchDistrictPoiData();
-  }, [error]);
+  }, [error, district]);
   
   if (isFetching) {
     return (
@@ -86,9 +85,13 @@ const PoiPage = () => {
     );
   }
 
-
-  
-
+  if (!districtPoiData){
+    return (
+      <div className="flex flex-col w-full h-full justify-center items-center">
+        <p className="font-bold text-lg">데이터가 도착할때까지 잠시만 기다려주세요...</p>
+      </div>
+    );
+  }
   return (
     <PoiDataContext.Provider value={districtPoiData}>
       <div id="poi-page-wrapper" className="flex flex-col overflow-y-auto">
