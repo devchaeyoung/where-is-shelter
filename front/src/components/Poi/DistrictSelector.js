@@ -1,24 +1,20 @@
 import { React, useState } from 'react';
 
-const DistrictSelector = () => {
+const DistrictSelector = ({handleState}) => {
 
-  const [district, setDistrict] = useState();
-  
   const handleChange = (event) => {
     
     // [주의] useState는 비동기적입니다. 따라서 setState는 즉시 반환하게 됩니다. 상태값인 city는 다음 재렌더링때 바뀌게 됩니다.
     //       따라서 그 전에 이렇게 별도의 변수로 먼저 저장해주면 사용자가 선택한 바로 그 순간의 값을 있는 그대로 백엔드에 전달해줄 수 있습니다.
     const selected = event.target.value
-    setDistrict(selected);
-    alert(selected);
-    
+    handleState(selected)
   }
 
   // Warning: Use the `defaultValue` or `value` props on <select> instead of setting `selected` on <option>.
   return (
     <div className="flex flex-row">
       <label className="mr-3">지역:</label>
-      <select className="mr-3" name="city-selector" onChange={handleChange}>
+      <select className="mr-3" name="city-selector">
         <option value="seoul" selected="true">서울특별시</option>
         <option value="gyeonggi" disabled>경기도</option>
         <option value="incheon" disabled>인천광역시</option>

@@ -1,9 +1,9 @@
 import axios from "axios";
 
 // [테스트] Mock API가 필요하다면 json-server를 사용합니다.
-// 실행 명령어: $ npx json-server ./db.json --port 5000
+// 실행 명령어: $ npx json-server ./db.json --port 5001
 
-const backendPortNumber = "5000";
+const backendPortNumber = "5001";
 const serverUrl = "http://" + window.location.hostname + ":" + backendPortNumber;
 
 async function postData(endpoint, params = "", other = "", data) {

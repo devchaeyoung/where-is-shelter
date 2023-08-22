@@ -52,15 +52,18 @@ const PoiPage = () => {
 
   const navigate = useNavigate();
 
-  // 사용자가 선택한 지역은 자식 컴포넌트인 DistrictSelector에서 지정됩니다.
-  // 자식 컴포넌트가 부모 컴포넌트인 PoiPage의 district 상태값을 변경시킬 수 있도록 state handler를 사용합니다.
-  const [district, setDistrict] = useState("gangnam");
+  // 사용자가 선택한 지역은 자식 컴포넌트인 DistrictSelector를 통해서 처리됩니다.
+  // 자식 컴포넌트인 DistrictSelector가 부모 컴포넌트인 PoiPage의 district 상태값을 변경시킬 수 있도록 state handler를 사용합니다.
+  const [district, setDistrict] = useState("");
+  function handleState(district) {
+    setDistrict(district)
+  }
 
   const [districtPoiData, setDistrictPoiData] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
   const [error, setError] = useState("");
   
-  const endpoint = '/home';
+  const endpoint = '/test';
   const params = '';
 
   useEffect(() => {
@@ -75,6 +78,7 @@ const PoiPage = () => {
 
         const apiCall = await Api.getData(endpoint, params)
         .then((res) => {
+          console.log(res.data)
           setDistrictPoiData(res.data);
           setIsFetching(false);
         })
@@ -88,7 +92,7 @@ const PoiPage = () => {
     }
 
     fetchDistrictPoiData();
-  }, []);
+  }, [error]);
   
   if (isFetching) {
     return (
@@ -104,7 +108,7 @@ const PoiPage = () => {
       <div id="poi-page-wrapper" className="flex flex-col overflow-y-auto">
         <div id="poi-toolbar-wrapper" className="flex-none">
           <div id="poi-toolbar" className="flex flex-row justify-between items-center h-8 px-8 mb-3">
-            <DistrictSelector />
+            <DistrictSelector handleState={handleState} /> <span>{district}</span>
             <CurrentLocation />
           </div>
         </div>
