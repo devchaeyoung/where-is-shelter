@@ -1,12 +1,11 @@
 import { React, useState, useEffect, useContext } from 'react';
+import { useNavigate } from "react-router-dom";
+
 import PoiMap from "../components/Poi/PoiMap";
 import PoiList from "../components/Poi/PoiList";
 import DistrictSelector from "../components/Poi/DistrictSelector";
 import PoiDataContext from "../contexts/PoiDataContext";
 import * as Api from "../apis/api";
-
-const endpoint = "test";
-const params = "district";
 
 const CurrentLocation = () => {
 
@@ -41,7 +40,7 @@ const CurrentLocation = () => {
   
   return (
     <div>
-      <button className="p-3 bg-green-400 rounded-xl" onClick={getCurrentPosition}>현재 위치</button>
+      <button className="px-3 py-1 bg-green-400 rounded-xl" onClick={getCurrentPosition}>현재 위치</button>
     </div>
   )
 }
@@ -51,25 +50,38 @@ const CurrentLocation = () => {
 
 const PoiPage = () => {
 
+  const navigate = useNavigate();
+
+  // 사용자가 선택한 지역은 자식 컴포넌트인 DistrictSelector에서 지정됩니다.
+  // 자식 컴포넌트가 부모 컴포넌트인 PoiPage의 district 상태값을 변경시킬 수 있도록 state handler를 사용합니다.
+  const [district, setDistrict] = useState("gangnam");
+
   const [districtPoiData, setDistrictPoiData] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
-  const [error, setError] = useState(null);
-
-  const PoiData = useContext(PoiDataContext);
+  const [error, setError] = useState("");
+  
+  const endpoint = '/home';
+  const params = '';
 
   useEffect(() => {
     const fetchDistrictPoiData = async () => {
       try{
         setError(null);
         setDistrictPoiData(null);
+              
+        // [긴급] try-catch 구문 안에 있음에도 Axios의 API 통신에 관한 오류가 캐치되지 않고 새어나가는 현상이 발생중입니다.
+        //       옵션 1. .catch() 체이닝을 통해서 Axios 차원에서 에러 핸들링을 해주기
+        //       옵션 2. Api 함수에 await을 적용해 변수에 대입해서 사용하기
 
-        Api.getData(endpoint)
+        const apiCall = await Api.getData(endpoint, params)
         .then((res) => {
           setDistrictPoiData(res.data);
           setIsFetching(false);
         })
+
       } catch (err) {
-        setError(err);
+        setError(`${err.name} : ${err.message}`);
+        console.log(error);
         alert(`데이터를 가져오는 도중 에러가 발생했습니다: ${err}`);
         return;
       }
@@ -77,35 +89,31 @@ const PoiPage = () => {
 
     fetchDistrictPoiData();
   }, []);
-
+  
   if (isFetching) {
     return (
-      <div>
-        <p>데이터를 가져오는 중입니다...</p>
+      <div className="flex flex-col w-full h-full justify-center items-center">
+        <p className="font-bold text-lg">데이터를 가져오는 중입니다...</p>
+        <p className="font-bold text-lg">{error}</p>
       </div>
     );
   }
 
-  if (!districtPoiData) {
-    console.log("POI 데이터를 성공적으로 가져왔습니다.")
-    return null;
-  }
-  
   return (
     <PoiDataContext.Provider value={districtPoiData}>
-      <div className="flex flex-col overflow-y-auto">
+      <div id="poi-page-wrapper" className="flex flex-col overflow-y-auto">
         <div id="poi-toolbar-wrapper" className="flex-none">
-          <div id="poi-toolbar" className="flex flex-row justify-between items-center h-12 px-8 mb-5">
+          <div id="poi-toolbar" className="flex flex-row justify-between items-center h-8 px-8 mb-3">
             <DistrictSelector />
             <CurrentLocation />
           </div>
         </div>
         <div id="poi-content-wrapper" className="grow overflow-y-auto flex flex-row">
-          <div className="flex-1 w-[60vw]">
-              <PoiMap />
-          </div>
-          <div className="w-[40vw] overflow-y-scroll max-h-[calc(100vh-12rem)]">
+          <div className="w-[30vw] max-h-[calc(100vh-12rem)] overflow-y-scroll scroll-smooth">
               <PoiList />
+          </div>
+          <div className="flex-1">
+              <PoiMap />
           </div>
         </div>  
       </div>
