@@ -8,7 +8,7 @@ function Navbar() {
   return (
     <div className="flex flex-row w-full h-20 items-center">
 
-      <div className="flex flex-row w-full h-20 justify-between items-center px-8 font-bold text-lg">
+      <div className="flex flex-row w-full justify-between items-center px-8 font-bold text-lg">
         <div>
           <Link to="/poi" id="1" className="mr-12">극한날씨 쉼터</Link>
           <Link to="/weather" id="2" className="mr-12">기상정보</Link>
