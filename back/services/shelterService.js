@@ -25,6 +25,14 @@ class ShelterService {
       console.log(e);
     }
   }
+  static async getShelterByDistrict(district) {
+    try {
+      const district_shelter = await ShelterModel.createCollection(district); //한번 더 체크해보기 -> 객체로 받아야하는 건가?
+      // const district_shelter = await ShelterModel.findById(district);
+    } catch (e) {
+      console.log(e);
+    }
+  }
 }
 
 export default ShelterService;

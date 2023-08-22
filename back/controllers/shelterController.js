@@ -17,14 +17,19 @@ class ShelterController {
       const id = req.params.id;
       const shlter = await ShelterService.getShelterById(id);
       res.status(StatusCodes.OK).json(shlter);
-    } catch (e) {}
+    } catch (e) {
+      console.log(e);
+    }
   }
 
-  // static async getDistrictShelter(req,res,next) {
-  //   try {
-  //     const district = await ShelterService.get
-  //   }
-  // }
+  static async getDistrictShelter(req, res, next) {
+    try {
+      // const district = req.params.id;
+      // res.status(StatusCodes.OK).json({});
+    } catch (e) {
+      console.log(e);
+    }
+  }
 }
 
 export default ShelterController;

@@ -22,6 +22,7 @@ class ShelterModel {
   static async findByDistrict(district) {
     const district_shelter = await Shelter.find({
       district,
+      //Model.createCollection() 이거 써야하는 건가..?
     });
     return district_shelter;
   }
