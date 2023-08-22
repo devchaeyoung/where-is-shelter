@@ -19,12 +19,12 @@ const reviewSchema = new Schema(
     user_id: {
       type: Number,
       required: true,
-      // ref: User._id,
+      ref: "user._id",
     },
     shelter_id: {
       type: Number,
       required: true,
-      // ref: shelter._id,
+      ref: "shelter._id",
     },
   },
   {
