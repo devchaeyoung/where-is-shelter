@@ -3,19 +3,25 @@ import mongoose, { Schema } from "mongoose";
 /** 쉼터 후기 스키마 */
 const reviewSchema = new Schema(
   {
+    id: {
+      type: Number,
+    },
     description: {
       type: String,
+      required: true,
     },
     rating: {
       type: Number,
     },
     user_id: {
       type: Number,
-      // ref: User._id,
+      required: true,
+      ref: "user._id",
     },
     shelter_id: {
       type: Number,
-      // ref: shelter._id,
+      required: true,
+      ref: "shelter._id",
     },
   },
   {

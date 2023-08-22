@@ -1,4 +1,4 @@
-import ShelterModel from "../db/index";
+import { ShelterModel } from "../db/index";
 
 class ShelterService {
   static async getShelters() {
@@ -14,7 +14,18 @@ class ShelterService {
     try {
       const shelter = await ShelterModel.findById(id);
       return shelter;
-    } catch (e) {}
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  static async getShelterByDistrict(district) {
+    try {
+      const district_shelter = await ShelterModel.findByDistrict(district);
+      console.log(district_shelter);
+      return district_shelter;
+    } catch (e) {
+      console.log(`${e}\n 해당지역의 쉼터가 없습니다.`);
+    }
   }
 }
 

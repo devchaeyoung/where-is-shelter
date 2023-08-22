@@ -1,9 +1,7 @@
 const PoiItem = (props) => {
 
-  const url = "props.poiData.id}"
-
   return (
-    // [참고] 지도 위에 표시된 마커를 클릭하면, 해당 마커에 해당하는 POI를 목록의 최상단으로 올려줍니다. PoiMap.js를 참조하세요.
+    // [참고] 지도 위에 표시된 마커를 클릭하면, 해당 마커에 해당하는 POI를 목록의 최상단으로 올려줍니다. PoiMap.js를 참고하세요.
     <div id={props.poiData.id} className="flex flex-col p-4">
       <div>
         <h1 className="font-bold">{props.poiData.id}</h1>
