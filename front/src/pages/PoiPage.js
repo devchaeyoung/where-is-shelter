@@ -1,7 +1,12 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect, useContext } from 'react';
 import PoiMap from "../components/Poi/PoiMap";
 import PoiList from "../components/Poi/PoiList";
 import DistrictSelector from "../components/Poi/DistrictSelector";
+import PoiDataContext from "../contexts/PoiDataContext";
+import * as Api from "../apis/api";
+
+const endpoint = "test";
+const params = "district";
 
 const CurrentLocation = () => {
 
@@ -45,23 +50,66 @@ const CurrentLocation = () => {
 //          /src/index.css 파일에서 일반 CSS 코드를 추가하여 크기를 지정해주어야 합니다.
 
 const PoiPage = () => {
-  return (
-    <div className="flex flex-col overflow-y-auto">
-      <div id="poi-toolbar-wrapper" className="flex-none">
-        <div id="poi-toolbar" className="flex flex-row justify-between items-center h-12 px-8 mb-5">
-          <DistrictSelector />
-          <CurrentLocation />
-        </div>
+
+  const [districtPoiData, setDistrictPoiData] = useState([]);
+  const [isFetching, setIsFetching] = useState(true);
+  const [error, setError] = useState(null);
+
+  const PoiData = useContext(PoiDataContext);
+
+  useEffect(() => {
+    const fetchDistrictPoiData = async () => {
+      try{
+        setError(null);
+        setDistrictPoiData(null);
+
+        Api.getData(endpoint)
+        .then((res) => {
+          setDistrictPoiData(res.data);
+          setIsFetching(false);
+        })
+      } catch (err) {
+        setError(err);
+        alert(`데이터를 가져오는 도중 에러가 발생했습니다: ${err}`);
+        return;
+      }
+    }
+
+    fetchDistrictPoiData();
+  }, []);
+
+  if (isFetching) {
+    return (
+      <div>
+        <p>데이터를 가져오는 중입니다...</p>
       </div>
-      <div id="poi-content-wrapper" className="grow overflow-y-auto flex flex-row">
-        <div className="flex-1 w-[60vh]">
-            <PoiMap />
+    );
+  }
+
+  if (!districtPoiData) {
+    console.log("POI 데이터를 성공적으로 가져왔습니다.")
+    return null;
+  }
+  
+  return (
+    <PoiDataContext.Provider value={districtPoiData}>
+      <div className="flex flex-col overflow-y-auto">
+        <div id="poi-toolbar-wrapper" className="flex-none">
+          <div id="poi-toolbar" className="flex flex-row justify-between items-center h-12 px-8 mb-5">
+            <DistrictSelector />
+            <CurrentLocation />
+          </div>
         </div>
-        <div className="w-[40vh] h-[calc(10rem)]">
-            <PoiList />
-        </div>
-      </div>  
-    </div>
+        <div id="poi-content-wrapper" className="grow overflow-y-auto flex flex-row">
+          <div className="flex-1 w-[60vw]">
+              <PoiMap />
+          </div>
+          <div className="w-[40vw] overflow-y-scroll max-h-[calc(100vh-12rem)]">
+              <PoiList />
+          </div>
+        </div>  
+      </div>
+    </PoiDataContext.Provider>
   );
 };
 

@@ -15,6 +15,7 @@ function App() {
       
       <Routes>
         <Route path="/" element={<LayoutPage />}>
+          <Route path="/" element={<PoiPage />}></Route>
           <Route path="/poi" element={<PoiPage />}></Route>
           <Route path="/weather" element={<WeatherPage />}></Route>
           <Route path="/infographic" element={<InfographicPage />}></Route>

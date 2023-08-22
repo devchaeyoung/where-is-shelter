@@ -14,20 +14,29 @@ const DistrictSelector = () => {
 
   // Warning: Use the `defaultValue` or `value` props on <select> instead of setting `selected` on <option>.
   return (
-    <div>
-      <label>지역:
-        <select name="district-selector" onChange={handleChange}>
-          <option disabled selected="true">선택하세요</option>
-            <optgroup label="서울특별시">
-              <option value="gangnam">강남구</option>
-              <option value="gangdong">강동구</option>
-              <option value="gangbuk">강북구</option>
-            </optgroup>
-            <optgroup label="기타 지역">
-              <option value="etc" disabled>서비스 지역이 아닙니다.</option>
-            </optgroup>
-        </select>
-      </label>
+    <div className="flex flex-row">
+      <label className="mr-3">지역:</label>
+      <select className="mr-3" name="city-selector" onChange={handleChange}>
+        <option value="seoul" selected="true">서울특별시</option>
+        <option value="gyeonggi" disabled>경기도</option>
+        <option value="incheon" disabled>인천광역시</option>
+        <option value="gangwon" disabled>강원도</option>
+        <option value="chungbuk" disabled>충청북도</option>
+        <option value="chungnam" disabled>충청남도</option>
+        <option value="jeonbuk" disabled>전라북도</option>
+        <option value="jeonnam" disabled>전라남도</option>
+        <option value="gyeongbuk" disabled>경상북도</option>
+        <option value="gyeongnam" disabled>경상남도</option>
+        <option value="jeju" disabled>제주도</option>
+      </select>
+      <select name="district-selector" onChange={handleChange}>
+        <option disabled selected="true">선택하세요</option>
+          <optgroup label="서울특별시">
+            <option value="gangnam">강남구</option>
+            <option value="gangdong">강동구</option>
+            <option value="gangbuk">강북구</option>
+          </optgroup>
+      </select>
     </div>
   )
 }
