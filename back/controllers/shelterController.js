@@ -13,8 +13,8 @@ class ShelterController {
   }
   /**특정 쉼터 조회 */
   static async getShelter(req, res, next) {
+    const id = req.params.id;
     try {
-      const id = req.params.id;
       const shelter = await ShelterService.getShelterById(id);
       res.status(StatusCodes.OK).json(shelter);
     } catch (e) {
@@ -23,8 +23,8 @@ class ShelterController {
   }
 
   static async getDistrictShelter(req, res, next) {
+    const district = req.params.district;
     try {
-      // const { district } = req.params;
       const shelterDistrict = await ShelterService.getShelterByDistrict(
         district
       );

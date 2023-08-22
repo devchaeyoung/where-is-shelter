@@ -21,6 +21,7 @@ class ShelterService {
   static async getShelterByDistrict(district) {
     try {
       const district_shelter = await ShelterModel.findByDistrict(district);
+      console.log(district_shelter);
       return district_shelter;
     } catch (e) {
       console.log(`${e}\n 해당지역의 쉼터가 없습니다.`);
