@@ -4,6 +4,7 @@ import cors from "cors";
 import db from "./configs/dbConfig";
 import cors from "cors";
 import { shelterRouter } from "./routers/shelterRouter";
+import { reviewRouter } from "./routers/reviewRouter";
 const userRouter = require("./routers/userRouter")
 
 dotenv.config();
@@ -17,6 +18,7 @@ app.use(express.json());
 
 app.use(shelterRouter);
 app.use(userRouter);
+app.use(reviewRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
