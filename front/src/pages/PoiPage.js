@@ -9,8 +9,9 @@ import * as Api from "../apis/api";
 
 const CurrentLocation = () => {
 
+  const [isActive, setisActive] = useState(false);
+  
   // Geolocation API를 사용해서 현재 위치 좌표를 가져오는데 필요한 변수, 옵션, 콜백함수를 정의합니다.
-
   let currentLat = 0;
   let currentLng = 0;
 
@@ -36,11 +37,15 @@ const CurrentLocation = () => {
   
   function getCurrentPosition() {
     navigator.geolocation.getCurrentPosition(success, error, options);
+
+    if(isActive){
+      
+    }
   }
   
   return (
     <div>
-      <button className="px-3 py-1 bg-green-400 rounded-xl" onClick={getCurrentPosition}>현재 위치</button>
+      <button id="current-position-btn" className="px-3 py-1 bg-green-400 rounded-xl" onClick={getCurrentPosition}>현재 위치</button>
     </div>
   )
 }
@@ -54,16 +59,26 @@ const PoiPage = () => {
 
   // 사용자가 선택한 지역은 자식 컴포넌트인 DistrictSelector를 통해서 처리됩니다.
   // 자식 컴포넌트인 DistrictSelector가 부모 컴포넌트인 PoiPage의 district 상태값을 변경시킬 수 있도록 state handler를 사용합니다.
+  // DistrictSelector.js를 참고하세요.
   const [district, setDistrict] = useState("");
-  function handleState(district) {
-    setDistrict(district)
+  function handleState(selectedDistrict) {
+    setDistrict(selectedDistrict)
   }
 
+  // 백엔드로부터 받아온 데이터가 탑재되는 상태값입니다.
   const [districtPoiData, setDistrictPoiData] = useState([]);
+
+  // 백엔드로부터 데이터를 받아오고 있는지를 체크하는 상태값입니다.
   const [isFetching, setIsFetching] = useState(true);
+
+  // 백엔드로부터 데이터를 받아오다가 오류가 발생했는지를 체크하는 상태값입니다.
   const [error, setError] = useState("");
   
+  // API 요청에 사용되는 endpoint를 지정해줍니다.
   const endpoint = '/test';
+  
+  // 사용자가 선택한 행정구역 정보를 담고 있는 district 상태값을 라우팅 파라미터인 params로써 API 요청에 반영합니다.
+  // const params = district;
   const params = '';
 
   useEffect(() => {
@@ -76,7 +91,7 @@ const PoiPage = () => {
         //       옵션 1. .catch() 체이닝을 통해서 Axios 차원에서 에러 핸들링을 해주기
         //       옵션 2. Api 함수에 await을 적용해 변수에 대입해서 사용하기
 
-        const apiCall = await Api.getData(endpoint, params)
+        Api.getData(endpoint, params)
         .then((res) => {
           console.log(res.data)
           setDistrictPoiData(res.data);
@@ -113,10 +128,10 @@ const PoiPage = () => {
           </div>
         </div>
         <div id="poi-content-wrapper" className="grow overflow-y-auto flex flex-row">
-          <div className="w-[30vw] max-h-[calc(100vh-12rem)] overflow-y-scroll scroll-smooth">
+          <div id="poi-list" className="w-[30vw] max-h-[calc(100vh-12rem)] overflow-y-scroll scroll-smooth">
               <PoiList />
           </div>
-          <div className="flex-1">
+          <div id="poi-map" className="flex-1">
               <PoiMap />
           </div>
         </div>  
