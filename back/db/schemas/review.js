@@ -5,9 +5,6 @@ const reviewSchema = new Schema(
   {
     id: {
       type: Number,
-      required: true,
-      index: true,
-      unique: true,
     },
     description: {
       type: String,
