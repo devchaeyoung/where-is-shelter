@@ -3,9 +3,6 @@ import mongoose, { Schema } from "mongoose";
 /** 쉼터 후기 스키마 */
 const reviewSchema = new Schema(
   {
-    id: {
-      type: Number,
-    },
     description: {
       type: String,
       required: true,
@@ -16,7 +13,7 @@ const reviewSchema = new Schema(
     user_id: {
       type: Number,
       required: true,
-      // ref: User._id,
+      // ref: user._id,
     },
     shelter_id: {
       type: Number,

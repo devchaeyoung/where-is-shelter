@@ -103,4 +103,4 @@ class ReviewService {
     }
   }
 
-export default ReivewService;
+export default ReviewService;
