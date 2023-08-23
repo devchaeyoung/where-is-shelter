@@ -10,6 +10,7 @@ const shelterSchema = new Schema(
     },
     name: {
       type: String,
+      index: true,
       required: true,
     },
     rating: {
@@ -85,6 +86,8 @@ const shelterSchema = new Schema(
     timstamps: true,
   }
 );
+
+shelterSchema.index({ name: "text" });
 
 const Shelter = mongoose.model("Shelter", shelterSchema);
 

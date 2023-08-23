@@ -7,7 +7,7 @@ class ShelterService {
       console.log(shelters);
       return shelters;
     } catch (e) {
-      console.log(e);
+      throw new Error(`${e}\n 해당 쉼터를 찾을 수 없습니다.`);
     }
   }
   static async getShelterById(id) {
@@ -16,7 +16,7 @@ class ShelterService {
       console.log(shelter);
       return shelter;
     } catch (e) {
-      console.log(e);
+      throw new Error(`${e}\n 해당 쉼터를 찾을 수 없습니다.`);
     }
   }
   static async getShelterByDistrict(district) {
@@ -25,7 +25,17 @@ class ShelterService {
       console.log(district_shelter);
       return district_shelter;
     } catch (e) {
-      console.log(`${e}\n 해당지역의 쉼터가 없습니다.`);
+      throw new Error(`${e}\n 해당 쉼터를 찾을 수 없습니다.`);
+    }
+  }
+  /** 쉼터명 검색 */
+  static async searchByName(name) {
+    try {
+      const searchShelter = await ShelterModel.searchByName(name);
+      console.log(searchShelter);
+      return searchShelter;
+    } catch (e) {
+      throw new Error(`${e}\n 해당 쉼터를 찾을 수 없습니다.`);
     }
   }
 }
