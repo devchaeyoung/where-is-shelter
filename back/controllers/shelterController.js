@@ -21,7 +21,7 @@ class ShelterController {
       handleError(e);
     }
   }
-
+  /**지역별 쉼터 조회 */
   static async getDistrictShelter(req, res, next) {
     const district = req.params.district;
     try {

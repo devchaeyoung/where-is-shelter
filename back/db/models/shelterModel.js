@@ -8,7 +8,7 @@ class ShelterModel {
   }
   /** 특정 쉼터 조회 */
   static async findById(id) {
-    const shelter = await Shelter.findOne(id);
+    const shelter = await Shelter.findOne({ id });
     return shelter;
   }
   /** 관할 구역별 쉼터 조회 */

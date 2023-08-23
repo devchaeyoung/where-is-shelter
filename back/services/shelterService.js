@@ -13,6 +13,7 @@ class ShelterService {
   static async getShelterById(id) {
     try {
       const shelter = await ShelterModel.findById(id);
+      console.log(shelter);
       return shelter;
     } catch (e) {
       console.log(e);
