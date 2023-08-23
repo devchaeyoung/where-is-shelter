@@ -9,6 +9,7 @@ const userSchema = new Schema(
     email: {
       type: String,
       required: true,
+      unique: true,
     },
     name: {
       type: String,
@@ -25,7 +26,7 @@ const userSchema = new Schema(
     count_visit: {
       type: Number,
       required: false,
-      default: 0
+      default: 0,
     },
   },
   {
