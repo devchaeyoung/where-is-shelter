@@ -5,9 +5,6 @@ import { Shelter } from "./shelter";
 /** 쉼터 후기 스키마 */
 const reviewSchema = new Schema(
   {
-    id: {
-      type: Number,
-    },
     description: {
       type: String,
       required: true,
