@@ -47,8 +47,9 @@ const CurrentLocation = ({handleState}) => {
           getCurrentPosition
         }, 5000)
       }, []);
-      setIsActive(false);
       */
+
+      setIsActive(false);
     }
     if(!isActive){
       setIsActive(true);

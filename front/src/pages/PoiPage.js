@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import PoiMap from "../components/Poi/PoiMap";
 import PoiList from "../components/Poi/PoiList";
+import PoiDetails from "../components/Poi/PoiDetails";
 import DistrictSelector from "../components/shared/DistrictSelector";
 import CurrentPosition from "../components/Poi/CurrentPosition";
 
@@ -17,6 +18,15 @@ import * as Api from "../apis/api";
 const PoiPage = () => {
 
   const navigate = useNavigate();
+
+  // 특정 쉼터가 선택되었는지를 확인하는 상태값입니다.
+  const [selectedPoi, setSelectedPoi] = useState();
+
+  // 자식 컴포넌트인 PoiList가 부모 컴포넌트인 PoiPage의 focusedPoi 상태값을 변경시킬 수 있도록 state handler를 사용합니다.
+  // PoiList.js를 참고하세요.
+  function handleSelectedPoiState(poi) {
+    setSelectedPoi(poi);
+  }
 
   // 자식 컴포넌트인 CurrentLocation 컴포넌트로부터 오는 현재 위치 좌표를 상태값으로 사용합니다.
   const [latitude, setLatitude] = useState('');
@@ -59,14 +69,13 @@ const PoiPage = () => {
         //       옵션 2. Api 함수에 await을 적용해 변수에 대입해서 사용하기
 
         // API 요청에 사용되는 endpoint를 지정해줍니다.
-        const endpoint = '/home';
+        const endpoint = '/shelters/districts';
   
         // 사용자가 선택한 행정구역 정보를 담고 있는 district 상태값을 라우팅 파라미터인 params로써 API 요청에 반영합니다.
         const params = `/${district}`;
 
         await Api.getData(endpoint, params)
         .then((res) => {
-          console.log(res.data)
           setDistrictPoiData(res.data);
           setIsFetching(false);
         })
@@ -99,6 +108,7 @@ const PoiPage = () => {
       </div>
     );
   }
+  
   return (
     <DistrictPoiDataContext.Provider value={districtPoiData}>
       <div id="poi-page-wrapper" className="flex flex-col overflow-y-auto">
@@ -110,7 +120,9 @@ const PoiPage = () => {
         </div>
         <div id="poi-content-wrapper" className="grow overflow-y-auto flex flex-row">
           <div id="poi-list" className="w-[30vw] max-h-[calc(100vh-12rem)] overflow-y-scroll scroll-smooth">
-              <PoiList />
+            {selectedPoi 
+              ? <PoiDetails handleState={handleSelectedPoiState} selectedPoi={selectedPoi} /> 
+              : <PoiList handleState={handleSelectedPoiState} />}
           </div>
           <CurrentPositionContext.Provider value={[latitude, longitude]}>
             <div id="poi-map" className="flex-1">
