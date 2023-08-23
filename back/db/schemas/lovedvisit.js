@@ -1,26 +1,24 @@
 import mongoose, { Schema } from "mongoose";
 
-const visitSchema = new Schema(
+const lovedvisitSchema = new Schema(
   {
     user_id: {
-      type: Number,
+      type: Schema.Types.ObjectId,
+      ref: "User",
       required: true,
     },
     shelter_id: {
       type: Schema.Types.ObjectId,
-      ref: "shelter",
+      ref: "Shelter",
       required: true,
     },
-    visited_at: {
-      type: Date,
-      required: true,
-    },
+    
   },
   {
     timestamps: true,
   }
 );
 
-const Visit = mongoose.model("Visit", visitSchema);
+const lovedVisit = mongoose.model("lovedVisits", lovedvisitSchema);
 
-export { Visit };
+export { lovedVisit };
