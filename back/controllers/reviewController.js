@@ -15,7 +15,7 @@ class ReviewController {
 
     static async getReviewByShelterId(req, res, next) {
       try {
-        const shelter_id = req.params;
+        const { shelter_id } = req.params;
         const result = await ReviewService.getReviewByShelterId({ shelter_id });
         res.status(StatusCodes.OK).json(result);
       } catch (e) {
@@ -38,7 +38,7 @@ class ReviewController {
 
     static async setReview(req, res, next) {
       try {
-        const review_id = req.params;
+        const { review_id } = req.params;
         const { description, rating } = req.body;
         const result = await ReviewService.setReview({ review_id, toUpdate: { description, rating } });
         res.status(StatusCodes.OK).json(result)
@@ -50,7 +50,7 @@ class ReviewController {
 
     static async deleteReview(req, res, next) {
       try {
-        const review_id = req.params;
+        const { review_id } = req.params;
         const result = await ReviewService.deleteReview({ review_id });
         res.status(StatusCodes.NO_CONTENT).json(result)
       } catch (e) {

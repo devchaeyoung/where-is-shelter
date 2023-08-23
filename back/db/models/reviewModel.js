@@ -8,13 +8,13 @@ class ReviewModel {
   
   // 마이페이지에서 유저가 작성한 리뷰를 가져옴
   static async findByUserId(user_id) {
-    const user_reviews = await Review.find({ user_id: user_id });
+    const user_reviews = await Review.find({ user_id });
     return user_reviews;
   }
 
   // 쉼터 상세 페이지에서 쉼터에 대한 리뷰를 가져옴
   static async findByShelterId(shelter_id) {
-    const shelter_reviews = await Review.find({ shelter_id: shelter_id });
+    const shelter_reviews = await Review.find({ shelter_id });
     return shelter_reviews;
   }
 
