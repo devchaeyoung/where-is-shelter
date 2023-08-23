@@ -1,10 +1,12 @@
-import ReviewModel from "../db/index";
+import { ReviewModel } from "../db/index";
 
 class ReviewService {
   // 후기 추가
+  
   static async addReview({ description, rating, user_id, shelter_id }) {
     /* 기존에 후기가 등록되어 있을 경우 오류 메시지 리턴
-           한 쉼터에 여러개의 후기가 등록 가능할 경우 삭제 */
+           한 쉼터에 여러개의 후기가 등록 가능할 경우 삭제*/
+    
     const reviewData = await ReviewModel.findByUserIdShelterId(
       user_id,
       shelter_id
@@ -13,8 +15,8 @@ class ReviewService {
       const errorMessage = "이미 후기가 등록된 쉼터입니다.";
       return { errorMessage };
     }
-
-    const newReivew = { description, rating, user_id, shelter_id };
+    
+    const newReview = { description, rating, user_id, shelter_id };
 
     // db에 후기 저장
     const createdNewReview = await ReviewModel.create(newReview);
@@ -61,8 +63,8 @@ class ReviewService {
   }
 
   // 후기 수정하기
-  static async setReview({ reviewId, toUpdate }) {
-    let reviewData = await ReviewModel.findById(reviewId);
+  static async setReview({ review_id, toUpdate }) {
+    let reviewData = await ReviewModel.findById(review_id);
 
     if (reviewData === 0) {
       const errorMessage = "후기가 없습니다. 다시 한 번 확인해 주세요.";
@@ -75,8 +77,8 @@ class ReviewService {
   }
 
   // 후기 삭제하기
-  static async deleteReview({ reviewId }) {
-    let reviewData = await ReviewModel.findById(reviewId);
+  static async deleteReview({ review_id }) {
+    let reviewData = await ReviewModel.findById(review_id);
 
     if (reviewData === 0) {
       throw new Error("삭제할 후기가 없습니다.");

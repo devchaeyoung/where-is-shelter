@@ -13,11 +13,13 @@ const reviewSchema = new Schema(
       type: Number,
     },
     user_id: {
-      type: Schema.Types.ObjectId,
+      type: String,
+      required: true,
       ref: "User",
     },
     shelter_id: {
-      type: Schema.Types.ObjectId,
+      type: Number,
+      required: true,
       ref: "Shelter",
     },
   },
