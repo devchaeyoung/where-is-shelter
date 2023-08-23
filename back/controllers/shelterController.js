@@ -8,7 +8,7 @@ class ShelterController {
       const shlters = await ShelterService.getShelters();
       res.status(StatusCodes.OK).json(shlters);
     } catch (e) {
-      console.log(e);
+      handleError(e);
     }
   }
   /**특정 쉼터 조회 */
@@ -18,10 +18,10 @@ class ShelterController {
       const shelter = await ShelterService.getShelterById(id);
       res.status(StatusCodes.OK).json(shelter);
     } catch (e) {
-      console.log(e);
+      handleError(e);
     }
   }
-
+  /**지역별 쉼터 조회 */
   static async getDistrictShelter(req, res, next) {
     const district = req.params.district;
     try {
