@@ -5,14 +5,14 @@ import { TileLayer } from 'react-leaflet/TileLayer'
 import { useMap } from 'react-leaflet/hooks'
 import { Map, Marker, Popup } from "react-leaflet";
 
-import PoiDataContext from '../../contexts/PoiDataContext';
-
+import DistrictPoiDataContext from '../../contexts/DistrictPoiDataContext';
+import CurrentPositionContext from "../../contexts/CurrentPositionContext";
 
 // [참고사항] React-leaflet으로 바인딩된 Leaflet.js에서 필수적으로 요구하는 CSS 스타일은 Tailwind CSS가 아닌 /public/index.html를 통해서 가져옵니다.
 function PoiMap() {
 
   return(
-    <PoiDataContext.Consumer>
+    <DistrictPoiDataContext.Consumer>
       {PoiData => 
         <div id="map" className="flex flex-row items-center justify-center">
           <MapContainer center={[37.5663, 126.9779]} zoom={10} scrollWheelZoom={false}>
@@ -21,6 +21,7 @@ function PoiMap() {
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             
+            {/* 백엔드로부터 받아온 쉼터 위치정보를 지도상에 마커로 표시합니다. */}
             {PoiData.map(item => (
               <Marker 
                 key={item.id} 
@@ -37,13 +38,24 @@ function PoiMap() {
                   <p>{`${item.address.split(' ')[0]} ${item.address.split(' ')[1]} ${item.address.split(' ')[2]}`}</p>
                   <p>{item.shelter_type}</p>
                 </Popup>
-
               </Marker>
             ))}
+
+            <CurrentPositionContext.Consumer>
+              {coordinate =>
+                <Marker position={[coordinate[0], coordinate[1]]}>
+                  <Popup>
+                    <h1>현재 위치입니다.</h1>
+                    <p>위도: {coordinate[0]}</p>
+                    <p>경도: {coordinate[1]}</p>
+                  </Popup>
+                </Marker>
+              }
+            </CurrentPositionContext.Consumer>
           </MapContainer>
         </div>
       }
-    </PoiDataContext.Consumer>
+    </DistrictPoiDataContext.Consumer>
   )
 }
 

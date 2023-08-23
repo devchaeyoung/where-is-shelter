@@ -3,9 +3,12 @@ import { useNavigate } from "react-router-dom";
 
 import PoiMap from "../components/Poi/PoiMap";
 import PoiList from "../components/Poi/PoiList";
-import DistrictSelector from "../components/Poi/DistrictSelector";
-import CurrentLocation from "../components/Poi/CurrentLocation";
-import PoiDataContext from "../contexts/PoiDataContext";
+import DistrictSelector from "../components/shared/DistrictSelector";
+import CurrentPosition from "../components/Poi/CurrentPosition";
+
+import DistrictPoiDataContext from "../contexts/DistrictPoiDataContext";
+import CurrentPositionContext from "../contexts/CurrentPositionContext";
+
 import * as Api from "../apis/api";
 
 // [참고사항] Leaflet.js의 Map 크기는 상위 div의 크기에 따라 상대적으로 결정되며, Tailwind CSS와 호환되지 않습니다.
@@ -28,11 +31,15 @@ const PoiPage = () => {
   // 자식 컴포넌트인 DistrictSelector가 부모 컴포넌트인 PoiPage의 district 상태값을 변경시킬 수 있도록 state handler를 사용합니다.
   // DistrictSelector.js를 참고하세요.
   const [district, setDistrict] = useState("gangnam");
+
+  // 툴바 상에서 사용자에게 보여줄 현재 행정구역 정보입니다.
+  const [districtLabel, setDistrictLabel] = useState('강남구');
+  
   function handleDistrictState(selectedDistrict) {
-    setDistrict(selectedDistrict)
+    setDistrict(selectedDistrict);
   }
 
-  // 백엔드로부터 받아온 데이터가 탑재되는 상태값입니다.
+  // 백엔드로부터 받아온 데이터가 탑재되는 상태값입니다
   const [districtPoiData, setDistrictPoiData] = useState([]);
 
   // 백엔드로부터 데이터를 받아오고 있는지를 체크하는 상태값입니다.
@@ -93,24 +100,26 @@ const PoiPage = () => {
     );
   }
   return (
-    <PoiDataContext.Provider value={districtPoiData}>
+    <DistrictPoiDataContext.Provider value={districtPoiData}>
       <div id="poi-page-wrapper" className="flex flex-col overflow-y-auto">
         <div id="poi-toolbar-wrapper" className="flex-none">
           <div id="poi-toolbar" className="flex flex-row justify-between items-center h-8 px-8 mb-3">
-            <DistrictSelector handleState={handleDistrictState} /> <span>{district}</span>
-            <CurrentLocation handleState={handleLatLngState} />
+            <DistrictSelector handleState={handleDistrictState} currentDistrict={district}/>
+            <CurrentPosition handleState={handleLatLngState} />
           </div>
         </div>
         <div id="poi-content-wrapper" className="grow overflow-y-auto flex flex-row">
           <div id="poi-list" className="w-[30vw] max-h-[calc(100vh-12rem)] overflow-y-scroll scroll-smooth">
               <PoiList />
           </div>
-          <div id="poi-map" className="flex-1">
-              <PoiMap lat={latitude} lon={longitude} />
-          </div>
+          <CurrentPositionContext.Provider value={[latitude, longitude]}>
+            <div id="poi-map" className="flex-1">
+                <PoiMap  />
+            </div>
+          </CurrentPositionContext.Provider>
         </div>  
       </div>
-    </PoiDataContext.Provider>
+    </DistrictPoiDataContext.Provider>
   );
 };
 
