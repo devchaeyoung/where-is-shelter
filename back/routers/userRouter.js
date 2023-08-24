@@ -6,7 +6,8 @@ const userRouter = Router();
 
 userRouter.post('/user/register', UserController.addUser)
 userRouter.get('/user/login', UserController.getUser)
-userRouter.get('/user/current', login_required, UserController.detailUser)
+// userRouter.get('/user/auth/kakao', UserController.kakaoLogin)
+userRouter.get('/user/mypage', login_required, UserController.detailUser)
 userRouter.put('/user/update', login_required, UserController.setUser)
 userRouter.delete('/user/delete', login_required, UserController.deleteUser)
 

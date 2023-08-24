@@ -2,16 +2,16 @@ import mongoose, { Schema } from "mongoose";
 
 const userSchema = new Schema(
   {
-    id: {
+    email: {
       type: String,
       required: true,
     },
-    email: {
+    name: {
       type: String,
       required: true,
       unique: true,
     },
-    name: {
+    nickname: {
       type: String,
       required: true,
     },

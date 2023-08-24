@@ -5,7 +5,7 @@ class UserController {
   /**회원가입 */
   static async addUser(req, res, next) {
     try {
-      const { name, email, password } = req.body
+      const { name, nickname, email, password } = req.body
   
       // req.body가 빈 객체일 경우, 에러 반환
       if (req.body === {}) {
@@ -16,6 +16,7 @@ class UserController {
   
       const newUser = await UserService.addUser({
         name,
+        nickname,
         email,
         password
       })
@@ -50,8 +51,8 @@ class UserController {
   /**마이페이지 */
   static async detailUser(req, res, next) {
     try {
-      const login_id = req.currentUserId
-      const user = await UserService.detailUser({ login_id })
+      const id = req.currentUserId
+      const user = await UserService.detailUser({ id })
   
       res.status(200).send(user)
     } catch (error) {
@@ -63,11 +64,11 @@ class UserController {
   static async setUser(req, res, next) {
     try {
       // URI로부터 사용자 id를 추출함.
-      const { name, email, password, address } = req.body;
+      const { name, nickname, email, password, address } = req.body;
       const id = req.currentUserId;
       // body data 로부터 업데이트할 사용자 정보를 추출함.
 
-      const toUpdate = { name, email, password, address };
+      const toUpdate = { name, nickname, email, password, address };
 
       // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
       const updatedUser = await UserService.setUser({ id, toUpdate });
@@ -76,7 +77,7 @@ class UserController {
         throw new Error(updatedUser.errorMessage);
       }
 
-      res.status(200).json(updatedUser);
+      res.status(200).send('유저 정보가 수정되었습니다.');
     } catch (error) {
       next(error);
     }
@@ -93,6 +94,40 @@ class UserController {
       next(error)
     }
   }
+
+  // static async kakaoLogin(req, res, next) {
+  //   const code = req.query.code
+  //   try {
+  //     const accessTokenGet = await Axios.post('https://kauth.kakao.com/oauth/token', {}, {
+  //       headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  //       params: {
+  //         grant_type: 'authorization_code',
+  //         client_id: CONFIG.KAKAO.RESTAPIKEY,
+  //         code,
+  //         redirect_uri: 'localhost:5000/user/auth/kakao'
+  //       }
+  //     })
+
+  //     const getKakaoUserInfo = await Axios.post('https://kapi.kakao.com/v2/user/me', {}, {
+  //       headers: {
+  //         "Content-Type": "application/x-www-form-urlencoded",
+  //         'Authorization': 'Bearer ' + accessTokenGet.data.access_token
+  //       }
+  //     })
+  //     console.log(getKakaoUserInfo.data)
+
+  //     const KakaoUserInfo = getKakaoUserInfo.data
+  //     const 
+  //     if () {
+
+  //       res.send(token)
+  //     } else {
+
+  //     }
+  //   } catch (error) {
+  //     next(error)
+  //   }
+  // }
 }
 
 export default UserController;

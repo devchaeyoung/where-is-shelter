@@ -7,7 +7,7 @@ class UserModel {
   }
 
   static async findById({ id }) {
-    const user = await User.findOne({ id });
+    const user = await User.findOne(id);
     return user;
   }
 
