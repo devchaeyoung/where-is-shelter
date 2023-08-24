@@ -4,6 +4,8 @@ import db from "./configs/dbConfig";
 import shelterRouter from "./routers/shelterRouter";
 import { reviewRouter } from "./routers/reviewRouter";
 import { userRouter } from "./routers/userRouter";
+import { lovedVisitRouter } from "./routers/lovedvisitRouter";
+import errorMiddleware from "./middlewares/errorMiddleware";
 
 require("dotenv").config();
 db();
@@ -18,6 +20,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(shelterRouter);
 app.use(userRouter);
 app.use(reviewRouter);
+app.use(lovedVisitRouter);
+
+app.use(errorMiddleware);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

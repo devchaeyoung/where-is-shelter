@@ -4,7 +4,13 @@ import { lovedvisitService } from "../db/services/lovedvisitService";
 
 
 
+// i can modify to return requested shelter datas as well using sheltermodel or shelterservice
+
+
 const lovedVisitRouter=Router();
+
+
+//user_id information is crucial so that it's not supposed to be visible.-> make sure to take it with req.body
 
 //inserting new data to lovedVisit collection
 // data sent from request is in req.body
@@ -20,8 +26,8 @@ async function (req,res, next){
         }
 
         // getting user_id and shelter_id from req.body
-        const { user_id, shelter_id } = req.body;  
-        const newvisit = await lovedvisitService.addlovedvisit({user_id,shelter_id});
+        const { user_id, shelter_id,name,address,shelter_type } = req.body;  
+        const newvisit = await lovedvisitService.addlovedvisit({user_id,shelter_id,name,address,shelter_type});
 
         if(newvisit.errorMessage){
             throw new Error(newvisit.errorMessage);
@@ -34,41 +40,40 @@ async function (req,res, next){
 
 
 // i should get information from shelter table...
-lovedVisitRouter.get("/bookmark/:user_id",
+lovedVisitRouter.get("/bookmark/user_id",
 login_required,
 async function(req,res,next){
     try{
-        const user_id=req.params.user_id;
+        //req.body is user_id
+        const user_id=req.body;
         const visits =await lovedvisitService.getuservisits({user_id});
 
         if(visits.errorMessage){
             throw new Error(visits.errorMessage);
         }
 
-        /*
-        I should write code for response with shelter info later here.
-        */
+        //return data in json format
+        res.status(200).json(visits);
 
     }catch(error){
         next(error);
     }
 });
 
-lovedVisitRouter.get("/bookmark/:user_id/:shelter_id",
+lovedVisitRouter.get("/bookmark/user_id/:shelter_id",
 login_required,
 async function(req,res,next){
     try{
-        const user_id=req.params.user_id;
+        //req.body is user_id
+        const user_id=req.body;
         const shelter_id=req.params.shelter_id;
-        const visits =await lovedvisitService.getuservisit({user_id,shelter_id});
+        const visit =await lovedvisitService.getuservisit({user_id,shelter_id});
 
-        if(visits.errorMessage){
-            throw new Error(visits.errorMessage);
+        if(visit.errorMessage){
+            throw new Error(visit.errorMessage);
         }
 
-        /*
-        I should write code for response with shelter info later here.
-        */
+       res.status(200).json(visit);
 
     }catch(error){
         next(error);
@@ -76,16 +81,19 @@ async function(req,res,next){
 });
 
 //deleting one lovedvisit document
-lovedVisitRouter.delete("/bookmark/:user_id/:shelter_id",
+lovedVisitRouter.delete("/bookmark/user_id/:shelter_id",
 login_required,
 async function(req,res,next){
     try{
-        const user_id=req.params.user_id;
+        //req.body is user_id
+        const user_id=req.body;
         const shelter_id=req.params.shelter_id;
         const deletedvisit = await lovedvisitService.deleteusersvisit({user_id,shelter_id});
         if(deletedvisit.errorMessage){
             throw new Error(visits.errorMessage);
         }
+
+        res.status(200).json(deletedvisit);
 
     }catch(error){
         next(error);
@@ -93,17 +101,23 @@ async function(req,res,next){
 })
 
 //deleting all lovedvisitsdocuments from one user
-lovedVisitRouter.delete("/bookmark/:user_id",
+lovedVisitRouter.delete("/bookmark/user_id",
 login_required,
 async function(req,res,next){
     try{
-        const user_id=req.params.user_id;
+        //req.body is user_id
+        const user_id=req.body;
         const deletedvisits = await lovedvisitService.deleteusersvisits({user_id});
         if(deletedvisits.errorMessage){
             throw new Error(visits.errorMessage);
         }
 
+        
+        res.status(200).json(deletedvisits);
+
     }catch(error){
         next(error);
     }
 })
+
+export { lovedVisitRouter };
