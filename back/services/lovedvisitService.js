@@ -2,7 +2,7 @@ const { lovedVisitModel } =require("..db/index.js");
 
 class lovedvisitService{
     //service for adding new document when there is no duplicate
-    static async addlovedvisit({user_id,shelter_id}){
+    static async addlovedvisit({user_id,shelter_id,name,address,shelter_type}){
         //checking if there is duplicates of shelter
 
         const logged_shelter = await lovedVisitModel.findonedocument({user_id,shelter_id});
@@ -11,13 +11,16 @@ class lovedvisitService{
             return { errorMessage };
         }
 
-        const newlovedvisit={user_id,shelter_id}
+        const newlovedvisit={user_id,shelter_id,name,address,shelter_type}
 
         const createdlovedshelter=await lovedVisitModel.addlovedshelter({newlovedvisit});
         
         createdlovedshelter.errorMessage=null;
         return createdlovedshelter;
     }
+
+// I'm pretty sure that you don't need to use name,address,shelter_type for finding document that i intend to get or delete
+
     
     //service for getting all documents of user
     static async getusersvisits({user_id}) {
