@@ -19,7 +19,7 @@ login_required,
 async function (req,res, next){
 
     try {
-        if (is.emptyObject(req.body)) {
+        if (!req.body) {
           throw new Error(
             "headers의 Content-Type을 application/json으로 설정해주세요"
           );
@@ -27,12 +27,14 @@ async function (req,res, next){
 
         // getting user_id and shelter_id from req.body
         const { user_id, shelter_id,name,address,shelter_type } = req.body;  
-        const newvisit = await lovedvisitService.addlovedvisit({user_id,shelter_id,name,address,shelter_type});
+        
+        const newvisit = await lovedvisitService.addlovedvisit({ user_id, shelter_id,name,address,shelter_type });
 
         if(newvisit.errorMessage){
             throw new Error(newvisit.errorMessage);
         }
         res.status(201).json(newvisit);
+
     }catch(error){
         next(error);
     }
@@ -45,8 +47,8 @@ login_required,
 async function(req,res,next){
     try{
         //req.body is user_id
-        const user_id=req.body;
-        const visits =await lovedvisitService.getuservisits({user_id});
+        const {user_id}=req.body;
+        const visits =await lovedvisitService.getusersvisits({user_id});
 
         if(visits.errorMessage){
             throw new Error(visits.errorMessage);
@@ -65,9 +67,9 @@ login_required,
 async function(req,res,next){
     try{
         //req.body is user_id
-        const user_id=req.body;
+        const {user_id}=req.body; // { } for destructuring
         const shelter_id=req.params.shelter_id;
-        const visit =await lovedvisitService.getuservisit({user_id,shelter_id});
+        const visit =await lovedvisitService.getusersvisit({user_id,shelter_id});
 
         if(visit.errorMessage){
             throw new Error(visit.errorMessage);
@@ -86,7 +88,7 @@ login_required,
 async function(req,res,next){
     try{
         //req.body is user_id
-        const user_id=req.body;
+        const {user_id}=req.body;
         const shelter_id=req.params.shelter_id;
         const deletedvisit = await lovedvisitService.deleteusersvisit({user_id,shelter_id});
         if(deletedvisit.errorMessage){
@@ -106,7 +108,7 @@ login_required,
 async function(req,res,next){
     try{
         //req.body is user_id
-        const user_id=req.body;
+        const {user_id}=req.body;
         const deletedvisits = await lovedvisitService.deleteusersvisits({user_id});
         if(deletedvisits.errorMessage){
             throw new Error(visits.errorMessage);
