@@ -8,7 +8,7 @@ class ShelterController {
       const shlters = await ShelterService.getShelters();
       res.status(StatusCodes.OK).json(shlters);
     } catch (e) {
-      console.log(e);
+      next(e);
     }
   }
   /**특정 쉼터 조회 */
@@ -18,7 +18,7 @@ class ShelterController {
       const shelter = await ShelterService.getShelterById(id);
       res.status(StatusCodes.OK).json(shelter);
     } catch (e) {
-      console.log(e);
+      next(e);
     }
   }
   /**지역별 쉼터 조회 */
@@ -30,7 +30,10 @@ class ShelterController {
       );
       res.status(StatusCodes.OK).json(shelterDistrict);
     } catch (e) {
-      console.log(`${e}\n 쉼터 위치별 정보를 조회할 수 없습니다.`);
+      res
+        .status(StatusCodes.BAD_REQUEST)
+        .json(`${e}\n 쉼터 위치별 정보를 조회할 수 없습니다.`);
+      next(e);
     }
   }
   /** 쉼터명 검색 */
@@ -38,17 +41,14 @@ class ShelterController {
     const name = req.params.name;
 
     if (!name) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({ error: "해당 검색어의 쉼터를 찾을 수 없습니다." });
+      return res.status(StatusCodes.BAD_REQUEST);
     }
     try {
       const shelterFindName = await ShelterService.searchByName(name);
       res.json(shelterFindName);
     } catch (e) {
-      res
-        .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .json({ error: "An error occurred while searching for shelters." });
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR);
+      next(e);
     }
   }
 }
