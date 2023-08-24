@@ -41,6 +41,8 @@ const CurrentLocation = ({handleState}) => {
   useEffect(() => {
     if (isActive) {
 
+      getCurrentPosition();
+      
       // 현재 위치 찾기 버튼이 활성화 상태라면 getCurrentPosition() 함수를 5초마다 호출합니다.
       // useEffect의 dependency인 isActive의 상태값이 false가 되면 clearInterval 처리를 해주기 위해서 setInterval() 함수를 변수에 담아줍니다.
       const interval = setInterval(getCurrentPosition, 5000);

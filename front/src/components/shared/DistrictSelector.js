@@ -11,7 +11,7 @@ const DistrictSelector = ({handleState, currentDistrict}) => {
 
     // 부모 컴포넌트인 PoiPage로부터 전달받은 handleState 함수를 사용해서,
     // 부모 컴포넌트의 district와 districtLabel 상태로써 갱신합니다.
-    handleState(selectedDistrict)
+    handleState(selectedDistrict);
   }
 
   // Warning: Use the `defaultValue` or `value` props on <select> instead of setting `selected` on <option>.
