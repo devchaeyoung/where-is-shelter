@@ -2,15 +2,15 @@ import mongoose, { Schema } from "mongoose";
 
 const userSchema = new Schema(
   {
-    id: {
-      type: String,
-      required: true,
-    },
     email: {
       type: String,
       required: true,
     },
     name: {
+      type: String,
+      required: true,
+    },
+    nickName: {
       type: String,
       required: true,
     },
@@ -22,7 +22,7 @@ const userSchema = new Schema(
       type: String,
       required: false,
     },
-    count_visit: {
+    countVisit: {
       type: Number,
       required: false,
       default: 0
