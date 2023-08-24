@@ -13,7 +13,7 @@ const reviewSchema = new Schema(
       type: Number,
     },
     user_id: {
-      type: String,
+      type: Schema.Types.ObjectId,
       required: true,
       ref: "User",
     },
