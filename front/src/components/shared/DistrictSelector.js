@@ -1,16 +1,16 @@
 import { React, useState } from 'react';
 
-const DistrictSelector = ({handleState}) => {
+const DistrictSelector = ({handleState, currentDistrict}) => {
 
   const handleChange = (event) => {
     // [주의] useState는 비동기적입니다. 따라서 setState는 즉시 반환하게 됩니다. 상태값인 city는 다음 재렌더링때 바뀌게 됩니다.
     //       따라서 그 전에 이렇게 별도의 변수로 먼저 저장해주면 사용자가 선택한 바로 그 순간의 값을 있는 그대로 백엔드에 전달해줄 수 있습니다.
     
-    // 1. 자식 컴포넌트인 DistrictSelector에서 사용자로부터 얻은 값을,
-    const selectedDistrict = event.target.value
-    
-    // 2. 부모 컴포넌트인 PoiPage로부터 전달받은 handleState 함수를 사용해서,
-    // 3. 부모 컴포넌트의 district 상태를 사용자로부터 얻은 값으로 갱신합니다.
+    // 자식 컴포넌트인 DistrictSelector에서 사용자로부터 얻은 행정구역 변수값을,
+    const selectedDistrict = event.target.value;
+
+    // 부모 컴포넌트인 PoiPage로부터 전달받은 handleState 함수를 사용해서,
+    // 부모 컴포넌트의 district와 districtLabel 상태로써 갱신합니다.
     handleState(selectedDistrict)
   }
 
@@ -19,7 +19,7 @@ const DistrictSelector = ({handleState}) => {
     <div className="flex flex-row">
       <label className="mr-3">지역:</label>
       <select className="mr-3" name="city-selector">
-        <option value="seoul" selected="true">서울특별시</option>
+        <option value="seoul">서울특별시</option>
         <option value="gyeonggi" disabled>경기도</option>
         <option value="incheon" disabled>인천광역시</option>
         <option value="gangwon" disabled>강원도</option>
@@ -31,8 +31,8 @@ const DistrictSelector = ({handleState}) => {
         <option value="gyeongnam" disabled>경상남도</option>
         <option value="jeju" disabled>제주도</option>
       </select>
-      <select name="district-selector" onChange={handleChange}>
-        <option disabled selected="true">선택하세요</option>
+      <select name="district-selector" onChange={handleChange} value={currentDistrict}>
+        <option disabled>선택하세요</option>
           <optgroup label="서울특별시">
             <option value="gangnam">강남구</option>
             <option value="gangdong">강동구</option>

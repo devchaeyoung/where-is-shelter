@@ -10,6 +10,7 @@ const shelterSchema = new Schema(
     },
     name: {
       type: String,
+      index: true,
       required: true,
     },
     rating: {
@@ -34,13 +35,13 @@ const shelterSchema = new Schema(
       type: String,
     },
     open_at_night: {
-      type: Boolean,
+      type: String,
     },
     open_on_weekends: {
-      type: Boolean,
+      type: String,
     },
     overnight_stay: {
-      type: Boolean,
+      type: String,
     },
     season_end_date: {
       type: Date,
@@ -85,6 +86,8 @@ const shelterSchema = new Schema(
     timstamps: true,
   }
 );
+
+shelterSchema.index({ name: "text" });
 
 const Shelter = mongoose.model("Shelter", shelterSchema);
 
