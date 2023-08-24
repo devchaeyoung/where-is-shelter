@@ -7,7 +7,22 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+<<<<<<< HEAD
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+=======
+@layer base {
+  .navbar-item-active {
+    @apply underline decoration-solid decoration-4 underline-offset-8;
+  }
+  .navbar-item-inactive {
+  }
+}
+
+.leaflet-container {
+  width: 100%;
+  height: 73vh;
+}
+>>>>>>> 88c7837f500f9defc43b3b136041228e3eb7011a
