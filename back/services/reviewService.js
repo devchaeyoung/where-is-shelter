@@ -38,6 +38,8 @@ class ReviewService {
       rating: review.rating,
       user_id: review.user_id,
       shelter_id: review.shelter_id,
+      createdAt: review.createdAt,
+      updatedAt: review.updatedAt,
     }));
 
     return reviewDataResult;
@@ -57,6 +59,8 @@ class ReviewService {
       rating: review.rating,
       user_id: review.user_id,
       shelter_id: review.shelter_id,
+      createdAt: review.createdAt,
+      updatedAt: review.updatedAt,
     }));
 
     return reviewDataResult;
