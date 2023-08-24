@@ -3,16 +3,21 @@ import axios from "axios";
 // [테스트] Mock API가 필요하다면 json-server를 사용합니다.
 // 실행 명령어: $ npx json-server ./db.json --port 5001
 
-const backendPortNumber = "5001";
-const serverUrl = "http://" + window.location.hostname + ":" + backendPortNumber;
+// 이 주소는 dev 브랜치에 있는 로컬 백엔드 서버입니다.
+// const backendPortNumber = "5001";
+// const serverUrl = "http://" + window.location.hostname + ":" + backendPortNumber;
 
-async function postData(endpoint, params = "", other = "", data) {
+// 이 주소는 VM에서 구동중인 백엔드 서버입니다.
+const backendPortNumber = "5002";
+const serverUrl = "http://34.64.160.14" + ":" + backendPortNumber;
+
+async function postData(data, endpoint, params = "", other = "") {
   // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
   // 예시: {name: "Kim"} => {"name": "Kim"}
-  console.log(`%cPOST 요청: ${serverUrl + endpoint + "/" + params + other}`, "color: #296aba;");
+  console.log(`%cPOST 요청: ${serverUrl + endpoint + params + other}`, "color: #296aba;");
   console.log(`%cPOST 요청 데이터: ${data}`, "color: #296aba;");
 
-  return axios.post(serverUrl + endpoint + "/" + params + other, data, {
+  return axios.post(serverUrl + endpoint + params + other, data, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
@@ -33,7 +38,7 @@ const getData = async (endpoint, params = "", other = "") => {
 
 };
 
-async function putData(endpoint, params = "", other = "", data) {
+async function putData(data, endpoint, params = "", other = "", ) {
   // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
   // 예시: {name: "Kim"} => {"name": "Kim"}
   const bodyData = JSON.stringify(data);

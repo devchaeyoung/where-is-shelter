@@ -12,18 +12,7 @@ const ReviewInputForm = (props) => {
   // 사용자가 선택한 행정구역 정보를 담고 있는 district 상태값을 라우팅 파라미터인 params로써 API 요청에 반영합니다.
   const params = `/${props.selectedPoiId}`;
 
-  const ApiCall = () => {
-    const { isFetching, error } = useApi(() => Api.postData(endpoint, params, data)
-          .then((res) => {
-            alert(res)
-          }));
-    
-    if(error){
-      return alert(error);
-    }    
-  }
-
-
+  console.log(params)
   const HandleSubmit = (event) =>{
   
     // onSubmit과 함께 기본적으로 작동하는 브라우저 새로고침을 차단해줍니다.
@@ -36,8 +25,14 @@ const ReviewInputForm = (props) => {
       "description" : event.target.input.value,
     }
 
-    console.log(data)
-
+    try{
+      Api.postData(data, endpoint, params)
+        .then((res) => console.log(res))
+        .catch((error) => alert(error))
+    }
+    catch(error){
+      return alert(error);
+    }
   };
  
 
