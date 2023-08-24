@@ -15,6 +15,7 @@ const PoiDetails = ({handleState, selectedPoi}) => {
     handleState()
   }
 
+  // 사용자가 선택한 특정 쉼터의 상세정보를 백엔드로부터 받아 상태값으로써 저장합니다.
   const [selectedPoiData, setSelectedPoiData] = useState();
 
   // API 요청에 사용되는 endpoint를 지정해줍니다.
