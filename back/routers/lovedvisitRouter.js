@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
-import { lovedvisitService } from "../db/services/lovedvisitService";
+import { lovedvisitService } from "../services/lovedvisitService";
 
 
 

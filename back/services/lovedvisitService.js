@@ -1,4 +1,4 @@
-const { lovedVisitModel } =require("..db/index.js");
+const { lovedVisitModel } =require('../db/index.js');
 
 class lovedvisitService{
     //service for adding new document when there is no duplicate
