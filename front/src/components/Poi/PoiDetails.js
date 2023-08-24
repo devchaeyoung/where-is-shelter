@@ -18,17 +18,36 @@ const PoiDetails = ({handleState, selectedPoi}) => {
   // 사용자가 선택한 특정 쉼터의 상세정보를 백엔드로부터 받아 상태값으로써 저장합니다.
   const [selectedPoiData, setSelectedPoiData] = useState();
 
+  // 백엔드로부터 데이터를 받아오고 있는지를 체크하는 상태값입니다.
+  const [isFetching, setIsFetching] = useState();
+
+  // 백엔드로부터 데이터를 받아오다가 오류가 발생했는지를 체크하는 상태값입니다.
+  const [error, setError] = useState();
+
   // API 요청에 사용되는 endpoint를 지정해줍니다.
   const endpoint = '/shelters';
   
   // 사용자가 선택한 행정구역 정보를 담고 있는 district 상태값을 라우팅 파라미터인 params로써 API 요청에 반영합니다.
   const params = `/${selectedPoi}`;
 
-  const { data, isFetching, error } = useApi(() => Api.getData(endpoint, params)
-        .then((res) => {
-          setSelectedPoiData(res.data)
-        }));
-  
+  useEffect(() => {
+    const fetchSelectedPoiData = async () => {
+      try{
+        setIsFetching(true);
+        const res = await Api.getData(endpoint, params);
+        setSelectedPoiData(res.data);
+        setIsFetching(false);
+      } catch (err) {
+        // 만약에 에러가 발생하게 되면 데이터 로딩 상황을 알려주는 placeholder 아래에 에러 메세지가 추가됩니다.
+        setError(`${err.name} : ${err.message}`);
+        alert(`데이터를 가져오는 도중 에러가 발생했습니다: ${error}`);
+        return;
+      }
+    }
+
+    fetchSelectedPoiData();
+  }, [error, selectedPoi]);
+
   if (isFetching) {
     return (
       <div className="flex flex-col w-full h-full justify-center items-center">
@@ -45,8 +64,6 @@ const PoiDetails = ({handleState, selectedPoi}) => {
       </div>
     );
   }
-
-  console.log(selectedPoiData)
 
   return(
     <div className="flex flex-col">
