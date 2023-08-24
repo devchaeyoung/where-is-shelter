@@ -42,26 +42,42 @@ const PoiPage = () => {
   // DistrictSelector.js를 참고하세요.
   const [district, setDistrict] = useState("gangnam");
 
-  // 툴바 상에서 사용자에게 보여줄 현재 행정구역 정보입니다.
-  const [districtLabel, setDistrictLabel] = useState('강남구');
-  
   function handleDistrictState(selectedDistrict) {
     setDistrict(selectedDistrict);
   }
 
   // 사용자가 선택한 특정 지역의 쉼터 목록을 백엔드로부터 받아 상태값으로써 저장합니다.
   const [districtPoiData, setDistrictPoiData] = useState([]);
+  
+  // 백엔드로부터 데이터를 받아오고 있는지를 체크하는 상태값입니다.
+  const [isFetching, setIsFetching] = useState();
+
+  // 백엔드로부터 데이터를 받아오다가 오류가 발생했는지를 체크하는 상태값입니다.
+  const [error, setError] = useState();
 
   // API 요청에 사용되는 endpoint를 지정해줍니다.
   const endpoint = '/shelters/districts';
 
   // 사용자가 선택한 행정구역 정보를 담고 있는 district 상태값을 라우팅 파라미터인 params로써 API 요청에 반영합니다.
   const params = `/${district}`;
+  
+  useEffect(() => {
+    const fetchDistrictPoiData = async () => {
+      try{
+        setIsFetching(true);
+        const res = await Api.getData(endpoint, params);
+        setDistrictPoiData(res.data);
+        setIsFetching(false);
+      } catch (err) {
+        // 만약에 에러가 발생하게 되면 데이터 로딩 상황을 알려주는 placeholder 아래에 에러 메세지가 추가됩니다.
+        setError(`${err.name} : ${err.message}`);
+        alert(`데이터를 가져오는 도중 에러가 발생했습니다: ${error}`);
+        return;
+      }
+    }
 
-  const { data, isFetching, error } = useApi(() => Api.getData(endpoint, params)
-        .then((res) => {
-          setDistrictPoiData(res.data)
-        }), district);
+    fetchDistrictPoiData();
+  }, [error, district]);
   
   if (isFetching) {
     return (
