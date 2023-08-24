@@ -10,7 +10,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    nickName: {
+    nickname: {
       type: String,
       required: true,
     },
@@ -22,7 +22,7 @@ const userSchema = new Schema(
       type: String,
       required: false,
     },
-    countVisit: {
+    count_visit: {
       type: Number,
       required: false,
       default: 0

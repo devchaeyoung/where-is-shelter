@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken'
 
 class UserService {
   /** 신규 유저 생성 함수*/
-  static async addUser({ name, nickName, email, password }) {
+  static async addUser({ name, nickname, email, password }) {
     const user = await UserModel.findByEmail({ email })
     if (user) {
       const errorMessage = "해당 이메일은 현재 사용중입니다. 다른 이메일을 입력해 주세요"
@@ -14,7 +14,7 @@ class UserService {
     // brypt를 활용한 패스워드 해쉬화
     const hashedPassword = await bcrypt.hash(password, 10)
 
-    const newUser = { name, nickName, email, password: hashedPassword }
+    const newUser = { name, nickname, email, password: hashedPassword }
   
     const createdNewUser = await UserModel.create({ newUser })
     return createdNewUser
@@ -37,13 +37,13 @@ class UserService {
     const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key"
     const token = jwt.sign({ user_id: user._id }, secretKey, { algorithm: process.env.JWT_ALG, expiresIn: process.env.JWT_EXP })
   
-    const nickName = user.nickName
-    const countVisit = user.countVisit
+    const nickname = user.nickname
+    const count_visit = user.count_visit
   
     const loginUser = {
       token,
-      nickName,
-      countVisit
+      nickname,
+      count_visit
     }
   
     return loginUser
@@ -54,15 +54,15 @@ class UserService {
     const user = await UserModel.findById(id)
   
     const name = user.name
-    const nickName = user.nickName
+    const nickname = user.nickname
     const address = user.address
-    const countVisit = user.countVisit
+    const count_visit = user.count_visit
   
     const userInfo = {
       name,
-      nickName,
+      nickname,
       address,
-      countVisit,
+      count_visit,
     }
   
     return userInfo
@@ -78,8 +78,8 @@ class UserService {
       user = await UserModel.update({ _id: id, fieldToUpdate, newValue });
     }
 
-    if (toUpdate.nickName) {
-      const fieldToUpdate = "nickName";
+    if (toUpdate.nickname) {
+      const fieldToUpdate = "nickname";
       const newValue = toUpdate.nickName;
       user = await UserModel.update({ _id: id, fieldToUpdate, newValue });
     }
