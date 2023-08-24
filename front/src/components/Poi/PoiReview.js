@@ -14,7 +14,7 @@ const PoiReview = (props) => {
   // API 요청에 사용되는 endpoint를 지정해줍니다.
   const endpoint = '/review';
 
-  // 사용자가 선택한 행정구역 정보를 담고 있는 district 상태값을 라우팅 파라미터인 params로써 API 요청에 반영합니다.
+  // 사용자가 선택한 특정 쉼터의 id값을 라우팅 파라미터인 params로써 API 요청에 반영합니다.
   const params = `/${props.selectedPoiId}`;
 
   const { data, isFetching, error } = useApi(() => Api.getData(endpoint, params)

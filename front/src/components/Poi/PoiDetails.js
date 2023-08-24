@@ -84,7 +84,7 @@ const PoiDetails = ({handleState, selectedPoi}) => {
         <h2 className="font-bold text-lg my-3">방문 후기를 확인해보세요!</h2>
         <div className="">
           <PoiReview selectedPoiId={selectedPoiData.id} />
-          <ReviewInputForm />
+          <ReviewInputForm selectedPoiId={selectedPoiData.id} />
         </div>
       </div>
     </div>

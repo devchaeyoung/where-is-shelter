@@ -61,7 +61,7 @@ const PoiPage = () => {
   const { data, isFetching, error } = useApi(() => Api.getData(endpoint, params)
         .then((res) => {
           setDistrictPoiData(res.data)
-        }));
+        }), district);
   
   if (isFetching) {
     return (
