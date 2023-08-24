@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const useApi = (fetcher) => {
+const useApi = (fetcher, dependencies = '') => {
 
   // 백엔드로부터 받아온 데이터가 탑재되는 상태값입니다
   const [data, setData] = useState(null);
@@ -25,7 +25,7 @@ const useApi = (fetcher) => {
     }
 
     setIsFetching(false);
-  }, [])
+  }, [dependencies])
 
   return {
     data,
