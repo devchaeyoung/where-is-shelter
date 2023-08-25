@@ -1,21 +1,26 @@
-import { React, useState, useEffect, useContext } from 'react';
-import { useNavigate } from "react-router-dom";
-
+import { React } from "react";
+import User from "../components/MyPage/User";
+import UserReviews from "../components/MyPage/UserReviews";
+import UserFavorite from "../components/MyPage/UserFavorite";
 import LoginForm from "../components/MyPage/LoginForm";
-import UserInfo from "../components/MyPage/UserInfo";
 
-const MyPage = () => {
-  
-  const [isLogin, setIsLogin] = useState(false);
-  
+function MyPage() {
+  const user = "로그인";
   return (
-    <div className="flex flex-col w-full h-full items-center justify-center">
-      {isLogin
-        ? <UserInfo />
-        : <LoginForm />
-      }
-    </div>
+    <>
+      {user === "로그인" ? (
+        <div className="grow overflow-y-auto flex flex-row">
+          <User />
+          <div className="scroll-smooth overflow-y-scroll">
+            <UserFavorite />
+            <UserReviews />
+          </div>
+        </div>
+      ) : (
+        <LoginForm />
+      )}
+    </>
   );
-};
+}
 
 export default MyPage;

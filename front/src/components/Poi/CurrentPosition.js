@@ -24,9 +24,6 @@ const CurrentPosition = ({handleState}) => {
     handleState(receivedLatitude, receivedLongitude);
 
     alert(`위도: ${position.coords.latitude} /` + ` 경도: ${position.coords.longitude} /` + ` 정확도: 약 ${position.coords.accuracy} 미터`);
-    // [TO-DO] 
-    // 마커에 현재 위치를 표시해주는 함수();
-    // map.setView([currentLat, currentLng]);
   }
   
   function error(err) {
