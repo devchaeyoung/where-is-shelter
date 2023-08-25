@@ -62,6 +62,7 @@ function WeatherDashboard (props) {
     );
   }
 
+
   return (
     <div>
       <div className="flex flex-row-reverse">
@@ -95,6 +96,7 @@ function WeatherDashboard (props) {
           <FontAwesomeIcon icon={faUmbrella} size="3x" />
           <div className="flex flex-row ml-8 text-white items-center">
               <h2 className="font-bold text-lg">강우량</h2>
+              {/* OpenWeatherMap에서 제공하는 3시간 단위의 5일치 예보 중에서, 현재 시간에 가장 가까운 3시간 예보의 인덱스인 0을 사용합니다. */}
               <h1 className="ml-5 font-bold text-3xl">{districtForecastData.list[0].pop}</h1>
             </div>
         </div>
