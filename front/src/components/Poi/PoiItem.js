@@ -7,8 +7,8 @@ const PoiItem = (props) => {
 
   return (
     // [참고] 지도 위에 표시된 마커를 클릭하면, 해당 마커에 해당하는 POI를 목록의 최상단으로 올려줍니다. PoiMap.js를 참고하세요.
-    <div id={props.poiData.id} className="flex flex-col p-4">
-      <div onClick={handleClick}>
+    <div id={props.poiData.id} className="flex flex-col">
+      <div className="transition ease-in-out duration-300 hover:bg-slate-100 cursor-pointer p-4 " onClick={handleClick}>
         <h1 className="font-bold">{props.poiData.name}</h1>
         <p className="">{props.poiData.address}</p>
         <p className="">{props.poiData.shelter_type}</p>

@@ -58,6 +58,7 @@ const PoiReview = (props) => {
     );
   }
 
+  console.log(poiReviewData)
   return(
     <div className="flex flex-col bg-slate-100 rounded-xl overflow-y-scroll h-[30vh] p-2">
       {poiReviewData.map(item => (
