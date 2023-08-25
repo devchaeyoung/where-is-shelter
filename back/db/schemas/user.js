@@ -28,6 +28,13 @@ const userSchema = new Schema(
       required: false,
       default: 0,
     },
+    description: {
+      type: String,
+      default: "한줄 소개",
+    },
+    profile_image: {
+      type: String,
+    },
   },
   {
     timestamps: true,
