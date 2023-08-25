@@ -1,8 +1,8 @@
 import { React, useState, useEffect, useRef } from 'react';
 
-const CurrentLocation = ({handleState}) => {
+const CurrentPosition = ({handleState}) => {
 
-  // 전역변수는 안티패턴이므로 사용하지 않습니다.
+  // [TO-DO] 전역변수는 안티패턴이므로 사용을 자제해야 합니다.
   let receivedLatitude = '';
   let receivedLongitude = '';
 
@@ -48,7 +48,7 @@ const CurrentLocation = ({handleState}) => {
       const interval = setInterval(getCurrentPosition, 5000);
       
       return() => {
-          clearInterval(interval);
+        clearInterval(interval);
       }
     }
   }, [isActive])
@@ -65,10 +65,10 @@ const CurrentLocation = ({handleState}) => {
       <button id="current-position-btn" 
               className={isActive ? `bg-green-400 px-3 py-1 rounded-xl` : `bg-slate-200 px-3 py-1 rounded-xl`}
               onClick={HandleToggle}>
-          {isActive ? `위치 확보 중...` : `현재 위치`}
+        {isActive ? `위치 확보 중...` : `현재 위치`}
       </button>
     </div>
   )
 }
 
-export default CurrentLocation;
+export default CurrentPosition;
