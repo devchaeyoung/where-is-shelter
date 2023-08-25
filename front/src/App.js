@@ -1,7 +1,6 @@
-import { Routes, Route, Link, Outlet } from 'react-router-dom';
+import { Routes, Route } from "react-router-dom";
 
-import './index.css';
-import * as Api from "./apis/api";
+import "./index.css";
 
 import LayoutPage from "./pages/LayoutPage";
 import PoiPage from "./pages/PoiPage";
@@ -12,7 +11,6 @@ import MyPage from "./pages/MyPage";
 function App() {
   return (
     <div>
-      
       <Routes>
         {/* 먼저 웹앱의 전체 레이아웃을 표시해야 하므로 루트 경로에다가 LayoutPage를 지정해주고, */}
         <Route path="/" element={<LayoutPage />}>
@@ -25,7 +23,6 @@ function App() {
           <Route path="/mypage" element={<MyPage />}></Route>
         </Route>
       </Routes>
-    
     </div>
   );
 }
