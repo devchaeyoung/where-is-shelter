@@ -66,7 +66,7 @@ function WeatherDashboard (props) {
   return (
     <div>
       <div className="flex flex-row-reverse">
-        <p>{timestamp} / OpenWeatherMap 기상정보</p>
+        <p>{timestamp}, OpenWeatherMap 제공</p>
       </div>
       <div id="weather-dashboard-content" className="w-full flex flex-col">
         <div className="flex flex-row items-center box-border h-32 w-1/2 p-4 border-1  bg-red-500 border-red-500">
@@ -97,6 +97,7 @@ function WeatherDashboard (props) {
           <div className="flex flex-row ml-8 text-white items-center">
               <h2 className="font-bold text-lg">강우량</h2>
               {/* OpenWeatherMap에서 제공하는 3시간 단위의 5일치 예보 중에서, 현재 시간에 가장 가까운 3시간 예보의 인덱스인 0을 사용합니다. */}
+              {/* OpenWeatherMap에서는 타임스탬프에 UTC+0 시간대를 사용하고 있습니다. */}
               <h1 className="ml-5 font-bold text-3xl">{districtForecastData.list[0].pop}</h1>
             </div>
         </div>
