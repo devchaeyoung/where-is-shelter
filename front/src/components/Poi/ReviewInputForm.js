@@ -19,21 +19,26 @@ const ReviewInputForm = (props) => {
 
     // 사용자가 입력한 리뷰값을 data 변수에 대입합니다.
     const data = {
-      "user_id" : "TEST USER",
+      "user_id" : "23854283becad19dae464c77",
       "shelter_id" : props.selectedPoiId,
       "description" : event.target.input.value,
     }
 
     try{
       Api.postData(data, endpoint, params)
-        .then((res) => console.log(res))
+        .then((res) => {
+          if(res.data.errorMessage){
+            alert(res.data.errorMessage) 
+          }
+          console.log(res);
+        })
         .catch((error) => alert(error))
     }
     catch(error){
+      console.log(error)
       return alert(error);
     }
   };
- 
 
   return(
     <div className="flex my-4">
