@@ -3,7 +3,7 @@ import { Link, Route, Routes } from 'react-router-dom';
 
 function Navbar() {
 
-  const [activeMenu, setActiveMenu] = useState('poi-menu-btn')
+  const [activeMenu, setActiveMenu] = useState('')
 
   // 사용자가 메뉴를 선택하면 해당 메뉴가 활성화되었다는 상태값을 지정해줍니다.
   function handleActiveMenu (event) {
@@ -36,6 +36,7 @@ function Navbar() {
           }
         </div>
       </div>
+      
     </div>
   )
 }
