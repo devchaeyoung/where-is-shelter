@@ -31,13 +31,17 @@ class ReviewService {
       return [];
     }
 
+    const sortedReviews = reviewData.sort((a, b) => b.updatedAt - a.updatedAt);
+
     // 모든 후기를 배열로 변환
-    const reviewDataResult = reviewData.map((review) => ({
+    const reviewDataResult = sortedReviews.map((review) => ({
       id: review._id,
       description: review.description,
       rating: review.rating,
       user_id: review.user_id,
       shelter_id: review.shelter_id,
+      createdAt: review.createdAt,
+      updatedAt: review.updatedAt,
     }));
 
     return reviewDataResult;
@@ -50,13 +54,17 @@ class ReviewService {
       return [];
     }
 
+    const sortedReviews = reviewData.sort((a, b) => b.updatedAt - a.updatedAt);
+
     // 모든 후기를 배열로 변환
-    const reviewDataResult = reviewData.map((review) => ({
+    const reviewDataResult = sortedReviews.map((review) => ({
       id: review._id,
       description: review.description,
       rating: review.rating,
       user_id: review.user_id,
       shelter_id: review.shelter_id,
+      createdAt: review.createdAt,
+      updatedAt: review.updatedAt,
     }));
 
     return reviewDataResult;
