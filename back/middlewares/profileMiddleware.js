@@ -1,11 +1,13 @@
-const multer = require("multer");
-const storage = require("../utils/uploads/storage");
-const FileAppender = require("../utils/uploads/upload");
+// 프로필 사진 기능 테스트용 파일입니다.
+
+import multer from "multer";
+// import storage from "../utils/uploads/storage";
+// import FileAppender from "../utils/uploads/upload";
 
 const upload = multer({ storage });
 
 async function handleImageUpload(additionalReq, res, next) {
-  // 파일업로드
+  /**  파일업로드 */
   const fileStrategy = "VALUE";
 
   const appender = new FileAppender(fileStrategy, additionalReq);

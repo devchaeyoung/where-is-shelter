@@ -1,7 +1,9 @@
-const express = require("express");
-const multer = require("multer");
-const fs = require("fs");
-const path = require("path");
+// 프로필 사진 기능 테스트용 파일입니다.
+
+import express from "express";
+import multer from "multer";
+import fs from "fs";
+import path from "path";
 
 const router = express.Router();
 
@@ -24,8 +26,9 @@ const upload = multer({
   }),
   limits: { fileSize: 5 * 1024 * 1024 },
 });
-// 이미지 업로드를 위한 API
-// upload의 single 메서드는 하나의 이미지를 업로드할 때 사용
+/**이미지 업로드를 위한 API
+ * upload의 single 메서드는 하나의 이미지를 업로드할 때 사용
+ */
 router.post("/upload", upload.single("img"), (req, res) => {
   console.log(req.file);
   res.json({ url: `/${req.file.filename}` });
