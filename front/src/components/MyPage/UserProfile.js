@@ -5,21 +5,23 @@ function UserProfile({
   setReviewLevel,
   isEdit,
   handleChangeEdit,
-  fetchUpdateUser,
+  fetchUserUpdate,
   reviewLevel,
   reviewLength,
 }) {
-  const [nickname, setNickname] = useState();
+  /** 변경할 닉네임 상태를 관리합니다. */
+  const [nickname, setNickname] = useState(user ? user.nickname : "");
 
   /** 변경할 주소 상태를 관리합니다. */
-
-  const [description, setDescription] = useState();
+  const [description, setDescription] = useState(user ? user.description : "");
 
   /** 변경할 주소 상태를 관리합니다. */
-  const [address, setAddress] = useState();
+  const [address, setAddress] = useState(user ? user.address : "");
 
   /** 변경할 프로필 이미지를 상태를 관리합니다. */
-  const [profileImage, setProfileImage] = useState(null);
+  const [profileImage, setProfileImage] = useState(
+    "https://velog.velcdn.com/images/xiu_8/post/1fe5206b-f226-46b1-8f8a-6ed9d29a55bf/image.png"
+  );
 
   /** 유저 프로필 업로드하는 핸들러 함수입니다. */
   const handleFileChange = async (e) => {
@@ -39,7 +41,7 @@ function UserProfile({
   };
 
   const handleSubmit = () => {
-    fetchUpdateUser(nickname, description, address, profileImage);
+    fetchUserUpdate({ nickname, description, address, profileImage });
   };
   return (
     <>

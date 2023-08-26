@@ -1,7 +1,6 @@
 import { React, useEffect, useState } from "react";
 import LoginForm from "../components/MyPage/LoginForm";
 import UserProfile from "../components/MyPage/UserProfile";
-// import CountReviewLevel from "../components/MyPage/CountReviewLevel";
 import * as Api from "../apis/api";
 
 const MOCKUP_USER = {
@@ -81,10 +80,22 @@ function MyPage() {
   };
 
   /** 유저 정보를 업데이트 하는 목업 API입니다.*/
-  const fetchUserUpdate = async () => {
+  const fetchUserUpdate = async ({
+    nickname,
+    description,
+    address,
+    profileImage,
+  }) => {
     try {
       const endpoint = "/user/mypage";
-      const res = await Api.putData(endpoint);
+
+      const formData = new FormData();
+      formData.append("nickname", nickname);
+      formData.append("description", description);
+      formData.append("address", address);
+      formData.append("profileImage", profileImage);
+
+      const res = await Api.putMulter(endpoint, formData);
       if (res.status === 200) {
         setUser(res.data);
       }
@@ -93,10 +104,12 @@ function MyPage() {
     }
   };
 
+  /** 유저 프로필 수정 상태를 변경하는 함수입니다. */
   const handleChangeEdit = () => {
     setIsEdit((prev) => !prev);
   };
 
+  /** 리뷰 레벨을 계산하는 함수입니다. */
   const handleChangeReviewLevel = () => {
     const levelIndex = reviews.length < 5 ? reviews.length : 5;
     setReviewLevel(REVIEW_LEVEL[levelIndex]);
@@ -120,6 +133,7 @@ function MyPage() {
         <UserProfile
           user={user}
           isEdit={isEdit}
+          fetchUserUpdate={fetchUserUpdate}
           handleChangeEdit={handleChangeEdit}
           setReviewLevel={setReviewLevel}
           reviewLevel={reviewLevel}
