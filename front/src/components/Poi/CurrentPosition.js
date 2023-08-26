@@ -29,6 +29,7 @@ const CurrentPosition = ({handleState}) => {
   function error(err) {
     const errMsg = ["zero-filler", "PERMISSION_DENIED", "POSITION_UNAVAILABLE", "TIMEOUT"];
     alert("현재 위치를 가져올 수 없습니다.\nERROR: " + errMsg[err.code]);
+    setIsActive(false);
   }
   
   function getCurrentPosition() {
@@ -37,8 +38,7 @@ const CurrentPosition = ({handleState}) => {
 
   useEffect(() => {
     if (isActive) {
-
-      getCurrentPosition();
+      getCurrentPosition()
       
       // 현재 위치 찾기 버튼이 활성화 상태라면 getCurrentPosition() 함수를 5초마다 호출합니다.
       // useEffect의 dependency인 isActive의 상태값이 false가 되면 clearInterval 처리를 해주기 위해서 setInterval() 함수를 변수에 담아줍니다.
@@ -62,7 +62,7 @@ const CurrentPosition = ({handleState}) => {
       <button id="current-position-btn" 
               className={isActive ? `bg-green-400 px-3 py-1 rounded-xl` : `bg-slate-200 px-3 py-1 rounded-xl`}
               onClick={HandleToggle}>
-        {isActive ? `위치 확보 중...` : `현재 위치`}
+        {isActive ? `위치 표시 중...` : `현재 위치`}
       </button>
     </div>
   )
