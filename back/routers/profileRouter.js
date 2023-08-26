@@ -1,7 +1,9 @@
-const express = require("express");
-const multer = require("multer");
-const fs = require("fs");
-const path = require("path");
+// 프로필 사진 기능 테스트용 파일입니다.
+
+import express from "express";
+import multer from "multer";
+import fs from "fs";
+import path from "path";
 
 const router = express.Router();
 
