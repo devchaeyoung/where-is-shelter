@@ -5,23 +5,6 @@ import 'chart.js/auto';
 import { Bar } from "react-chartjs-2";
 import { Line } from "react-chartjs-2";
 
-function BarGraph (props) {
-  return(
-    <Bar
-      data={props.chartData}
-    />
-  )
-}
-
-function LineGraph (props) {
-
-  return(
-    <Line
-      data={props.chartData}
-    />
-  )
-}
-
 const Graph = (props) => {
 
   const chartType = props.chartType;
@@ -29,11 +12,11 @@ const Graph = (props) => {
   return (
     <div className="w-full h-full">
       {chartType === "bar" &&
-      <BarGraph chartData={props.chartData} />
+      <Bar data={props.chartData.data} options={props.chartData.options}/>
       }
 
       {chartType == "line" &&
-      <LineGraph chartData={props.chartData} />
+      <Line data={props.chartData.data} />
       }
     </div>
   )

@@ -30,39 +30,37 @@ function ChartItemSelector ({handleState}) {
       </select>
 
       {category == 'shelter' &&
-        <select name="chart-item-selector" onChange={handleChartItemChange} >
-          <option>선택하세요</option>
+        <select onChange={handleChartItemChange} >
+          <option disabled selected>선택하세요</option>
             <optgroup label="무더위 쉼터 관련">
-              <option value="heatwave_shelter_capacity_per_capita_by_district">행정구역별 인구 대비 무더위 쉼터 수용인원</option>
-              <option value="heatwave_shelter_average_capacity_by_district">행정구역별 무더위 쉼터 평균 수용인원</option>
+              <option value="heatwave_shelter_population_coverage_by_district">행정구역별 인구 대비 무더위 쉼터 수용인원</option>
             </optgroup>
             <optgroup label="한파 쉼터 관련">
-              <option value="coldwave_shelter_capacity_per_capita_by_district">행정구역별 인구 대비 한파 쉼터 수용인원</option>
-              <option value="coldwave_shelter_average_capacity_by_district">행정구역별 한파 쉼터 평균 수용인원</option>
+              <option value="coldwave_shelter_population_coverage_by_district">행정구역별 인구 대비 한파 쉼터 수용인원</option>
             </optgroup>
         </select>
       } 
 
       {category == 'climate' &&
-        <select name="chart-item-selector" onChange={handleChartItemChange} >
-          <option>선택하세요</option>
+        <select onChange={handleChartItemChange} >
+          <option disabled selected>선택하세요</option>
             <optgroup label="폭염 관련">
-              <option value="temp">준비중입니다</option>
+              <option value="temp" disabled>준비중입니다</option>
             </optgroup>
             <optgroup label="한파 관련">
-              <option value="temp">준비중입니다</option>
+              <option value="temp" disabled>준비중입니다</option>
             </optgroup>
         </select>
       } 
 
       {category == 'energy' &&
-        <select name="chart-item-selector" onChange={handleChartItemChange} >
-        <option>선택하세요</option>
+        <select onChange={handleChartItemChange} >
+        <option disabled selected>선택하세요</option>
           <optgroup label="전력 사용량 관련">
-            <option value="temp">준비중입니다</option>
+            <option value="temp" disabled>준비중입니다</option>
           </optgroup>
           <optgroup label="가스 사용량 관련">
-            <option value="temp">준비중입니다</option>
+            <option value="temp" disabled>준비중입니다</option>
           </optgroup>
       </select>
       } 

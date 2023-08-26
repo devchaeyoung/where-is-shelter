@@ -79,19 +79,11 @@ const PoiPage = () => {
     fetchDistrictPoiData();
   }, [error, district]);
   
-  if (isFetching) {
+  if (isFetching || !districtPoiData) {
     return (
       <div className="flex flex-col w-full h-full justify-center items-center">
         <p className="font-bold text-lg">데이터를 가져오는 중입니다...</p>
         <p className="font-bold text-lg">{error}</p>
-      </div>
-    );
-  }
-
-  if (!districtPoiData){
-    return (
-      <div className="flex flex-col w-full h-full justify-center items-center">
-        <p className="font-bold text-lg">데이터가 도착할때까지 잠시만 기다려주세요...</p>
       </div>
     );
   }
