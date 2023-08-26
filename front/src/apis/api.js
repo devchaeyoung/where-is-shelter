@@ -28,7 +28,6 @@ async function postData(data, endpoint, params = "", other = "") {
   });
 }
 
-// [긴급] 백엔드로부터 쉼터 데이터를 가져오는것 먼저 최우선적으로 구현합니다.
 const getData = async (endpoint, params = "", other = "") => {
   console.log(
     `%cGET 요청: ${serverUrl + endpoint + params + other}`,
