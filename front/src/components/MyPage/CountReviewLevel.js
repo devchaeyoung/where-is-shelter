@@ -1,11 +1,11 @@
 /** 예시용입니다. 프론트 추가작업 시 자유롭게 변경해주세요. */
 const REVIEW_LEVEL = [
-  { title: "새싹", icone: "🌱" },
-  { title: "가지", icone: "🌿" },
-  { title: "열매", icone: "🍒" },
-  { title: "나무", icone: "🌲" },
-  { title: "숲", icone: "🌳🌳🌳" },
-  { title: "지구 지킴이", icone: "👑" },
+  { title: "새싹", icon: "🌱" },
+  { title: "가지", icon: "🌿" },
+  { title: "열매", icon: "🍒" },
+  { title: "나무", icon: "🌲" },
+  { title: "숲", icon: "🌳🌳🌳" },
+  { title: "지구 지킴이", icon: "👑" },
 ];
 
 export default function CountReviewLevel({ reviewLength, setReviewLevel }) {

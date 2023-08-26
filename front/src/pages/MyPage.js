@@ -1,4 +1,4 @@
-import { React, useEffect, useState, createContext } from "react";
+import { React, useEffect, useState } from "react";
 import LoginForm from "../components/MyPage/LoginForm";
 import UserProfile from "../components/MyPage/UserProfile";
 // import CountReviewLevel from "../components/MyPage/CountReviewLevel";
@@ -16,36 +16,34 @@ const MOCKUP_USER = {
   profileImage:
     "https://velog.velcdn.com/images/xiu_8/post/1fe5206b-f226-46b1-8f8a-6ed9d29a55bf/image.png",
 };
-/** 리뷰 개수를 카운팅하는 컨텍스트입니다. */
-export const ReviewStateContext = createContext(null);
+
+const REVIEW_LEVEL = [
+  { title: "새싹", icon: "🌱" },
+  { title: "가지", icon: "🌿" },
+  { title: "열매", icon: "🍒" },
+  { title: "나무", icon: "🌲" },
+  { title: "숲", icon: "🌳🌳🌳" },
+  { title: "지구 지킴이", icon: "👑" },
+];
 
 function MyPage() {
   /** 유저를 저장하는 상태값입니다. 현재는 목업 데이터를 저장해두었습니다. 유저 로그인 기능 완성시 목업데이터 대신 null값을 넣어줍니다.*/
   const [user, setUser] = useState(MOCKUP_USER);
 
-  /** 유저 프로필 이미지를 상태를 관리합니다. */
-  const [profileImage, setProfileImage] = useState(null);
-
   /** 프로필을 수정중인지 검사하는 상태값입니다.*/
   const [isEdit, setIsEdit] = useState(false);
-
-  /** 리뷰 개수를 카운팅하는 상태값입니다. */
-  const [countReview, setCountReview] = useState(user?.count_visit);
 
   /** 리뷰 개수별 레벨을 매기는 상태값입니다. */
   const [reviewLevel, setReviewLevel] = useState({
     title: "새싹",
-    icone: "🌱",
+    icon: "🌱",
   });
-  // const { reviewLength } = useContext(ReviewStateContext);
-  // const ReviewState = { reviewLength, setReviewLength };
-  console.log("---------");
 
   /** 리뷰 list를 저장하는 상태값입니다. */
   const [reviews, setReviews] = useState([]);
 
   /** 북마크 list를 저장하는 상태값입니다. */
-  const [bookmarkShlters, setBookmarkShelters] = useState([]);
+  const [bookmarkShleters, setBookmarkShelters] = useState([]);
 
   /** 유저가 작성한 리뷰 리스트를 가지고 오는 목업 API입니다.*/
   const fetchReviews = async () => {
@@ -95,26 +93,13 @@ function MyPage() {
     }
   };
 
-  /** isEdit의 상태를 변경하는 핸들러 함수입니다. */
   const handleChangeEdit = () => {
     setIsEdit((prev) => !prev);
   };
 
-  /** 유저 프로필 업로드하는 핸들러 함수입니다. */
-  const handleFileChange = async (e) => {
-    const file = e.target.files[0];
-    const fileReader = new FileReader();
-    try {
-      if (file) {
-        console.log(file);
-        fileReader.onload = (e) => {
-          setProfileImage(e.target.result);
-        };
-        fileReader.readAsDataURL(file);
-      }
-    } catch (e) {
-      console.log(e);
-    }
+  const handleChangeReviewLevel = () => {
+    const levelIndex = reviews.length < 5 ? reviews.length : 5;
+    setReviewLevel(REVIEW_LEVEL[levelIndex]);
   };
 
   /** MyPage가 마운트 될 때 호출되는 API입니다. */
@@ -124,16 +109,21 @@ function MyPage() {
     // fetchBookmarkShelter();
   }, []);
 
+  useEffect(() => {
+    handleChangeReviewLevel();
+  }, [reviews]);
+
   if (!user) return <LoginForm />;
   return (
     <div className="flex flex-row overflow-y-auto min-h-full p-8 justify-between ">
       <div className="flex flex-col bg-slate-100 w-5/12 p-8 items-center rounded-xl">
         <UserProfile
           user={user}
-          handleChangeEdit={handleChangeEdit}
           isEdit={isEdit}
+          handleChangeEdit={handleChangeEdit}
           setReviewLevel={setReviewLevel}
-          profileImage={profileImage}
+          reviewLevel={reviewLevel}
+          reviewLength={reviews.length}
         />
       </div>
       <div className="flex flex-col w-6/12 rounded-xl">
