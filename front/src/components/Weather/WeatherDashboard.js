@@ -64,43 +64,62 @@ function WeatherDashboard (props) {
 
 
   return (
-    <div>
-      <div className="flex flex-row-reverse">
-        <p>{timestamp}, OpenWeatherMap 제공</p>
+    <div className="flex flex-col">
+      <div className="flex-none">
+        <p className=" mx-7 text-slate-500">{timestamp} 기준 OpenWeatherMap 제공 정보입니다.</p>
       </div>
-      <div id="weather-dashboard-content" className="w-full flex flex-col">
-        <div className="flex flex-row items-center box-border h-32 w-1/2 p-4 border-1  bg-red-500 border-red-500">
+      <div id="weather-dashboard-content" className="grid grid-cols-4 grid-rows-3 gap-5 p-5">
+        
+        <div className="col-start-1 col-end-3 row-start-1 row-end-2 flex flex-row items-center w-full bg-red-500 p-10">
           <FontAwesomeIcon icon={faCloudSun} size="3x" />
-          <div className="flex flex-col ml-8 text-white">
+          <div className="flex flex-col ml-8 text-white items-center">
             <h2 className="font-bold text-lg">현재 날씨</h2>
             <h1 className="font-bold text-2xl">{districtCurrentData.weather[0].description}</h1>
           </div>
         </div>
-        <div className="inline-flex">
-          <div className="flex flex-row items-center box-border h-32 w-80 p-4 mr-9 mt-6 border-1 bg-orange-400 border-amber-400">
-            <FontAwesomeIcon icon={faTemperatureHalf} size="4x" />
-            <div className="flex flex-row ml-8 text-white items-center">
-              <h2 className="font-bold text-lg">현재 기온</h2>
-              <h1 className="ml-5 font-bold text-3xl">{districtCurrentData.main.temp}°C</h1>
-            </div>
-          </div>
-          <div className="flex items-center box-border h-32 w-80 p-4 mt-6 border-1 bg-lime-600 border-lime-600">
-            <FontAwesomeIcon icon={faHandHoldingDroplet} size="3x" />
-            <div className="flex flex-row ml-8 text-white items-center">
-              <h2 className="font-bold text-lg">현재 습도</h2>
-              <h1 className="ml-5 font-bold text-3xl">{districtCurrentData.main.humidity}%</h1>
-            </div>
+
+        <div className="col-start-3 col-end-4 row-start-1 row-end-2 flex flex-row items-center w-full bg-red-500 p-10">
+          <FontAwesomeIcon icon={faCloudSun} size="3x" />
+          <div className="flex flex-col ml-8 text-white items-center">
+            <h2 className="font-bold text-lg">현재 날씨</h2>
+            <h1 className="font-bold text-2xl">{districtCurrentData.weather[0].description}</h1>
           </div>
         </div>
-        <div className="flex items-center box-border h-32 w-1/2 p-4 mt-6 border-1 bg-sky-600 border-sky-700">
+
+        <div className="col-start-4 col-end-5 row-start-1 row-end-2 flex flex-row items-center w-full bg-red-500 p-10">
+          <FontAwesomeIcon icon={faCloudSun} size="3x" />
+          <div className="flex flex-col ml-8 text-white items-center">
+            <h2 className="font-bold text-lg">건강 적신호</h2>
+            <h1 className="font-bold text-2xl">상태</h1>
+          </div>
+        </div>
+
+        <div className="col-start-1 col-end-3 row-start-2 row-end-3 flex flex-row items-center bg-orange-500 p-10">
+          <FontAwesomeIcon icon={faTemperatureHalf} size="3x" />
+          <div className="flex flex-row ml-8 text-white items-center">
+            <h2 className="font-bold text-lg">현재 기온</h2>
+            <h1 className="ml-5 font-bold text-3xl">{districtCurrentData.main.temp}°C</h1>
+          </div>
+        </div>
+
+        <div className="col-start-3 col-end-5 row-start-2 row-end-3 flex flex-row items-center bg-lime-500 p-10">
+          <FontAwesomeIcon icon={faHandHoldingDroplet} size="3x" />
+          <div className="flex flex-row ml-8 text-white items-center">
+            <h2 className="font-bold text-lg">현재 습도</h2>
+            <h1 className="ml-5 font-bold text-3xl">{districtCurrentData.main.humidity}%</h1>
+          </div>
+        </div>
+
+        <div className="col-start-1 col-end-2 row-start-3 row-end-4 flex flex-row items-center bg-sky-600 p-10">
           <FontAwesomeIcon icon={faUmbrella} size="3x" />
           <div className="flex flex-row ml-8 text-white items-center">
               <h2 className="font-bold text-lg">강우량</h2>
               {/* OpenWeatherMap에서 제공하는 3시간 단위의 5일치 예보 중에서, 현재 시간에 가장 가까운 3시간 예보의 인덱스인 0을 사용합니다. */}
               {/* OpenWeatherMap에서는 타임스탬프에 UTC+0 시간대를 사용하고 있습니다. */}
               <h1 className="ml-5 font-bold text-3xl">{districtForecastData.list[0].pop}</h1>
-            </div>
+          </div>
         </div>
+
       </div>
     </div>
   )

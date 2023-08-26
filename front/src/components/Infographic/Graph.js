@@ -1,4 +1,7 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+
+import 'chart.js/auto';
+
 import { Bar } from "react-chartjs-2";
 import { Line } from "react-chartjs-2";
 
@@ -21,21 +24,19 @@ function LineGraph (props) {
 
 const Graph = (props) => {
 
-  if(props.chartType == "bar"){
-    return (
-      <div>
-        <BarGraph chartData={props.chartData}/>
-      </div>
-    );
-  }
+  const chartType = props.chartType;
 
-  else if(props.chartType == "line"){
-    return (
-      <div>
-        <LineGraph chartData={props.chartData}/>
-      </div>
-    );
-  }
+  return (
+    <div className="w-full h-full">
+      {chartType === "bar" &&
+      <BarGraph chartData={props.chartData} />
+      }
+
+      {chartType == "line" &&
+      <LineGraph chartData={props.chartData} />
+      }
+    </div>
+  )
 
 };
 
