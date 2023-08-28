@@ -12,13 +12,19 @@ const ReviewInputForm = (props) => {
   // 사용자가 선택한 행정구역 정보를 담고 있는 district 상태값을 라우팅 파라미터인 params로써 API 요청에 반영합니다.
   const params = `/${props.selectedPoiId}`;
 
-  // 사용자가 작성한 리뷰 내용을 상태값으로 저장합니다.
-  const [data, setData] = useState('');
+  const HandleSubmit = async (event) =>{
+  
+    // onSubmit과 함께 기본적으로 작동하는 브라우저 새로고침을 차단해줍니다.
+    event.preventDefault();
 
-  // 사용자가 작성한 리뷰 내용을 상태값으로 저장합니다.
-  const [postTrigger, setPostTrigger] = useState(false);
+    // 사용자가 입력한 리뷰값을 data 변수에 대입합니다.
+    const data = {
+      "user_id" : "23854283becad19dae464c77",
+      "shelter_id" : props.selectedPoiId,
+      "description" : event.target.input.value,
+    }
 
-  useEffect(() => {
+    // 화면에 내용을 표시해야하는 GET 요청이 아니라 POST 요청이므로 굳이 useEffect를 사용할 필요 없이 event handler를 통해서 직접 실행합니다.
     const addReviewData = async () => {
       try{
         const res = await Api.postData(data, endpoint, params);
@@ -31,27 +37,8 @@ const ReviewInputForm = (props) => {
         return;
       }
       finally {
-        setPostTrigger(false);
       }
     }
-
-    addReviewData();
-  }, [postTrigger]);
-
-  const HandleSubmit = (event) =>{
-  
-    // onSubmit과 함께 기본적으로 작동하는 브라우저 새로고침을 차단해줍니다.
-    event.preventDefault();
-
-    // 사용자가 입력한 리뷰값을 data 변수에 대입합니다.
-    const data = {
-      "user_id" : "23854283becad19dae464c77",
-      "shelter_id" : props.selectedPoiId,
-      "description" : event.target.input.value,
-    }
-
-    setData(data);
-    setPostTrigger(true);
   };
 
   return(

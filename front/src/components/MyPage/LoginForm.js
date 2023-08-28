@@ -26,6 +26,7 @@ function LoginForm() {
       // 서버로부터 전달받은 사용자 정보에 있는 JWT 토큰 정보를 클라이언트측에서 사용하고자 합니다.
       const jwtToken = user.token;
 
+      /*
       // sessionStorage에 "userToken"이라는 이름으로 JWT 토큰을 저장합니다.
       sessionStorage.setItem("userToken", jwtToken);
 
@@ -36,7 +37,8 @@ function LoginForm() {
       });
 
       // 기본 페이지로 이동함.
-      navigate("/", { replace: true });
+      // navigate("/", { replace: true });
+      */
     } catch (err) {
       console.log("로그인을 시도하다가 오류가 발생했습니다. \n", err);
     }

@@ -148,7 +148,7 @@ function MyPage() {
         <div className="flex bg-slate-100 w-full h-full mt-10 p-8 rounded-xl">
           <p className="text-xl font-bold">내가 남긴 쉼터 후기</p>
         </div>
-        {/* <ReviewList list={reviewList}  /> Review리스트 컴포넌트 들어갈 자리입니다. 본인이 작업한 컴포넌트명과 props에 맞춰 수정해주세요. */}
+        {/* <ReviewList list={reviewList} /> Review리스트 컴포넌트 들어갈 자리입니다. 본인이 작업한 컴포넌트명과 props에 맞춰 수정해주세요. */}
       </div>
     </div>
   );
