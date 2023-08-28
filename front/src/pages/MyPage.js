@@ -14,7 +14,7 @@ const MOCKUP_USER = {
   description: "안녕하세요🥕",
   profileImage:
     "https://velog.velcdn.com/images/xiu_8/post/1fe5206b-f226-46b1-8f8a-6ed9d29a55bf/image.png",
-};
+}
 
 const REVIEW_LEVEL = [
   { title: "새싹", icon: "🌱" },
@@ -27,7 +27,7 @@ const REVIEW_LEVEL = [
 
 function MyPage() {
   /** 유저를 저장하는 상태값입니다. 현재는 목업 데이터를 저장해두었습니다. 유저 로그인 기능 완성시 목업데이터 대신 null값을 넣어줍니다.*/
-  const [user, setUser] = useState(MOCKUP_USER);
+  const [user, setUser] = useState(null);
 
   /** 프로필을 수정중인지 검사하는 상태값입니다.*/
   const [isEdit, setIsEdit] = useState(false);

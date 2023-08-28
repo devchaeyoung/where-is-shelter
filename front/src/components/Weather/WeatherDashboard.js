@@ -98,7 +98,7 @@ function WeatherDashboard (props) {
   }
 
   return (
-      <div id="weather-dashboard-content" className="grow overflow-y-auto max-h-[calc(100vh-14rem)] grid grid-cols-5 grid-rows-3 gap-5 p-5">
+      <div id="weather-dashboard-content" className="grow overflow-y-auto h-full grid grid-cols-5 grid-rows-3 gap-5 p-5">
         
         <div className="col-start-1 col-end-3 row-start-1 row-end-2">
           <div className="flex flex-row items-center justify-between w-full h-full p-10 rounded-2xl bg-blue-400">
