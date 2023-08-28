@@ -42,7 +42,6 @@ function WeatherDashboard (props) {
         setDistrictCurrentData(resCurrent.data);
         const resForecast = await WeatherApi.getForecastData('Seoul');
         setDistrictForecastData(resForecast.data);
-        setIsFetching(false);
 
         // 현재 날씨 위젯에 표시할 OpenWeatherMap 아이콘 Url을 상태값으로 지정합니다.
         setDynamicWidget({iconUrl: `https://openweathermap.org/img/wn/${resCurrent.data.weather[0].icon}@2x.png`});
@@ -81,6 +80,8 @@ function WeatherDashboard (props) {
         setError(`${err.name} : ${err.message}`);
         alert(`데이터를 가져오는 도중 에러가 발생했습니다: ${err}`);
         return;
+      } finally {
+        setIsFetching(false);
       }
     }
     fetchDistrictWeatherData();

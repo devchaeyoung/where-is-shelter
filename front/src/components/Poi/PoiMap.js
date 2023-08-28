@@ -15,7 +15,7 @@ import CurrentPositionContext from "../../contexts/CurrentPositionContext";
 function PoiMap() {
 
   /*
-  leaflet-react-cluster를 사용한 클러스터링에 사용되는
+  leaflet-react-cluster를 사용한 클러스터링 코드입니다.
 
   const customIcon = new L.Icon({
     iconUrl: require('../images/location.svg').default,
@@ -64,7 +64,7 @@ function PoiMap() {
                   }}
                 >
                   <Popup>
-                    <h1>{item.name}</h1>
+                    <h1 className="font-bold">{item.name}</h1>
                     <p>{`${item.address.split(' ')[0]} ${item.address.split(' ')[1]} ${item.address.split(' ')[2]}`}</p>
                     <p>{item.shelter_type}</p>
                   </Popup>
@@ -78,7 +78,7 @@ function PoiMap() {
               {coordinate =>
                 <Marker position={[coordinate[0], coordinate[1]]}>
                   <Popup>
-                    <h1>마지막으로 파악된 현재 위치입니다.</h1>
+                    <h1 className="font-bold">마지막으로 파악된 현재 위치</h1>
                     <p>위도: {coordinate[0]}</p>
                     <p>경도: {coordinate[1]}</p>
                   </Popup>
