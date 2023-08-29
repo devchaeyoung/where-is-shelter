@@ -1,8 +1,14 @@
-import { React, useEffect, useState } from "react";
-import LoginForm from "../components/MyPage/LoginForm";
+import { React, useEffect, useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
 import UserProfile from "../components/MyPage/UserProfile";
+
 import * as Api from "../apis/api";
 
+import UserStateContext from "../contexts/UserStateContext";
+import DispatchContext from "../contexts/DispatchContext";
+
+/*
 const MOCKUP_USER = {
   _id: 1,
   email: "elice@test.com",
@@ -15,6 +21,7 @@ const MOCKUP_USER = {
   profileImage:
     "https://velog.velcdn.com/images/xiu_8/post/1fe5206b-f226-46b1-8f8a-6ed9d29a55bf/image.png",
 }
+*/
 
 const REVIEW_LEVEL = [
   { title: "새싹", icon: "🌱" },
@@ -26,8 +33,12 @@ const REVIEW_LEVEL = [
 ];
 
 function MyPage() {
+
+  const dispatch = useContext(DispatchContext);
+  const userState = useContext(UserStateContext);
+
   /** 유저를 저장하는 상태값입니다. 현재는 목업 데이터를 저장해두었습니다. 유저 로그인 기능 완성시 목업데이터 대신 null값을 넣어줍니다.*/
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(userState.user);
 
   /** 프로필을 수정중인지 검사하는 상태값입니다.*/
   const [isEdit, setIsEdit] = useState(false);
@@ -44,10 +55,13 @@ function MyPage() {
   /** 북마크 list를 저장하는 상태값입니다. */
   const [bookmarkShleters, setBookmarkShelters] = useState([]);
 
+  const navigate = useNavigate();
+
   /** 유저가 작성한 리뷰 리스트를 가지고 오는 목업 API입니다.*/
   const fetchReviews = async () => {
     try {
       const endpoint = "/review";
+      const params = ""
       const res = await Api.getData(endpoint);
       // setReviews(res.data); // 유저 로그인 기능 완성시 주석해제하시면 됩니다.
     } catch (e) {
@@ -117,16 +131,25 @@ function MyPage() {
 
   /** MyPage가 마운트 될 때 호출되는 API입니다. */
   useEffect(() => {
-    // fetchUserInfo(); // 유저 로그인 기능 완성시 주석 해제하시면 됩니다.
-    // fetchReviews();
-    // fetchBookmarkShelter();
+    fetchUserInfo(); // 유저 로그인 기능 완성시 주석 해제하시면 됩니다.
+    fetchReviews();
+    fetchBookmarkShelter();
   }, []);
 
   useEffect(() => {
     handleChangeReviewLevel();
   }, [reviews]);
 
-  if (!user) return <LoginForm />;
+  if(!user) {
+    alert("로그인을 먼저 해주세요.")
+    navigate("/login", { replace: true });
+    return(
+      <div className="flex flex-col w-full h-full justify-center items-center">
+        <p className="font-bold text-lg">로그인을 먼저 해주세요.</p>
+      </div>
+    )
+  }
+
   return (
     <div className="flex flex-row overflow-y-auto min-h-full p-8 justify-between ">
       <div className="flex flex-col bg-slate-100 w-5/12 p-8 items-center rounded-xl">
