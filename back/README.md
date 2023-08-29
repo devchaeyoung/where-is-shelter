@@ -1,17 +1,7 @@
-# 소통을 위한 back 서버 실행법
-
+# 실행 방법
 - 먼저 `cd back` 명령어를 통해 back 디렉토리로 이동해줍니다.
-
-## 서버 실행시키는 법
-
-1. back 디렉토리에서 `npm i` 명령어를 통해 pakage.json에 설정값으 받아줍니다.
-
-```
-npm i
-```
-
-2. `.env` 파일을 만들어 기본 환경을 세팅합니다.
-
+## 환경변수 파일 설정해주기
+- `.env` 파일을 만들어 기본 환경을 세팅합니다.
 - 입력값
 
 ```
@@ -21,20 +11,24 @@ JWT_SECRET_KEY = "goahead"
 JWT_ALG = "HS256"
 JWT_EXP = "30m"
 ```
+## 서버 실행시키는 법
 
-3. 실행명령어 터미널에 입력해주기
+1. back 디렉토리에서 `npm i`또는 `yarn` 명령어를 통해 pakage.json에 설정값을 받아줍니다.
 
-- `yarn start`또는 `npm start`명령어를 이용해 서버를 실행 시켜줍니다.
+```
+npm i
+yarn
+
+```
+
+2. 실행명령어 터미널에 입력해주기
+
+- `yarn start`또는 `npm run start`명령어를 이용해 서버를 실행 시켜줍니다.
 - `--watch`모드로 실행할 시 `yarn dev` 또는 `npm dev` 명령어를 입력해줍니다.
 
 ```
 yarn start
 yarn dev
-```
-
-```
-npm start
-npm dev
 ```
 
 4. 연결 성공
