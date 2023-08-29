@@ -5,6 +5,11 @@ import nodemailer from "nodemailer";
 
 
 class UserService {
+  /** 프로필 사진 업로드 */
+  static async uploadProfile({ id, profile_image }) {
+    const user = await UserModel.findById(id);
+    return UserModel.update({ _id: id, fieldToUpdate: "profile_image", newValue: profile_image });
+  }
   /** 신규 유저 생성 함수*/
   static async addUser({ name, nickname, email, password, description, profile_image }) {
     const user = await UserModel.findByEmail({ email })

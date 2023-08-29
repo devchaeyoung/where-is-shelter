@@ -2,6 +2,20 @@ import UserService from "../services/userService";
 import { StatusCodes } from "http-status-codes";
 
 class UserController {
+  static async uploadProfile(req, res) {
+    try {
+      const id = req.currentUserId;
+      const image = req.file.path;
+      if (!image) {
+        throw new Error("이미지가 존재하지 않습니다.");
+      }
+      const uploadProfile = await UserService.uploadProfile({ id, profile_image: image });
+      console.log(uploadProfile);
+      res.status(200).send(uploadProfile);
+    } catch (error) {
+      next(error);
+    }
+  }
   /**회원가입 */
   static async addUser(req, res, next) {
     try {
