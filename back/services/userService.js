@@ -57,8 +57,8 @@ class UserService {
 
   /** 유저 마이페이지 함수*/
   static async detailUser({ id }) {
-    const user = await UserModel.findById(id)
-  
+    const user = await UserModel.findById({ id })
+
     const name = user.name
     const nickname = user.nickname
     const address = user.address
@@ -106,6 +106,12 @@ class UserService {
       user = await UserModel.update({ _id: id, fieldToUpdate, newValue });
     }
 
+    if (toUpdate.count_visit) {
+      const fieldToUpdate = "count_visit";
+      const newValue = toUpdate.count_visit;
+      user = await UserModel.update({ _id: id, fieldToUpdate, newValue });
+    }
+
     if (toUpdate.address) {
       const fieldToUpdate = "address";
       const newValue = toUpdate.address;
@@ -129,7 +135,7 @@ class UserService {
 
   /** 회원탈퇴 함수*/
   static async deleteUser({ id }) {
-    const deletedUser = await UserModel.deleteById(id)
+    const deletedUser = await UserModel.deleteById({ id })
     return deletedUser
   }
 
