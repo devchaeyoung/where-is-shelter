@@ -21,26 +21,23 @@ nano .env
 - `ctrl+x`를 누르고 `y`를 눌러 저장을 해줍니다. 
 
 ## 서버 실행시키는 법
-
-1. back 디렉토리에서 `npm i`또는 `yarn` 명령어를 통해 pakage.json에 설정값을 받아줍니다.
+- back 디렉토리에서 각자 개발 환경에 맞춰 아래 명령어를 순서대로 입력합니다.
+1. npm으로 실행하기
 
 ```
 npm i
-yarn
+npm run start
 
 ```
-
-2. 실행명령어 터미널에 입력해주기
-
-- `yarn start`또는 `npm run start`명령어를 이용해 서버를 실행 시켜줍니다.
+2. yarn으로 실행하기
+```
+yarn
+yarn start
+```
 - `--watch`모드로 실행할 시 `yarn dev` 또는 `npm dev` 명령어를 입력해줍니다.
 
-```
-yarn start
-yarn dev
-```
-
-4. 연결 성공
+3. 연결 성공
 
 - 터미널 창에 `정상적으로 연결되었습니다.` 문구가 뜨는 걸 확인한 후
   localhost:포트번호로 접속해줍니다.
+- Hello World가 뜨면 성공!
