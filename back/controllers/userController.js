@@ -66,11 +66,11 @@ class UserController {
   static async setUser(req, res, next) {
     try {
       // URI로부터 사용자 id를 추출함.
-      const { name, nickname, email, password, address, description, profile_image } = req.body;
+      const { name, nickname, email, password, address, count_visit, description, profile_image } = req.body;
       const id = req.currentUserId;
       // body data 로부터 업데이트할 사용자 정보를 추출함.
 
-      const toUpdate = { name, nickname, email, password, address, description, profile_image };
+      const toUpdate = { name, nickname, email, password, address, count_visit, description, profile_image };
 
       // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
       const updatedUser = await UserService.setUser({ id, toUpdate });
