@@ -2,9 +2,10 @@ import { React, useState, useEffect, useRef } from 'react';
 
 const CurrentPosition = ({handleState}) => {
 
-  // [TO-DO] 전역변수는 안티패턴이므로 사용을 자제해야 합니다.
-  let receivedLatitude = '';
-  let receivedLongitude = '';
+  // 좌표값을 전역변수로 지정하는것은 안티패턴이므로 사용을 자제해야 합니다.
+  // [REFACTORED] 좌표를 state로 저장합니다.
+  const [receivedLatitude, setReceivedLatitude] = useState('');
+  const [receivedLongitude, setReceivedLongitude] = useState('');
 
   const [isActive, setIsActive] = useState(false);
   
@@ -16,14 +17,14 @@ const CurrentPosition = ({handleState}) => {
   }
   
   function success(position) {
-    receivedLatitude = position.coords.latitude;
-    receivedLongitude = position.coords.longitude;
+    setReceivedLatitude(position.coords.latitude);
+    setReceivedLongitude(position.coords.longitude);
 
     // 부모 컴포넌트인 PoiPage로부터 전달받은 handleState 함수를 사용해서,
     // 부모 컴포넌트인 PoiPage 및 자식 컴포넌트의 PoiMap의 latitude와 longitude 상태값을 갱신시켜 줍니다.
     handleState(receivedLatitude, receivedLongitude);
 
-    alert(`위도: ${position.coords.latitude} /` + ` 경도: ${position.coords.longitude} /` + ` 정확도: 약 ${position.coords.accuracy} 미터`);
+    // alert(`위도: ${position.coords.latitude} /` + ` 경도: ${position.coords.longitude} /` + ` 정확도: 약 ${position.coords.accuracy} 미터`);
   }
   
   function error(err) {

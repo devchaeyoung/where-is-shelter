@@ -130,7 +130,6 @@ class UserController {
           'Authorization': 'Bearer ' + accessTokenGet.data.access_token
         }
       })
-      console.log(getKakaoUserInfo.data)
 
       const KakaoUserInfo = getKakaoUserInfo.data
       const user = await UserService.getAuthUser({ 
