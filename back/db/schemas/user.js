@@ -9,12 +9,12 @@ const userSchema = new Schema(
     },
     name: {
       type: String,
-      required: true,
-      unique: true,
+      required: false,
     },
     nickname: {
       type: String,
       required: true,
+      unique: true,
     },
     password: {
       type: String,
