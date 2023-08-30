@@ -62,6 +62,8 @@ function LoginPage() {
           payload: user,
         });
 
+        console.log(user)
+
         // 로그인이 완료되면 마이페이지 경로로 이동합니다.
         navigate("/", { replace: true });
       }

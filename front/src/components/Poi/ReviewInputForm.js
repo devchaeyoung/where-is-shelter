@@ -4,8 +4,15 @@ import useApi from "../../hooks/useApi";
 
 import * as Api from "../../apis/api";
 
+import UserStateContext from "../../contexts/UserStateContext";
+import DispatchContext from "../../contexts/DispatchContext";
+
 const ReviewInputForm = (props) => {
 
+  const dispatch = useContext(DispatchContext);
+  const userState = useContext(UserStateContext);
+
+  console.log(userState.user)
   // API 요청에 사용되는 endpoint를 지정해줍니다.
   const endpoint = '/review';
 
@@ -19,26 +26,30 @@ const ReviewInputForm = (props) => {
 
     // 사용자가 입력한 리뷰값을 data 변수에 대입합니다.
     const data = {
-      "user_id" : "23854283becad19dae464c77",
+      "user_id" : userState.user.id,
+      "nickname" : userState.user.nickname,
       "shelter_id" : props.selectedPoiId,
       "description" : event.target.input.value,
     }
 
     // 화면에 내용을 표시해야하는 GET 요청이 아니라 POST 요청이므로 굳이 useEffect를 사용할 필요 없이 event handler를 통해서 직접 실행합니다.
-    const addReviewData = async () => {
-      try{
-        const res = await Api.postData(data, endpoint, params);
-        if(res.data.errorMessage){
-          alert(`리뷰를 추가하는 도중 오류가 발생했습니다: ${res.data.errorMessage}`);
-          return;
-        }
-      } catch (err) {
-          alert(`리뷰를 추가하는 도중 오류가 발생했습니다: ${err}`);
+    try{
+      console.log(data)
+      const res = await Api.postData(data, endpoint, params);
+      console.log(res)
+      if(!res.data.errorMessage){
+        alert(`리뷰를 성공적으로 추가했습니다.`);
         return;
       }
-      finally {
+      if(res.data.errorMessage){
+        alert(`리뷰를 추가하는 도중 오류가 발생했습니다: ${res.data.errorMessage}`);
+        return;
       }
+    } catch (err) {
+        alert(`리뷰를 추가하는 도중 오류가 발생했습니다: ${err}`);
+      return;
     }
+
   };
 
   return(

@@ -15,12 +15,14 @@ function RegisterPage() {
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
+  const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
 
   useEffect(() => {
     if (userState.user) {
+      alert("이미 로그인이 된 상태입니다. 회원가입을 진행하시려면 로그아웃을 먼저 해주세요.");
       navigate("/", { replace: true });
       return;
     }
@@ -32,6 +34,7 @@ function RegisterPage() {
     event.preventDefault();
 
     setName(event.target.name.value)
+    setNickname(event.target.nickname.value)
     setEmail(event.target.email.value)
     setPassword(event.target.password.value)
 
@@ -42,23 +45,23 @@ function RegisterPage() {
     try {
       const res = await Api.postData({
         "name": name,
-        "nickname": name,
+        "nickname": nickname,
         "email": email,
         "password": password,
-        "description": "test",
-        "profile_image": "test",
+        "description": "내용을 입력해주세요",
+        "profile_image": "default",
         "count_visit": 0,
       }, endpoint, params);
 
-      if(res.data.email){
+      if(res.status == 200){
         alert("회원 가입이 성공적으로 처리되었습니다.");
         console.log("회원 가입 성공: ", res.data.email);  
         navigate("/login", { replace: true });
       }
 
-      if(!res.data.email){
+      if(res.errorMessage){
         alert("사용자 계정을 만드는 도중 오류가 발생했습니다.");
-        console.log("사용자 계정을 만드는 도중 오류가 발생했습니다.", res.data);
+        console.log("사용자 계정을 만드는 도중 오류가 발생했습니다.", res.errorMessage);
         navigate("/register", { replace: true });
       }
       
@@ -70,23 +73,27 @@ function RegisterPage() {
     }
   };
 
+  // [TO-DO] 비밀번호 확인 입력값이 비밀번호와 동일한지 검증하는 로직을 작성해야 합니다.
+
   return (
     <div className="flex flex-col w-full h-full justify-center items-center">
       <div className="flex flex-col w-[50%] h-[80%] bg-slate-100 rounded-xl items-center justify-center">
         <form className="flex flex-col h-[70%] items-center justify-evenly" onSubmit={handleSubmit}>
           <h1 className="font-bold text-xl">회원가입</h1>
-          <div className="flex flex-row h-48">
-            <div className="flex flex-col justify-evenly text-right mr-5">
+          <div className="flex flex-row h-full">
+            <div className="flex flex-col h-full justify-evenly text-right mr-5">
               <p>이름:</p>
+              <p>별명:</p>
               <p>이메일:</p>
               <p>비밀번호:</p>
               <p>비밀번호 확인:</p>
             </div>
-            <div className="flex flex-col justify-evenly">
-              <input className="p-2 rounded-xl" type="text" id="name" required></input>
-              <input className="p-2 rounded-xl" type="text" id="email" required></input>
-              <input className="p-2 rounded-xl" type="password" id="password" required></input>
-              <input className="p-2 rounded-xl" type="password" id="password-confirm" required></input>
+            <div className="flex flex-col h-full justify-evenly">
+              <input className="p-1 px-2 rounded-xl" type="text" id="name" required></input>
+              <input className="p-1 px-2 rounded-xl" type="text" id="nickname" required></input>
+              <input className="p-1 px-2 rounded-xl" type="text" id="email" required></input>
+              <input className="p-1 px-2 rounded-xl" type="password" id="password" required></input>
+              <input className="p-1 px-2 rounded-xl" type="password" id="password-confirm" required></input>
             </div>
           </div>
           <button className="bg-green-400 p-3 rounded-xl">회원가입</button>

@@ -43,10 +43,11 @@ function UserProfile({
   const handleSubmit = () => {
     fetchUserUpdate({ nickname, description, address, profileImage });
   };
+
   return (
     <>
       {isEdit ? (
-        <>
+        <div className="flex flex-col">
           <p className="text-xl h-12 font-bold mt-0">
             {user?.name}님 반갑습니다!
           </p>
@@ -84,8 +85,8 @@ function UserProfile({
             </label>
           </div>
           <div className="flex w-full">
-            <div className="w-full h-full mt-10">
-              <div className="flex items-center space-x-7 mt-8">
+            <div className="flex flex-col w-full h-full my-10">
+              <div className="flex items-center space-x-7">
                 <p className="grow-0 w-16 font-bold text-slate-400">별명</p>
                 <input
                   type="text"
@@ -121,7 +122,7 @@ function UserProfile({
               </div>
             </div>
           </div>
-        </>
+        </div>
       ) : (
         <>
           <div className="rounded-full w-80 h-80 flex items-center justify-center overflow-hidden mb-8">
@@ -144,12 +145,20 @@ function UserProfile({
           </div>
         </>
       )}
-      <div className="flex w-full relative">
+
+      <div className="flex flex-col w-full">
         {isEdit ? (
-          <form className="flex mt-3 text-center">
-            <div className="absolute right-0">
+          <div className="flex flex-row-reverse mt-3 text-center">
+            <div className="flex flex-row items-center justify-center">
+
+              <a href="/unregister"
+                className="text-slate-500 underline"
+              >
+                회원 탈퇴
+              </a>
+
               <button
-                className="grow text-l font-bold mt-0 p-3 rounded-xl bg-green-300 hover:bg-green-600 mr-3"
+                className="grow text-l font-bold mt-0 p-3 ml-5 rounded-xl bg-green-300 hover:bg-green-600 mr-3"
                 onClick={() => {
                   handleSubmit();
                   handleChangeEdit();
@@ -157,6 +166,7 @@ function UserProfile({
               >
                 저장하기
               </button>
+              
               <button
                 className="grow text-l font-bold mt-0 p-3 rounded-xl bg-red-300 hover:bg-slate-400 "
                 onClick={handleChangeEdit}
@@ -164,14 +174,17 @@ function UserProfile({
                 돌아가기
               </button>
             </div>
-          </form>
+
+          </div>
         ) : (
-          <button
-            className="text-l font-bold mt-0 p-3 rounded-xl bg-green-300 hover:bg-green-600 absolute right-0"
-            onClick={handleChangeEdit}
-          >
-            내 정보
-          </button>
+          <div className="flex flex-row">
+            <button
+              className="text-l font-bold mt-0 p-3 rounded-xl bg-green-300 hover:bg-green-600 "
+              onClick={handleChangeEdit}
+            >
+              내 정보
+            </button>
+          </div>
         )}
       </div>
     </>

@@ -25,47 +25,6 @@ function App() {
     user: null,
   });
 
-  const [isFetchCompleted, setIsFetchCompleted] = useState(false);
-
-  const fetchCurrentUser = async () => {
-    try {
-
-      // 만약에 이전에 발급받은 토큰이 있다면, 토큰으로 사용자 정보를 가져옵니다.
-      const endpoint = '/user'
-      const params = '/login'
-      const res = await Api.getData(endpoint, params);
-      const currentUser = res.data;
-
-      const jwtToken = currentUser.token;
-
-      if(jwtToken) { 
-        // sessionStorage에 "userToken"이라는 이름으로 JWT 토큰을 저장합니다.
-        sessionStorage.setItem("userToken", jwtToken);
-
-        // dispatch 함수를 이용해 로그인 성공 신호와 사용자 정보를 상태값으로 저장합니다.
-        dispatch({
-          type: "LOGIN_SUCCESS",
-          payload: currentUser,
-        });
-
-        console.log("%c sessionStorage에 토큰 있음.", "color: #d93d1a;");
-      }
-
-      if(!jwtToken) {
-        dispatch({
-          type: "LOGOUT",
-          payload: null,
-        });
-      }
-
-    } catch (error) {
-      console.log(`에러가 발생했습니다: ${error}`);
-    }
-    // fetchCurrentUser 과정이 끝났으므로, isFetchCompleted 상태를 true로 바꿔줌
-    setIsFetchCompleted(true);
-  };
-
-
   return (
     <div>
       <DispatchContext.Provider value={dispatch}>

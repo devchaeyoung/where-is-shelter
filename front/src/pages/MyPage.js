@@ -37,7 +37,14 @@ function MyPage() {
   const dispatch = useContext(DispatchContext);
   const userState = useContext(UserStateContext);
 
-  /** 유저를 저장하는 상태값입니다. 현재는 목업 데이터를 저장해두었습니다. 유저 로그인 기능 완성시 목업데이터 대신 null값을 넣어줍니다.*/
+  const navigate = useNavigate();
+
+  // 로그인이 되어있지 않아 UserStateContext의 user값이 없을 경우 로그인 화면으로 이동시킵니다.
+  if(!userState.user) {
+    alert("로그인을 먼저 해주세요.")
+    navigate("/login");
+  }
+
   const [user, setUser] = useState(userState.user);
 
   /** 프로필을 수정중인지 검사하는 상태값입니다.*/
@@ -55,15 +62,13 @@ function MyPage() {
   /** 북마크 list를 저장하는 상태값입니다. */
   const [bookmarkShleters, setBookmarkShelters] = useState([]);
 
-  const navigate = useNavigate();
-
   /** 유저가 작성한 리뷰 리스트를 가지고 오는 목업 API입니다.*/
   const fetchReviews = async () => {
     try {
       const endpoint = "/review";
       const params = ""
       const res = await Api.getData(endpoint);
-      // setReviews(res.data); // 유저 로그인 기능 완성시 주석해제하시면 됩니다.
+      setReviews(res.data); // 유저 로그인 기능 완성시 주석해제하시면 됩니다.
     } catch (e) {
       console.log(e.response.message);
     }
@@ -72,9 +77,10 @@ function MyPage() {
   /** 내가 찜한 쉼터 리스트를 가져오는 목업 API입니다. */
   const fetchBookmarkShelter = async () => {
     try {
-      const endpoint = "/bookmark/user_id/:shelter_id";
-      const res = await Api.getData(endpoint);
-      // setBookmarkShelters(res.data); // 유저 로그인 기능 완성시 주석해제하시면 됩니다.
+      const endpoint = "/bookmark";
+      const params = `/${userState.user.id}`;
+      const res = await Api.getData(endpoint, params);
+      setBookmarkShelters(res.data); // 유저 로그인 기능 완성시 주석해제하시면 됩니다.
     } catch (e) {
       console.log(e.response.message);
     }
@@ -83,6 +89,7 @@ function MyPage() {
   /** 유저 정보를 받아오는 목업 API입니다.*/
   const fetchUserInfo = async () => {
     try {
+      // 프론트엔드에서 보내주는 헤더에 있는 JWT 값으로 사용자를 판별합니다.
       const endpoint = "/user/mypage";
       const res = await Api.getData(endpoint);
       if (res.status === 200) {
@@ -102,7 +109,6 @@ function MyPage() {
   }) => {
     try {
       const endpoint = "/user/mypage";
-
       const formData = new FormData();
       formData.append("nickname", nickname);
       formData.append("description", description);
@@ -110,6 +116,7 @@ function MyPage() {
       formData.append("profileImage", profileImage);
 
       const res = await Api.putMulter(endpoint, formData);
+      console.log(res)
       if (res.status === 200) {
         setUser(res.data);
       }
@@ -131,7 +138,7 @@ function MyPage() {
 
   /** MyPage가 마운트 될 때 호출되는 API입니다. */
   useEffect(() => {
-    fetchUserInfo(); // 유저 로그인 기능 완성시 주석 해제하시면 됩니다.
+    fetchUserInfo();
     fetchReviews();
     fetchBookmarkShelter();
   }, []);
@@ -139,16 +146,6 @@ function MyPage() {
   useEffect(() => {
     handleChangeReviewLevel();
   }, [reviews]);
-
-  if(!user) {
-    alert("로그인을 먼저 해주세요.")
-    navigate("/login", { replace: true });
-    return(
-      <div className="flex flex-col w-full h-full justify-center items-center">
-        <p className="font-bold text-lg">로그인을 먼저 해주세요.</p>
-      </div>
-    )
-  }
 
   return (
     <div className="flex flex-row overflow-y-auto min-h-full p-8 justify-between ">
