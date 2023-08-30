@@ -14,12 +14,6 @@ function RegisterPage() {
 
   const navigate = useNavigate();
 
-  const [name, setName] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-
   useEffect(() => {
     if (userState.user) {
       alert("이미 로그인이 된 상태입니다. 회원가입을 진행하시려면 로그아웃을 먼저 해주세요.");
@@ -33,25 +27,25 @@ function RegisterPage() {
     
     event.preventDefault();
 
-    setName(event.target.name.value)
-    setNickname(event.target.nickname.value)
-    setEmail(event.target.email.value)
-    setPassword(event.target.password.value)
-
     const endpoint = '/user';
 
     const params = '/register';
 
     try {
       const res = await Api.postData({
-        "name": name,
-        "nickname": nickname,
-        "email": email,
-        "password": password,
+        "name": event.target.name.value,
+        "nickname": event.target.nickname.value,
+        "email": event.target.email.value,
+        "password": event.target.password.value,
         "description": "내용을 입력해주세요",
-        "profile_image": "default",
+        "profile_image": null,
         "count_visit": 0,
       }, endpoint, params);
+
+      if(event.target.password.value !== event.target.password_confirm.value){
+        alert("입력하신 비밀번호 확인값이 일치하지 않습니다.");
+        navigate("/register", { replace: true });
+      }
 
       if(res.status == 200){
         alert("회원 가입이 성공적으로 처리되었습니다.");
@@ -93,7 +87,7 @@ function RegisterPage() {
               <input className="p-1 px-2 rounded-xl" type="text" id="nickname" required></input>
               <input className="p-1 px-2 rounded-xl" type="text" id="email" required></input>
               <input className="p-1 px-2 rounded-xl" type="password" id="password" required></input>
-              <input className="p-1 px-2 rounded-xl" type="password" id="password-confirm" required></input>
+              <input className="p-1 px-2 rounded-xl" type="password" id="password_confirm" required></input>
             </div>
           </div>
           <button className="bg-green-400 p-3 rounded-xl">회원가입</button>

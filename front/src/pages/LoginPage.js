@@ -14,11 +14,6 @@ function LoginPage() {
 
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
-
-  const [password, setPassword] = useState("");
-
-
   useEffect(() => {
     if (userState.user) {
       console.log(userState.user)
@@ -32,17 +27,14 @@ function LoginPage() {
     
     event.preventDefault();
 
-    setEmail(event.target.email.value)
-    setPassword(event.target.password.value)
-
     const endpoint = '/user';
 
     const params = '/login';
 
     try {
       const res = await Api.postData({
-        email,
-        password,
+        email: event.target.email.value,
+        password: event.target.password.value
       }, endpoint, params);
 
       const user = res.data;
@@ -51,6 +43,12 @@ function LoginPage() {
 
       // 서버로부터 전달받은 사용자 정보에 있는 JWT 토큰 정보를 클라이언트측에서 사용하고자 합니다.
       const jwtToken = user.token;
+
+      // 백엔드에서 보내주는 응답이 정상적인 사용자 정보인지 (로그인 성공) 아니면 에러 메세지인지 (로그인 실패) 알 수 없으므로,
+      // 응답에 jwtToken이 들어있는지 아닌지의 여부로 로그인 성공/실패를 판별합니다.
+
+      // [TO-DO][REFACTOR] 처음부터 백엔드에서 data와 함께 성공/실패 여부를 (예를 들면 boolean 값으로) 객체에 담아 보내주고, 
+      //                   프론트엔드에서 그것을 캐치하는 것이 바람직합니다.
 
       if(jwtToken) { 
         // sessionStorage에 "userToken"이라는 이름으로 JWT 토큰을 저장합니다.
@@ -97,6 +95,12 @@ function LoginPage() {
           </div>
           <button className="bg-green-400 p-3 mx-5 rounded-xl">로그인</button>
         </form>
+        <div className="flex flex-row w-full items-center justify-center">
+          <span>소셜 로그인:</span>
+          <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=a270999471ec06e899cd039af9e316f0&redirect_uri=http://34.64.160.14:5002/user/auth/kakao">
+            <img src="/images/kakao-oauth.png" alt="카카오계정 OAuth 로그인" className="w-8 h-8 mx-4"></img>
+          </a>
+        </div>
         <Link to='/register' className="font-bold mt-10 underline">회원가입</Link>
       </div>
     </div>

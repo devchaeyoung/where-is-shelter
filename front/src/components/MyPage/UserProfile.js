@@ -1,3 +1,5 @@
+import { Link, useNavigate } from "react-router-dom";
+
 import { useState } from "react";
 
 function UserProfile({
@@ -91,7 +93,7 @@ function UserProfile({
                 <input
                   type="text"
                   className="grow w-120 h-10 border-2 border-solid border-slate-400 rounded-xl mr-24 mt-1"
-                  placeholdere={user?.nickname}
+                  placeholder={user?.nickname}
                   value={nickname}
                   onChange={(e) => setNickname(e.target.value)}
                 />
@@ -103,7 +105,7 @@ function UserProfile({
                 <input
                   type="text"
                   className="grow w-120 h-10 border-2 border-solid border-slate-400 rounded-xl mr-24 mt-1"
-                  placeholdere={user?.description}
+                  placeholder={user?.description}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
@@ -115,7 +117,7 @@ function UserProfile({
                 <input
                   type="text"
                   className="grow w-120 h-10 border-2 border-solid border-slate-400 rounded-xl mr-24 mt-1"
-                  placeholdere="변경할 주소를 입력해주세요"
+                  placeholder="변경할 주소를 입력해주세요"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                 />
@@ -151,11 +153,11 @@ function UserProfile({
           <div className="flex flex-row-reverse mt-3 text-center">
             <div className="flex flex-row items-center justify-center">
 
-              <a href="/unregister"
+              <Link to="/unregister"
                 className="text-slate-500 underline"
               >
                 회원 탈퇴
-              </a>
+              </Link>
 
               <button
                 className="grow text-l font-bold mt-0 p-3 ml-5 rounded-xl bg-green-300 hover:bg-green-600 mr-3"

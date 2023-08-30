@@ -2,6 +2,7 @@ import { React, useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import UserProfile from "../components/MyPage/UserProfile";
+import ReviewList from "../components/MyPage/ReviewList";
 
 import * as Api from "../apis/api";
 
@@ -39,12 +40,6 @@ function MyPage() {
 
   const navigate = useNavigate();
 
-  // 로그인이 되어있지 않아 UserStateContext의 user값이 없을 경우 로그인 화면으로 이동시킵니다.
-  if(!userState.user) {
-    alert("로그인을 먼저 해주세요.")
-    navigate("/login");
-  }
-
   const [user, setUser] = useState(userState.user);
 
   /** 프로필을 수정중인지 검사하는 상태값입니다.*/
@@ -60,15 +55,15 @@ function MyPage() {
   const [reviews, setReviews] = useState([]);
 
   /** 북마크 list를 저장하는 상태값입니다. */
-  const [bookmarkShleters, setBookmarkShelters] = useState([]);
+  const [bookmarkShelters, setBookmarkShelters] = useState([]);
 
   /** 유저가 작성한 리뷰 리스트를 가지고 오는 목업 API입니다.*/
   const fetchReviews = async () => {
     try {
       const endpoint = "/review";
-      const params = ""
       const res = await Api.getData(endpoint);
-      setReviews(res.data); // 유저 로그인 기능 완성시 주석해제하시면 됩니다.
+      setReviews(res.data); 
+      console.log(res)
     } catch (e) {
       console.log(e.response.message);
     }
@@ -80,7 +75,7 @@ function MyPage() {
       const endpoint = "/bookmark";
       const params = `/${userState.user.id}`;
       const res = await Api.getData(endpoint, params);
-      setBookmarkShelters(res.data); // 유저 로그인 기능 완성시 주석해제하시면 됩니다.
+      setBookmarkShelters(res.data);
     } catch (e) {
       console.log(e.response.message);
     }
@@ -108,7 +103,7 @@ function MyPage() {
     profileImage,
   }) => {
     try {
-      const endpoint = "/user/mypage";
+      const endpoint = "/user/update";
       const formData = new FormData();
       formData.append("nickname", nickname);
       formData.append("description", description);
@@ -136,17 +131,33 @@ function MyPage() {
     setReviewLevel(REVIEW_LEVEL[levelIndex]);
   };
 
-  /** MyPage가 마운트 될 때 호출되는 API입니다. */
+  // 로그인이 되어있지 않아 UserStateContext에 user값이 없을 경우 로그인 화면으로 이동시킵니다.
   useEffect(() => {
+    if(userState.user) return;
+    
+    alert("로그인을 먼저 해주세요.")
+    navigate("/login");
+  }, [userState.user])
+
+
+  useEffect(() => {  
+    // 로그인 상태가 아니라면 useEffect 내부의 함수들을 실행하지 않습니다.
+    // 이 코드가 없으면 로그인이 되지 않은 상태에서 useEffect 내부의 함수들이 실행되어 undefined 에러를 발생시킵니다.
+    if(!userState.user) return;
+
     fetchUserInfo();
     fetchReviews();
     fetchBookmarkShelter();
   }, []);
 
   useEffect(() => {
+    // 로그인 상태가 아니라면 useEffect 내부의 함수들을 실행하지 않습니다.
+    // 이 코드가 없으면 로그인이 되지 않은 상태에서 useEffect 내부의 함수들이 실행되어 undefined 에러를 발생시킵니다.
+    if(!userState.user) return;
     handleChangeReviewLevel();
   }, [reviews]);
 
+ 
   return (
     <div className="flex flex-row overflow-y-auto min-h-full p-8 justify-between ">
       <div className="flex flex-col bg-slate-100 w-5/12 p-8 items-center rounded-xl">
@@ -160,15 +171,11 @@ function MyPage() {
           reviewLength={reviews.length}
         />
       </div>
-      <div className="flex flex-col w-6/12 rounded-xl">
-        <div className="flex bg-slate-100 w-full h-48 p-8">
-          <p className="text-xl font-bold">쉼터 즐겨찾기 목록</p>
-        </div>
-        {/* <BookmarkList list={bookmarkShlters} /> Bookmark리스트 컴포넌트 들어갈 자리입니다. 본인이 작업한 컴포넌트명과 props에 맞춰 수정해주세요. */}
+      <div className="flex flex-col w-6/12 rounded-xl">        
         <div className="flex bg-slate-100 w-full h-full mt-10 p-8 rounded-xl">
           <p className="text-xl font-bold">내가 남긴 쉼터 후기</p>
         </div>
-        {/* <ReviewList list={reviewList} /> Review리스트 컴포넌트 들어갈 자리입니다. 본인이 작업한 컴포넌트명과 props에 맞춰 수정해주세요. */}
+          <ReviewList list={reviews} /> 
       </div>
     </div>
   );
