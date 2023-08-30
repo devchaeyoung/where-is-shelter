@@ -2,10 +2,24 @@ import UserService from "../services/userService";
 import { StatusCodes } from "http-status-codes";
 
 class UserController {
+  static async uploadProfile(req, res) {
+    try {
+      const id = req.currentUserId;
+      const image = req.file.path;
+      if (!image) {
+        throw new Error("이미지가 존재하지 않습니다.");
+      }
+      const uploadProfile = await UserService.uploadProfile({ id, profile_image: image });
+      console.log(uploadProfile);
+      res.status(200).send(uploadProfile);
+    } catch (error) {
+      next(error);
+    }
+  }
   /**회원가입 */
   static async addUser(req, res, next) {
     try {
-      const { name, nickname, email, password } = req.body
+      const { name, nickname, email, password, description, profile_image } = req.body
   
       // req.body가 빈 객체일 경우, 에러 반환
       if (req.body === {}) {
@@ -18,7 +32,9 @@ class UserController {
         name,
         nickname,
         email,
-        password
+        password,
+        description,
+        profile_image
       })
   
       if (newUser.errorMessage) {
@@ -64,11 +80,11 @@ class UserController {
   static async setUser(req, res, next) {
     try {
       // URI로부터 사용자 id를 추출함.
-      const { name, nickname, email, password, address } = req.body;
+      const { name, nickname, email, password, address, count_visit, description, profile_image } = req.body;
       const id = req.currentUserId;
       // body data 로부터 업데이트할 사용자 정보를 추출함.
 
-      const toUpdate = { name, nickname, email, password, address };
+      const toUpdate = { name, nickname, email, password, address, count_visit, description, profile_image };
 
       // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
       const updatedUser = await UserService.setUser({ id, toUpdate });
@@ -94,40 +110,51 @@ class UserController {
       next(error)
     }
   }
+  /** 소셜로그인(카카오) */
+  static async kakaoLogin(req, res, next) {
+    const code = req.query.code
+    try {
+      const accessTokenGet = await Axios.post('https://kauth.kakao.com/oauth/token', {}, {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        params: {
+          grant_type: 'authorization_code',
+          client_id: process.env.KAKAO.RESTAPIKEY,
+          code,
+          redirect_uri: 'localhost:5000/user/auth/kakao'
+        }
+      })
 
-  // static async kakaoLogin(req, res, next) {
-  //   const code = req.query.code
-  //   try {
-  //     const accessTokenGet = await Axios.post('https://kauth.kakao.com/oauth/token', {}, {
-  //       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-  //       params: {
-  //         grant_type: 'authorization_code',
-  //         client_id: CONFIG.KAKAO.RESTAPIKEY,
-  //         code,
-  //         redirect_uri: 'localhost:5000/user/auth/kakao'
-  //       }
-  //     })
+      const getKakaoUserInfo = await Axios.post('https://kapi.kakao.com/v2/user/me', {}, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          'Authorization': 'Bearer ' + accessTokenGet.data.access_token
+        }
+      })
 
-  //     const getKakaoUserInfo = await Axios.post('https://kapi.kakao.com/v2/user/me', {}, {
-  //       headers: {
-  //         "Content-Type": "application/x-www-form-urlencoded",
-  //         'Authorization': 'Bearer ' + accessTokenGet.data.access_token
-  //       }
-  //     })
-  //     console.log(getKakaoUserInfo.data)
+      const KakaoUserInfo = getKakaoUserInfo.data
+      const user = await UserService.getAuthUser({ 
+        email: KakaoUserInfo.email, 
+        nickname: KakaoUserInfo.profile.nickname, 
+        name: KakaoUserInfo.name 
+      })
 
-  //     const KakaoUserInfo = getKakaoUserInfo.data
-  //     const 
-  //     if () {
+      res.status(200).send(user)
+    } catch (error) {
+      next(error)
+    }
+  }
 
-  //       res.send(token)
-  //     } else {
-
-  //     }
-  //   } catch (error) {
-  //     next(error)
-  //   }
-  // }
+  /**비밀번호 찾기 */
+  static async resetPassword (req, res, next) {
+    try {
+      const { email } = req.body
+      await UserService.resetPassword({ email })
+      
+      res.status(200).send('입력하신 이메일로 임시 비밀번호가 발송되었습니다.')
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 export default UserController;

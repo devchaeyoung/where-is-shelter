@@ -29,19 +29,21 @@ const PoiReview = (props) => {
         setIsFetching(true);
         const res = await Api.getData(endpoint, params);
         setPoiReviewData(res.data);
-        setIsFetching(false);
       } catch (err) {
         // 만약에 에러가 발생하게 되면 데이터 로딩 상황을 알려주는 placeholder 아래에 에러 메세지가 추가됩니다.
         setError(`${err.name} : ${err.message}`);
         alert(`데이터를 가져오는 도중 에러가 발생했습니다: ${err}`);
         return;
       }
+      finally {
+        setIsFetching(false);
+      }
     }
 
     fetchPoiReviewData();
   }, [error, props.selectedPoiId]);
 
-  if (isFetching) {
+  if (isFetching || !poiReviewData) {
     return (
       <div className="flex flex-col w-full h-full justify-center items-center">
         <p className="font-bold text-lg">데이터를 가져오는 중입니다...</p>
@@ -50,14 +52,7 @@ const PoiReview = (props) => {
     );
   }
 
-  if (!poiReviewData){
-    return (
-      <div className="flex flex-col w-full h-full justify-center items-center">
-        <p className="font-bold text-lg">데이터가 도착할때까지 잠시만 기다려주세요...</p>
-      </div>
-    );
-  }
-
+  console.log(poiReviewData)
   return(
     <div className="flex flex-col bg-slate-100 rounded-xl overflow-y-scroll h-[30vh] p-2">
       {poiReviewData.map(item => (

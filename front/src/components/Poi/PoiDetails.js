@@ -36,31 +36,25 @@ const PoiDetails = ({handleState, selectedPoi}) => {
         setIsFetching(true);
         const res = await Api.getData(endpoint, params);
         setSelectedPoiData(res.data);
-        setIsFetching(false);
       } catch (err) {
         // 만약에 에러가 발생하게 되면 데이터 로딩 상황을 알려주는 placeholder 아래에 에러 메세지가 추가됩니다.
         setError(`${err.name} : ${err.message}`);
         alert(`데이터를 가져오는 도중 에러가 발생했습니다: ${error}`);
         return;
       }
+      finally {
+        setIsFetching(false);
+      }
     }
 
     fetchSelectedPoiData();
   }, [error, selectedPoi]);
 
-  if (isFetching) {
+  if (isFetching || !selectedPoiData) {
     return (
       <div className="flex flex-col w-full h-full justify-center items-center">
         <p className="font-bold text-lg">데이터를 가져오는 중입니다...</p>
         <p className="font-bold text-lg">{error}</p>
-      </div>
-    );
-  }
-
-  if (!selectedPoiData){
-    return (
-      <div className="flex flex-col w-full h-full justify-center items-center">
-        <p className="font-bold text-lg">데이터가 도착할때까지 잠시만 기다려주세요...</p>
       </div>
     );
   }

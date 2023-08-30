@@ -5,15 +5,16 @@ const userSchema = new Schema(
     email: {
       type: String,
       required: true,
+      unique: true,
     },
     name: {
       type: String,
       required: true,
-      unique: true,
     },
     nickname: {
       type: String,
       required: true,
+      unique: true,
     },
     password: {
       type: String,
@@ -27,6 +28,13 @@ const userSchema = new Schema(
       type: Number,
       required: false,
       default: 0,
+    },
+    description: {
+      type: String,
+      default: "한줄 소개",
+    },
+    profile_image: {
+      type: String,
     },
   },
   {

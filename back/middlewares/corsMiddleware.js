@@ -1,3 +1,5 @@
+// cors 미들웨어 제작중입니다.
+
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
