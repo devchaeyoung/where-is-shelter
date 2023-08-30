@@ -116,12 +116,11 @@ class UserController {
   static async kakaoLogin(req, res, next) {
     const code = req.query.code
     try {
-      const kakaoKey = process.env.KAKAO_RESTAPIKEY;
       const accessTokenGet = await axios.post('https://kauth.kakao.com/oauth/token', {}, {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         params: {
           grant_type: 'authorization_code',
-          client_id: kakaoKey,
+          client_id: process.env.KAKAO_RESTAPIKEY,
           code,
           redirect_uri: 'http://localhost:5000/user/auth/kakao'
         }
@@ -139,7 +138,7 @@ class UserController {
         email: kakaoUserInfo.kakao_account.email, 
         nickname: kakaoUserInfo.kakao_account.profile.nickname, 
       })
-      
+
       res.status(200).send(user)
     } catch (error) {
       next(error)
