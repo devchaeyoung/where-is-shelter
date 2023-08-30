@@ -122,7 +122,7 @@ class UserController {
           grant_type: 'authorization_code',
           client_id: process.env.KAKAO_RESTAPIKEY,
           code,
-          redirect_uri: 'http://localhost:5000/user/auth/kakao'
+          redirect_uri: 'http://34.64.160.14:5002/user/auth/kakao'
         }
       })
 
