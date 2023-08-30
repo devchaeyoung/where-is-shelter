@@ -46,6 +46,7 @@ class UserService {
     const profile_image = user.profile_image
   
     const loginUser = {
+      token,
       name,
       nickname,
       address,
