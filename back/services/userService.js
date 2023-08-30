@@ -12,9 +12,15 @@ class UserService {
   }
   /** 신규 유저 생성 함수*/
   static async addUser({ name, nickname, email, password, description, profile_image }) {
-    const user = await UserModel.findByEmail({ email })
-    if (user) {
+    const user_email = await UserModel.findByEmail({ email })
+    const user_nickname = await UserModel.findByNickname({ nickname })
+    if (user_email) {
       const errorMessage = "해당 이메일은 현재 사용중입니다. 다른 이메일을 입력해 주세요"
+      return errorMessage
+    }
+
+    if (user_nickname) {
+      const errorMessage = "해당 닉네임은 현재 사용중입니다. 다른 닉네임을 입력해 주세요"
       return errorMessage
     }
     // brypt를 활용한 패스워드 해쉬화
