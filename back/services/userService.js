@@ -102,7 +102,7 @@ class UserService {
 
     if (toUpdate.nickname) {
       const fieldToUpdate = "nickname";
-      const newValue = toUpdate.nickName;
+      const newValue = toUpdate.nickname;
       user = await UserModel.update({ _id: id, fieldToUpdate, newValue });
     }
 

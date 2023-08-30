@@ -80,14 +80,17 @@ class UserController {
   /**유저 정보 수정 */
   static async setUser(req, res, next) {
     try {
-      const profile_image_file = req.file.path;
+      // const profile_image_file = req.file.path;
+      const id = req.currentUserId;
+      const user = await UserService.detailUser({id})
+      const profile_image_file = req.file ? req.file.path : user?.profile_image;
       // URI로부터 사용자 id를 추출함.
       const { name, nickname, email, password, address, count_visit, description } = req.body;
-      const id = req.currentUserId;
+      const toUpdate = { name, nickname, email, password, address, count_visit, description, profile_image : profile_image_file };
       // body data 로부터 업데이트할 사용자 정보를 추출함.
-      // const {...props} =req.body;
-      const toUpdate = { name, nickname, email, password, address, count_visit, description, profile_image: profile_image_file };
-      // const toUpdate = { ...props, profile_image : profile_image_file };
+      // const {...props } =req.body;
+      // const toUpdate = { ...props, profile_image: profile_image_file };
+
       // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
       const updatedUser = await UserService.setUser({ id, toUpdate });
 
