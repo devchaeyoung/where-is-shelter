@@ -38,20 +38,18 @@ class UserService {
     const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key"
     const token = jwt.sign({ user_id: user._id }, secretKey, { algorithm: process.env.JWT_ALG, expiresIn: process.env.JWT_EXP })
   
+    const id = user._id
     const name = user.name
     const nickname = user.nickname
-    const address = user.address
     const count_visit = user.count_visit
-    const description = user.description
     const profile_image = user.profile_image
   
     const loginUser = {
       token,
+      id,
       name,
       nickname,
-      address,
       count_visit,
-      description,
       profile_image
     }
   
