@@ -1,4 +1,7 @@
-# 무한쉼터 : 내 지역 쉼터찾기 서비스
+# 무한쉼터🏘️ : 내 지역 쉼터찾기 서비스
+> 나날이 오르는 전기세, 난방비 어떻게 절약할 수 있을까요?
+> 누구든지 **무한쉼터**를 통해 우리집 주변 무더위, 한파 쉼터를 찾아보세요~
+## 어떤 서비스인가요?
 - 서울 지역 중심으로 무더위+한파 쉼터를 GPS를 이용해 조회할 수 있는 서비스
 ## Contents
 Click to scroll to that page
@@ -44,9 +47,41 @@ yarn dev
 ## 💻 2. Project Info : 프로젝트 소개
 ### ✔️개발 기간
 - 2023.08.14 ~ 2023.09.01 (3주)
+### ✔️ 배포 서버
+- 34.64.160.14
 ### ✔️ 프로젝트 기획 의도
+서비스 소개
+- 서울시 열린데이터 광장 홈페이지의 데이터를 이용한 쉼터 조회서비스입니다. 
+- 내 위치 중심으로 주변 쉼터를 조회할 수 있습니다.
+- 무더위/한파 속 우리동네 쉼터를 찾아보세요!
+
+기능 소개
+- 위치조회
+- 구별 쉼터 정보 조회
+- 쉼터 상세정보 조회
+- 현재 날씨 조회
+- 통계 데이터 기반 그래프와 같은 시각화 자료 제공
+- 쉼터별 리뷰 작성 기능
+- 리뷰 작성 횟수별 등급 타이틀 부여
+- 쉼터 즐겨찾기 기능
+
 ### ✔️ 서비스 및 데이터분석
 ### ✔️ 프로젝트 구조
+#### 🧩 front-end
+![front-end](/readme-img/front-end.png)
+> 페이지별 구조
+#### 🧩 back-end
+![back-end](/readme-img/back-end.png)
+> 로직 구조
+- Config : 환경변수 설정
+- Model : DB와 연동하여 사용자가 입력한 데이터나 사용자에게 출력할 데이터 질의
+- Service : 요청받은 정보를 알맞게 가공하는 로직 수행
+- Controller : 서비스로 요청 전달 및 응답
+- Middleware : JWT 토큰을 이용한 회원 인증, 에러처리 및 이미지변환
+
+
+#### 🧩 ERD
+![erd](/readme-img/erd.png)
 ### ✔️ 페이지 구성
 ## 💻 3. Stacks
 
@@ -86,20 +121,10 @@ yarn dev
 <img alt="nginx" src ="https://img.shields.io/badge/nginx-009639.svg?&style=for-the-badge&logo=nginx&logoColor=white"/>
 <img alt="pm2" src ="https://img.shields.io/badge/pm2-2B037A.svg?&style=for-the-badge&logo=pm2&logoColor=white"/>
 
-## 2. Project Info
-##
 ## 6. END
 - elice Ai 8기 3팀 "진행시켜"조
 ### ✔️프로젝트 멤버 구성
-- **팀장** 👑 김준섭 
-- **부팀장** 진채영
 
-|frontend|backend|
-|:---:|:---:|
-|김준섭|박영현|
-|강현지|박지호|
-|박소현|진채영|
-||황동운|
 
 
 ### 
