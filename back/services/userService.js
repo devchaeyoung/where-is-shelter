@@ -152,25 +152,33 @@ class UserService {
   }
 
   /** 소셜 로그인 함수*/
-  static async getAuthUser({ email, name, nickname }) {
+  static async getAuthUser({ email, nickname }) {
     const user = await UserModel.findByEmail({ email })
+    const randomString = Math.random().toString(36).slice(2)
     if (!user) {
-      const newUser = { name, nickname, email, password: "비밀번호 설정은 어떻게 해야하는지 확인 필요" }
+      const newUser = { nickname, email, password: randomString }
   
       await UserModel.create({ newUser })
     }
+    const reSearchUser = await UserModel.findByEmail({ email })    
     const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key"
-    const token = jwt.sign({ user_id: user._id }, secretKey, { algorithm: process.env.JWT_ALG, expiresIn: process.env.JWT_EXP })
+    const token = jwt.sign({ user_id: reSearchUser._id }, secretKey, { algorithm: process.env.JWT_ALG, expiresIn: process.env.JWT_EXP })
   
-    const usernickname = user.nickname
-    const count_visit = user.count_visit
+    const id = reSearchUser._id
+    const name = reSearchUser.name
+    const nick_name = reSearchUser.nickname
+    const count_visit = reSearchUser.count_visit
+    const profile_image = reSearchUser.profile_image
   
     const loginUser = {
       token,
-      nickname: usernickname,
-      count_visit
+      id,
+      name,
+      nickname: nick_name,
+      count_visit,
+      profile_image
     }
-  
+
     return loginUser
   }
 
@@ -181,6 +189,7 @@ class UserService {
       const errorMessage = "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
       return errorMessage
     } else {
+      // 랜덤문자열 생성 함수
       const randomString = Math.random().toString(36).slice(2)
       const fieldToUpdate = "email";
       user = await UserModel.update({ email, fieldToUpdate, randomString });

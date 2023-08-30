@@ -11,6 +11,7 @@ MONGO_URL= "mongodb+srv://elice_3_team:1234@cluster0.orhh1yn.mongodb.net/shelter
 JWT_SECRET_KEY = "goahead"
 JWT_ALG = "HS256"
 JWT_EXP = "30m"
+KAKAO_RESTAPIKEY = "a270999471ec06e899cd039af9e316f0"
 ```
 ### CLI로 설정하기
 - 아래 명령어로 nano 에디터를 실행합니다.
