@@ -16,16 +16,5 @@ class ShelterModel {
     const district_shelter = await Shelter.find({ district });
     return district_shelter;
   }
-  /** 쉼터명으로 조회 */
-  // static async searchByName(name) {
-  //   const shelterTextIndex = { name: "text" };
-  //   Shelter.index({ name: "text" });
-  //   const shelterFindName = await Shelter.find({ name });
-  //   return shelterFindName;
-  // }
-  static async searchByName(name) {
-    const shelterFindName = await Shelter.find({ $text: { $search: name } });
-    return shelterFindName;
-  }
 }
 export { ShelterModel };

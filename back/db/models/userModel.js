@@ -31,11 +31,8 @@ class UserModel {
     const update = { [fieldToUpdate]: newValue };
     const option = { returnOriginal: false };
 
-    const updatedUser = await User.findOneAndUpdate(
-      filter,
-      update,
-      option
-    )
+    const updatedUser = await User.findOneAndUpdate(filter, update, option);
+
     return updatedUser;
   }
 }

@@ -2,9 +2,10 @@ import { React, useState, useEffect, useRef } from 'react';
 
 const CurrentPosition = ({handleState}) => {
 
-  // [TO-DO] 전역변수는 안티패턴이므로 사용을 자제해야 합니다.
-  let receivedLatitude = '';
-  let receivedLongitude = '';
+  // 좌표값을 전역변수로 지정하는것은 안티패턴이므로 사용을 자제해야 합니다.
+  // [REFACTORED] 좌표를 state로 저장합니다.
+  const [receivedLatitude, setReceivedLatitude] = useState('');
+  const [receivedLongitude, setReceivedLongitude] = useState('');
 
   const [isActive, setIsActive] = useState(false);
   
@@ -16,22 +17,20 @@ const CurrentPosition = ({handleState}) => {
   }
   
   function success(position) {
-    receivedLatitude = position.coords.latitude;
-    receivedLongitude = position.coords.longitude;
+    setReceivedLatitude(position.coords.latitude);
+    setReceivedLongitude(position.coords.longitude);
 
     // 부모 컴포넌트인 PoiPage로부터 전달받은 handleState 함수를 사용해서,
     // 부모 컴포넌트인 PoiPage 및 자식 컴포넌트의 PoiMap의 latitude와 longitude 상태값을 갱신시켜 줍니다.
     handleState(receivedLatitude, receivedLongitude);
 
-    alert(`위도: ${position.coords.latitude} /` + ` 경도: ${position.coords.longitude} /` + ` 정확도: 약 ${position.coords.accuracy} 미터`);
-    // [TO-DO] 
-    // 마커에 현재 위치를 표시해주는 함수();
-    // map.setView([currentLat, currentLng]);
+    // alert(`위도: ${position.coords.latitude} /` + ` 경도: ${position.coords.longitude} /` + ` 정확도: 약 ${position.coords.accuracy} 미터`);
   }
   
   function error(err) {
     const errMsg = ["zero-filler", "PERMISSION_DENIED", "POSITION_UNAVAILABLE", "TIMEOUT"];
     alert("현재 위치를 가져올 수 없습니다.\nERROR: " + errMsg[err.code]);
+    setIsActive(false);
   }
   
   function getCurrentPosition() {
@@ -40,8 +39,7 @@ const CurrentPosition = ({handleState}) => {
 
   useEffect(() => {
     if (isActive) {
-
-      getCurrentPosition();
+      getCurrentPosition()
       
       // 현재 위치 찾기 버튼이 활성화 상태라면 getCurrentPosition() 함수를 5초마다 호출합니다.
       // useEffect의 dependency인 isActive의 상태값이 false가 되면 clearInterval 처리를 해주기 위해서 setInterval() 함수를 변수에 담아줍니다.
@@ -65,7 +63,7 @@ const CurrentPosition = ({handleState}) => {
       <button id="current-position-btn" 
               className={isActive ? `bg-green-400 px-3 py-1 rounded-xl` : `bg-slate-200 px-3 py-1 rounded-xl`}
               onClick={HandleToggle}>
-        {isActive ? `위치 확보 중...` : `현재 위치`}
+        {isActive ? `위치 표시 중...` : `현재 위치`}
       </button>
     </div>
   )
