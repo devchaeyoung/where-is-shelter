@@ -17,6 +17,11 @@ const reviewSchema = new Schema(
       required: true,
       ref: "User",
     },
+    nickname: {
+      type: String,
+      unique: true,
+      ref: "User",
+    },
     shelter_id: {
       type: Number,
       required: true,
