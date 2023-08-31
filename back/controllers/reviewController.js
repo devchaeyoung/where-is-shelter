@@ -1,10 +1,14 @@
 import ReviewService from "../services/reviewService";
 import { StatusCodes } from "http-status-codes";
+import jwt from "jsonwebtoken";
 
 class ReviewController {
     static async getReviewByUserId(req, res, next) {
       try {
-        const user_id = req.body.user_id;
+        const userToken = req.headers["authorization"]?.split(" ")[1] ?? "null";
+        const secretKey = process.env.JWT_SECRET_KEY || "secret-key";
+        const jwtDecoded = jwt.verify(userToken, secretKey);
+        const user_id = jwtDecoded.user_id;
         const result = await ReviewService.getReviewByUserId({ user_id });
         res.status(StatusCodes.OK).json(result);
       } catch (e) {
@@ -29,8 +33,12 @@ class ReviewController {
         console.log(req.parmas);
         console.log(req.body);
         const { shelter_id } = req.params;
-        const { description, rating, user_id } = req.body;
-        const result = await ReviewService.addReview({ description, rating, user_id, shelter_id })
+        const { description, rating, nickname } = req.body;
+        const userToken = req.headers["authorization"]?.split(" ")[1] ?? "null";
+        const secretKey = process.env.JWT_SECRET_KEY || "secret-key";
+        const jwtDecoded = jwt.verify(userToken, secretKey);
+        const user_id = jwtDecoded.user_id;
+        const result = await ReviewService.addReview({ description, rating, nickname, user_id, shelter_id })
         res.status(StatusCodes.CREATED).json(result)
       } catch (e) {
         next(e);
