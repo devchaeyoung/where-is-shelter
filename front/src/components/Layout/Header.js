@@ -6,7 +6,6 @@ function Header() {
     <a href="/">
       <div className="flex flex-row w-full h-20 rounded-tl-2xl rounded-tr-2xl items-center justify-between bg-[#0d8571]">
         <div className="flex items-center">
-          {/* <img src="" alt=""></img> */}
           <div className="ml-6">
             <FontAwesomeIcon icon={faPersonShelter} size="2x" color="white"/>
           </div>
