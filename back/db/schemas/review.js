@@ -12,6 +12,10 @@ const reviewSchema = new Schema(
     rating: {
       type: Number,
     },
+    nickname: {
+      type: String,
+      required: true,
+    },
     user_id: {
       type: Schema.Types.ObjectId,
       required: true,

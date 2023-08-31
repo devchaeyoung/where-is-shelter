@@ -1,10 +1,12 @@
 import { React, useState, useEffect } from 'react';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faJedi, faTemperatureHalf } from "@fortawesome/free-solid-svg-icons";
-import { faHandHoldingDroplet } from "@fortawesome/free-solid-svg-icons";
+import { faTemperatureHalf } from "@fortawesome/free-solid-svg-icons";
+import { faDroplet } from "@fortawesome/free-solid-svg-icons";
 import { faCloudSun } from "@fortawesome/free-solid-svg-icons";
 import { faUmbrella } from "@fortawesome/free-solid-svg-icons";
+import { faWind } from "@fortawesome/free-solid-svg-icons";
+import { faPersonShelter } from "@fortawesome/free-solid-svg-icons";
 
 import * as WeatherApi from "../../apis/weatherApi";
 
@@ -47,32 +49,39 @@ function WeatherDashboard (props) {
         setDynamicWidget({iconUrl: `https://openweathermap.org/img/wn/${resCurrent.data.weather[0].icon}@2x.png`});
 
         if(resCurrent.data.main.feels_like > 33){
-          setDynamicWidget({style: baseStyle + 'bg-red-500',
-                            message: '현재 체감기온이 매우 높습니다.\n폭염 상황이니 가까운 폭염 쉼터를 찾아 건강을 지키세요!'})
+          setDynamicWidget(prev => ({...prev, 
+                                        style: baseStyle + 'bg-red-500',
+                                        message: '현재 체감기온이 매우 높습니다.\n폭염 상황이니 가까운 폭염 쉼터를 찾아 건강을 지키세요!'}))
         }  
         if(resCurrent.data.main.feels_like > 30 && resCurrent.data.main.feels_like <= 33 ){
-          setDynamicWidget({style: baseStyle + 'bg-orange-500',
-                            message: '현재 체감기온이 상당히 높습니다.\n폭염이 우려되니 수분을 보충하고 휴식을 취하세요!'})
+          setDynamicWidget(prev => ({...prev, 
+                                        style: baseStyle + 'bg-orange-500',
+                                        message: '현재 체감기온이 상당히 높습니다.\n폭염이 우려되니 수분을 보충하고 휴식을 취하세요!'}))
         }
         if(resCurrent.data.main.feels_like > 27 && resCurrent.data.main.feels_like <= 30){
-          setDynamicWidget({style: baseStyle + 'bg-yellow-400',
-                            message: '현재 체감기온이 높은 상황입니다.\n기상 정보를 자주 확인하세요!'})
+          setDynamicWidget(prev => ({...prev, 
+                                        style: baseStyle + 'bg-yellow-400',
+                                        message: '현재 체감기온이 높은 상황입니다.\n기상 정보를 자주 확인하세요!'}))
         }
         if(resCurrent.data.main.feels_like > 7  && resCurrent.data.main.feels_like <= 27){
-          setDynamicWidget({style: baseStyle + 'bg-lime-500',
-                            message: '건강에 악영향이 없는 체감기온입니다.'})
+          setDynamicWidget(prev => ({...prev, 
+                                        style: baseStyle + 'bg-lime-500',
+                                        message: '건강에 악영향이 없는 체감기온입니다.'}))
         }
         if(resCurrent.data.main.feels_like > -3  && resCurrent.data.main.feels_like <= 7){
-          setDynamicWidget({style: baseStyle + 'bg-lime-400',
-                            message: '현재 체감기온이 낮은 상황입니다.\n기상 정보를 자주 확인하세요!'})
+          setDynamicWidget(prev => ({...prev, 
+                                        style: baseStyle + 'bg-lime-400',
+                                        message: '현재 체감기온이 낮은 상황입니다.\n기상 정보를 자주 확인하세요!'}))
         }
         if(resCurrent.data.main.feels_like > -7  && resCurrent.data.main.feels_like <= -3){
-          setDynamicWidget({style: baseStyle + 'bg-lime-400',
-                            message: '현재 체감기온이 상당히 낮습니다.\n한파가 우려되니 난방기구를 사용하세요!'})
+          setDynamicWidget(prev => ({...prev, 
+                                        style: baseStyle + 'bg-lime-400',
+                                        message: '현재 체감기온이 상당히 낮습니다.\n한파가 우려되니 난방기구를 사용하세요!'}))
         }
         if(resCurrent.data.main.feels_like <= -7){
-          setDynamicWidget({style: baseStyle + 'bg-lime-400',
-                            message: '현재 체감기온이 매우 낮습니다.\n한파 상황이니 가까운 한파 쉼터를 찾아 건강을 지키세요!'})
+          setDynamicWidget(prev => ({...prev, 
+                                        style: baseStyle + 'bg-lime-400',
+                                        message: '현재 체감기온이 매우 낮습니다.\n한파 상황이니 가까운 한파 쉼터를 찾아 건강을 지키세요!'}))
         }
 
       } catch (err) {
@@ -98,7 +107,7 @@ function WeatherDashboard (props) {
   }
 
   return (
-      <div id="weather-dashboard-content" className="grow overflow-y-auto max-h-[calc(100vh-14rem)] grid grid-cols-5 grid-rows-3 gap-5 p-5">
+      <div id="weather-dashboard-content" className="grow overflow-y-auto h-full grid grid-cols-5 grid-rows-3 gap-5 p-5">
         
         <div className="col-start-1 col-end-3 row-start-1 row-end-2">
           <div className="flex flex-row items-center justify-between w-full h-full p-10 rounded-2xl bg-blue-400">
@@ -116,7 +125,7 @@ function WeatherDashboard (props) {
               <h2 className="font-bold text-lg">극한날씨 체크</h2>
               <h1 className="font-bold text-2xl whitespace-pre-line">{dynamicWidget.message}</h1>
             </div>
-            <FontAwesomeIcon icon={faCloudSun} size="3x" />
+            <FontAwesomeIcon icon={faPersonShelter} size="3x" />
           </div>
         </div>
 
@@ -156,7 +165,7 @@ function WeatherDashboard (props) {
               <h2 className="font-bold text-lg text-white/70">3시간 이후</h2>
               <h1 className="font-bold text-3xl text-white/70">{districtForecastData.list[1].main.humidity}%</h1>
             </div>
-            <FontAwesomeIcon icon={faHandHoldingDroplet} size="3x" />
+            <FontAwesomeIcon icon={faDroplet} size="3x" />
           </div>
         </div>
 
@@ -164,7 +173,7 @@ function WeatherDashboard (props) {
           <div className="flex flex-row w-full text-white items-center justify-between">
             <div>
               <h2 className="font-bold text-lg">비/눈 올 확률</h2>
-              <h1 className="font-bold text-3xl">{districtForecastData.list[1].pop}</h1>
+              <h1 className="font-bold text-3xl">{districtForecastData.list[1].pop * 100}%</h1>
             </div>
           </div>
           <FontAwesomeIcon icon={faUmbrella} size="3x" />
@@ -177,6 +186,7 @@ function WeatherDashboard (props) {
               <h1 className="font-bold text-3xl">{districtCurrentData.wind.speed}m/s</h1>
             </div>
           </div>
+          <FontAwesomeIcon icon={faWind} size="3x" />
         </div>
 
         <div className="col-start-5 col-end-6 row-start-3 row-end-4 flex flex-row items-center bg-slate-500 p-10 rounded-2xl">
