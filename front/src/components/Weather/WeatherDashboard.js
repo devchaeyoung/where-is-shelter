@@ -110,7 +110,7 @@ function WeatherDashboard (props) {
       <div id="weather-dashboard-content" className="grow overflow-y-auto h-full grid grid-cols-5 grid-rows-3 gap-5 p-5">
         
         <div className="col-start-1 col-end-3 row-start-1 row-end-2">
-          <div className="flex flex-row items-center justify-between w-full h-full p-10 rounded-2xl bg-blue-400">
+          <div className="flex flex-row items-center justify-between w-full h-full p-10 rounded-2xl bg-[#57b198]">
             <div className="flex flex-col text-white justify-center">
               <h2 className="font-bold text-lg">현재 날씨</h2>
               <h1 className="font-bold text-2xl">{districtCurrentData.weather[0].description}</h1>
@@ -155,7 +155,7 @@ function WeatherDashboard (props) {
           </div>
         </div>
 
-        <div className="col-start-4 col-end-6 row-start-2 row-end-3 flex flex-row items-center bg-slate-500 p-10 rounded-2xl">
+        <div className="col-start-4 col-end-6 row-start-2 row-end-3 flex flex-row items-center bg-[#3d5c99] p-10 rounded-2xl">
           <div className="flex flex-row w-full text-white items-center justify-between">
             <div>
               <h2 className="font-bold text-lg">현재 습도</h2>
@@ -169,7 +169,7 @@ function WeatherDashboard (props) {
           </div>
         </div>
 
-        <div className="col-start-1 col-end-3 row-start-3 row-end-4 flex flex-row items-center bg-sky-600 p-10 rounded-2xl">
+        <div className="col-start-1 col-end-3 row-start-3 row-end-4 flex flex-row items-center bg-[#6686c5] p-10 rounded-2xl">
           <div className="flex flex-row w-full text-white items-center justify-between">
             <div>
               <h2 className="font-bold text-lg">비/눈 올 확률</h2>
@@ -179,7 +179,7 @@ function WeatherDashboard (props) {
           <FontAwesomeIcon icon={faUmbrella} size="3x" />
         </div>
 
-        <div className="col-start-3 col-end-5 row-start-3 row-end-4 flex flex-row items-center bg-sky-600 p-10 rounded-2xl">
+        <div className="col-start-3 col-end-5 row-start-3 row-end-4 flex flex-row items-center bg-[#3C82A1] p-10 rounded-2xl">
           <div className="flex flex-row w-full text-white items-center justify-between">
             <div>
               <h2 className="font-bold text-lg">풍속</h2>
@@ -189,7 +189,7 @@ function WeatherDashboard (props) {
           <FontAwesomeIcon icon={faWind} size="3x" />
         </div>
 
-        <div className="col-start-5 col-end-6 row-start-3 row-end-4 flex flex-row items-center bg-slate-500 p-10 rounded-2xl">
+        <div className="col-start-5 col-end-6 row-start-3 row-end-4 flex flex-row items-center bg-[#213d4c] p-10 rounded-2xl">
           <div className="flex flex-col w-full text-white justify-center">
             <p className="font-bold">{timestamp} 기준,</p>
             <p className="">OpenWeatherMap 제공</p>

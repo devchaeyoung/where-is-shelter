@@ -33,7 +33,7 @@ const InfographicPage = () => {
               <Commentary metadata={currentChartData.metadata}/>
             </div>
           </div>
-        : <div className="flex flex-row w-full h-full items-center justify-center p-10 m-10 bg-slate-100 rounded-xl">
+        : <div className="flex flex-row w-11/12 h-full items-center justify-center p-10 m-10 bg-slate-100 rounded-xl">
             <img className="w-[20%]" src="images/infographic-placeholder.svg" 
                                      alt="인포그래픽 메뉴의 대기 화면입니다."
                                      style={{opacity: 0.5, filter: 'grayscale(1)'}}/>
