@@ -34,7 +34,9 @@ const InfographicPage = () => {
             </div>
           </div>
         : <div className="flex flex-row w-full h-full items-center justify-center p-10 m-10 bg-slate-100 rounded-xl">
-            <img className="w-[20%]" src="images/infographic-placeholder.svg" alt="인포그래픽 메뉴의 대기 화면입니다."/>
+            <img className="w-[20%]" src="images/infographic-placeholder.svg" 
+                                     alt="인포그래픽 메뉴의 대기 화면입니다."
+                                     style={{opacity: 0.5, filter: 'grayscale(1)'}}/>
             <h1 className="ml-12 font-bold text-xl text-slate-500">화면에 표시할 통계 항목을 선택해주세요.</h1>
           </div>
       }
