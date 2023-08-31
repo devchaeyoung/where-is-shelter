@@ -97,8 +97,9 @@ function LoginPage() {
         </form>
         <div className="flex flex-row w-full items-center justify-center">
           <span>소셜 로그인:</span>
+          {/* API Key를 env 파일로 별도로 분리할 것 */}
           <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=a270999471ec06e899cd039af9e316f0&redirect_uri=http://34.64.160.14:5002/user/auth/kakao">
-            <img src="/images/kakao-oauth.png" alt="카카오계정 OAuth 로그인" className="w-8 h-8 mx-4"></img>
+            <img src="/images/kakao-oauth.png" alt="카카오계정 OAuth 로그인 버튼" className="w-8 h-8 mx-4"></img>
           </a>
         </div>
         <Link to='/register' className="font-bold mt-10 underline">회원가입</Link>
