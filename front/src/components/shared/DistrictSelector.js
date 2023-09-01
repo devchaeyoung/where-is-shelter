@@ -16,9 +16,9 @@ const DistrictSelector = ({handleState, currentDistrict}) => {
 
   // Warning: Use the `defaultValue` or `value` props on <select> instead of setting `selected` on <option>.
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row items-center">
       <label className="mr-3">지역:</label>
-      <select className="mr-3" name="city-selector">
+      <select className="mr-3 rounded-lg p-1" name="city-selector">
         <option value="seoul">서울특별시</option>
         <option value="gyeonggi" disabled>경기도</option>
         <option value="incheon" disabled>인천광역시</option>
@@ -31,7 +31,7 @@ const DistrictSelector = ({handleState, currentDistrict}) => {
         <option value="gyeongnam" disabled>경상남도</option>
         <option value="jeju" disabled>제주도</option>
       </select>
-      <select name="district-selector" onChange={handleChange} value={currentDistrict}>
+      <select name="district-selector" className="rounded-lg p-1" onChange={handleChange} value={currentDistrict}>
         <option disabled>선택하세요</option>
           <optgroup label="서울특별시">
             <option value="gangnam">강남구</option>

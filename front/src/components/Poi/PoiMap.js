@@ -4,7 +4,7 @@ import { MapContainer } from 'react-leaflet/MapContainer'
 import { TileLayer } from 'react-leaflet/TileLayer'
 import { useMap } from 'react-leaflet/hooks'
 import { Map, Marker, Popup } from "react-leaflet";
-// import L, { MarkerCluster } from 'leaflet'
+import L, { MarkerCluster } from 'leaflet'
 // import MarkerClusterGroup from 'react-leaflet-cluster'
 // import 'leaflet/dist/leaflet.css'
 
@@ -32,6 +32,12 @@ function PoiMap() {
     })
   }
   */
+
+
+  const newicon = new L.icon({
+    iconUrl: require("../../assets/my-location.png"),
+    iconSize: [30, 30]
+  });
 
   return(
     <DistrictPoiDataContext.Consumer>
@@ -76,7 +82,7 @@ function PoiMap() {
             {/* 현재 위치를 지도상에 마커로 표시해줍니다. */}
             <CurrentPositionContext.Consumer>
               {coordinate =>
-                <Marker position={[coordinate[0], coordinate[1]]}>
+                <Marker position={[coordinate[0], coordinate[1]]} icon={newicon}>
                   <Popup>
                     <h1 className="font-bold">마지막으로 파악된 현재 위치</h1>
                     <p>위도: {coordinate[0]}</p>
