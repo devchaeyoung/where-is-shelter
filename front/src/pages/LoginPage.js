@@ -38,8 +38,6 @@ function LoginPage() {
 
       const user = res.data;
       
-      console.log(user);
-
       // 서버로부터 전달받은 사용자 정보에 있는 JWT 토큰 정보를 클라이언트측에서 사용하고자 합니다.
       const jwtToken = user.token;
 
@@ -59,15 +57,13 @@ function LoginPage() {
           payload: user,
         });
 
-        console.log(user)
-
         // 로그인이 완료되면 마이페이지 경로로 이동합니다.
         navigate("/", { replace: true });
       }
 
       if(!jwtToken) {
-        alert("로그인을 시도하다가 오류가 발생했습니다.". user);
-        console.log("로그인을 시도하다가 오류가 발생했습니다.", user);
+        alert("로그인을 시도하다가 오류가 발생했습니다. 입력하신 정보를 가진 회원이 없습니다.");
+        console.log("로그인을 시도하다가 오류가 발생했습니다. 입력하신 정보를 가진 회원이 없습니다.");
       }
 
     } catch (err) {

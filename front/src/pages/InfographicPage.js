@@ -24,7 +24,7 @@ const InfographicPage = () => {
         <ChartItemSelector handleState={handleCurrentChartItemState} />
       </div>
       {currentChartItem
-        ? <div className="flex flex-row grow w-full max-h-[calc(100vh-16rem)]">
+        ? <div className="flex flex-row grow w-full max-h-[calc(100vh-19rem)]">
             <div className="w-[50vw] h-full my-5 ml-10 mr-5 p-10 bg-slate-100 rounded-xl">
               {/* 사용자가 선택한 통계 항목명에 대한 상태값을 Graph 컴포넌트의 key로 지정해서, 사용자가 다른 항목을 선택할 때 그래프 컴포넌트 전체를 다시 렌더링하도록 합니다. */}
               {/* 이렇게 하지 않으면 react-chartjs-2가 chart.js 캔버스를 부분적으로만 렌더링하려는 버그가 발생합니다. */}

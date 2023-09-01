@@ -69,7 +69,7 @@ const CurrentPosition = ({handleState}) => {
   return (
     <div>
       <button id="current-position-btn" 
-              className={isActive ? `bg-green-400 px-3 py-1 rounded-xl` : `bg-slate-200 px-3 py-1 rounded-xl absolute right-4 bottom-0`}
+              className={isActive ? `bg-green-400 px-3 py-1 rounded-xl` : `bg-white px-3 py-1 rounded-xl absolute right-4 bottom-0`}
               onClick={HandleToggle}>
         {isActive ? `위치 표시 중...` : `현재 위치`}
       </button>

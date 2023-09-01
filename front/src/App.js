@@ -34,7 +34,7 @@ function App() {
         // dispatch 함수를 이용해 로그인 성공 신호와 사용자 정보를 상태값으로 저장합니다.
         dispatch({
           type: "LOGIN_SUCCESS",
-          payload: res.data,
+          payload: res.data
         });
       }
     } catch (e) {

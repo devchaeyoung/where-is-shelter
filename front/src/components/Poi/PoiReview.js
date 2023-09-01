@@ -181,6 +181,8 @@ const PoiReview = (props) => {
   async function handleClick (event) {
     event.preventDefault();
     const reviewId = event.target.id;
+    
+    alert(`리뷰를 정말로 삭제하시겠습니까?`);  
    
     try{
       const endpoint = "/review"
@@ -222,7 +224,7 @@ const PoiReview = (props) => {
         {poiReviewData.map(item => (
           <div key={item.id} className="flex flex-col my-2">
             <div className="flex flex-row justify-between">
-              <span>{item.nickname}님</span>
+              <span className="font-bold">{item.nickname}님</span>
               {/* 현재 로그인한 사용자의 id와 리뷰를 작성한 사용자의 id가 일치하는 경우에만 삭제 버튼을 표시합니다. */}
               {/* [TO-DO][REFACTOR] 로그인 시 백엔드에서는 사용자의 고유 _id를 다른 사용자 정보들과 함께 담아 프론트엔드에 넘겨주고, 
                                     프론트엔드는 그걸 받아서 사용자 계정 정보를 담고있는 전역 상태값 userState에 저장해서 사용자의 고유 _id를 사용하는 지금 방식 대신,
@@ -241,7 +243,7 @@ const PoiReview = (props) => {
         ))}
 
       </div>
-    {user_id != null 
+    {user_id
       ? <ReviewInputForm refresh={fetchPoiReviewData} selectedPoiId={props.selectedPoiId} /> 
       : <span></span>}
     </div>

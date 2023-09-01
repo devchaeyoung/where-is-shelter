@@ -59,7 +59,7 @@ const PoiDetails = ({ handleState, selectedPoi }) => {
 
   return (
     <div className="relative">
-      <button className="absolute z-20 right-0 rotate-180" onClick={handleClick}>
+      <button className="relative z-20 mx-6 left-0" onClick={handleClick}>
         <BackButton />
       </button>
       <div className="flex flex-col relative">
@@ -147,12 +147,9 @@ const PoiDetails = ({ handleState, selectedPoi }) => {
 
 function BackButton() {
   return (
-    <svg width="16" height="25" viewBox="0 0 32 51" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path
-        d="M0.939941 23.249C-0.310059 24.4941 -0.310059 26.5162 0.939941 27.7613L20.1399 46.8863C21.3899 48.1314 23.4199 48.1314 24.6699 46.8863C25.9199 45.6412 25.9199 43.6191 24.6699 42.374L7.72994 25.5001L24.6599 8.62632C25.9099 7.3812 25.9099 5.35913 24.6599 4.11401C23.4099 2.8689 21.3799 2.8689 20.1299 4.11401L0.929941 23.239L0.939941 23.249Z"
-        fill="black"
-      />
-    </svg>
+    <div className="text-[3rem] font-bold">
+      ⭠
+    </div>
   );
 }
 export default PoiDetails;

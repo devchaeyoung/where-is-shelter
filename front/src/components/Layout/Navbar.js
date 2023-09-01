@@ -68,9 +68,6 @@ function Navbar() {
   }
   
 
-  const handleShelterClick = () => {
-    window.alert("쉼터로 대피하세요!!🥕🥕🥕");
-  };
 
   return (
     <div className="flex flex-row w-full h-20 items-center">
@@ -78,7 +75,7 @@ function Navbar() {
       <div className="flex flex-row w-full justify-between items-center px-2 font-bold text-lg">
         <div>
           <NavLink to="/poi" id="poi-menu-btn" className={({ isActive, isPending }) => isPending ? pendingStyle : isActive ? activeStyle : "mx-6"}>
-          <a href="/" onClick={handleShelterClick}>극한날씨 쉼터</a>
+            극한날씨 쉼터
           </NavLink>
           <NavLink to="/weather" id="weather-menu-btn" className={({ isActive, isPending }) => isPending ? pendingStyle : isActive ? activeStyle : "mx-6"}>
             기상정보

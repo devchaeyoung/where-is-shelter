@@ -70,17 +70,17 @@ function WeatherDashboard (props) {
         }
         if(resCurrent.data.main.feels_like > -3  && resCurrent.data.main.feels_like <= 7){
           setDynamicWidget(prev => ({...prev, 
-                                        style: baseStyle + 'bg-lime-400',
+                                        style: baseStyle + 'bg-sky-300',
                                         message: '현재 체감기온이 낮은 상황입니다.\n기상 정보를 자주 확인하세요!'}))
         }
         if(resCurrent.data.main.feels_like > -7  && resCurrent.data.main.feels_like <= -3){
           setDynamicWidget(prev => ({...prev, 
-                                        style: baseStyle + 'bg-lime-400',
+                                        style: baseStyle + 'bg-sky-400',
                                         message: '현재 체감기온이 상당히 낮습니다.\n한파가 우려되니 난방기구를 사용하세요!'}))
         }
         if(resCurrent.data.main.feels_like <= -7){
           setDynamicWidget(prev => ({...prev, 
-                                        style: baseStyle + 'bg-lime-400',
+                                        style: baseStyle + 'bg-sky-500',
                                         message: '현재 체감기온이 매우 낮습니다.\n한파 상황이니 가까운 한파 쉼터를 찾아 건강을 지키세요!'}))
         }
 
@@ -191,7 +191,7 @@ function WeatherDashboard (props) {
 
         <div className="col-start-5 col-end-6 row-start-3 row-end-4 flex flex-row items-center bg-[#213d4c] p-10 rounded-2xl">
           <div className="flex flex-col w-full text-white justify-center">
-            <p className="font-bold">{timestamp} 기준,</p>
+            <p className="font-bold">{timestamp}</p>
             <p className="">OpenWeatherMap 제공</p>
           </div>
         </div>

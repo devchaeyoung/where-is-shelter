@@ -97,7 +97,7 @@ const PoiPage = () => {
           </div>
         </div>
         <div id="poi-content-wrapper" className="grow overflow-y-auto flex flex-row">
-          <div id="poi-list" className="w-[30vw] max-h-[calc(100vh-12rem)] overflow-y-scroll scroll-smooth">
+          <div id="poi-list" className="w-[30vw] max-h-[calc(100vh-19rem)] overflow-y-scroll scroll-smooth">
             {selectedPoi ? (
               <PoiDetails handleState={handleSelectedPoiState} selectedPoi={selectedPoi} />
             ) : (

@@ -1,9 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPersonShelter } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
-    <a href="/">
+    <Link to="/">
       <div className="flex flex-row w-full h-20 rounded-tl-2xl rounded-tr-2xl items-center justify-between bg-[#0d8571]">
         <div className="flex items-center">
           <div className="ml-6">
@@ -15,7 +16,7 @@ function Header() {
           </div>
         </div>
       </div>
-    </a>
+    </Link>
   )
 }
 
