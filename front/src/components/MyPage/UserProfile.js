@@ -35,6 +35,8 @@ function UserProfile({ user, setReviewLevel, isEdit, handleChangeEdit, fetchUser
   };
 
   const handleSubmit = () => {
+    console.log("------profile image--------");
+    console.log(profileImage);
     fetchUserUpdate({ nickname, description, address, profileImage });
   };
 
@@ -51,7 +53,7 @@ function UserProfile({ user, setReviewLevel, isEdit, handleChangeEdit, fetchUser
           </ul>
           <div className="flex items-center space-x-6 mt-8">
             <div className="shrink-0">
-              <img className="h-16 w-16 object-cover rounded-full" src={profileImage ? profileImage : DEFAULT_IMAGE} />
+              <img className="h-16 w-16 object-cover rounded-full" src={"http://localhost:5001/uploads/leehyoree1693583343144.png"} />
             </div>
             <label className="block">
               <span className="sr-only">Choose profile photo</span>

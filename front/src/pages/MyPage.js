@@ -103,7 +103,7 @@ function MyPage() {
       formData.append("nickname", nickname);
       formData.append("description", description);
       formData.append("address", address);
-      formData.append("profileImage", profileImage);
+      formData.append("profile_image", profileImage);
 
       const res = await Api.putMulter(endpoint, formData);
       console.log(res);

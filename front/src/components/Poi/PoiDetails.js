@@ -146,10 +146,6 @@ const PoiDetails = ({ handleState, selectedPoi }) => {
 };
 
 function BackButton() {
-  return (
-    <div className="text-[3rem] font-bold">
-      ⭠
-    </div>
-  );
+  return <div className="text-[3rem] font-bold">⭠</div>;
 }
 export default PoiDetails;
