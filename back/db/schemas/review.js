@@ -31,10 +31,11 @@ const reviewSchema = new Schema(
       required: true,
       ref: "Shelter",
     },
-    shelter_name: {
-      type: String,
+    name: {
+      type : String,
       required: true,
-    },
+      ref: "Shelter",
+    }
   },
   {
     timestamps: true,

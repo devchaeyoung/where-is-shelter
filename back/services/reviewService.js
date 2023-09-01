@@ -3,7 +3,7 @@ import { ReviewModel } from "../db/index";
 class ReviewService {
   // 후기 추가
   
-  static async addReview({ description, rating, nickname, user_id, shelter_id }) {
+  static async addReview({ description, rating, nickname, user_id, shelter_id, name }) {
     /* 기존에 후기가 등록되어 있을 경우 오류 메시지 리턴
            한 쉼터에 여러개의 후기가 등록 가능할 경우 삭제*/
     
@@ -16,7 +16,7 @@ class ReviewService {
       return { errorMessage };
     }
     
-    const newReview = { description, rating, nickname, user_id, shelter_id };
+    const newReview = { description, rating, nickname, user_id, shelter_id, name };
 
     // db에 후기 저장
     const createdNewReview = await ReviewModel.create(newReview);
@@ -41,6 +41,7 @@ class ReviewService {
       nickname: review.nickname,
       user_id: review.user_id,
       shelter_id: review.shelter_id,
+      name: review.name,
       createdAt: review.createdAt,
       updatedAt: review.updatedAt,
     }));
@@ -65,6 +66,7 @@ class ReviewService {
       nickname: review.nickname,
       user_id: review.user_id,
       shelter_id: review.shelter_id,
+      name: review.name,
       createdAt: review.createdAt,
       updatedAt: review.updatedAt,
     }));
