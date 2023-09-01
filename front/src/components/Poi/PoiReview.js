@@ -84,6 +84,13 @@ const PoiReview = (props) => {
   const dispatch = useContext(DispatchContext);
   const userState = useContext(UserStateContext);
 
+  let user_id;
+  if (userState.user === null){
+    user_id = null;
+  } else {
+    user_id = userState.user.id;
+  }
+
   // 사용자가 선택한 특정 쉼터에 작성된 리뷰 목록을 백엔드로부터 받아와서 상태값으로써 저장합니다.
   const [poiReviewData, setPoiReviewData] = useState();
 
@@ -131,13 +138,11 @@ const PoiReview = (props) => {
   async function handleClick (event) {
     event.preventDefault();
     const reviewId = event.target.id;
-    console.log(reviewId)
    
     try{
       const endpoint = "/review"
       const params = `/${reviewId}`
       const res = await Api.deleteData(endpoint, params);
-      console.log(res)
       if(!res.status == 204){
         alert(`리뷰를 삭제하는 도중 오류가 발생했습니다.: ${res.data}`);
       }
@@ -174,25 +179,28 @@ const PoiReview = (props) => {
         {poiReviewData.map(item => (
           <div key={item.id} className="flex flex-col my-2">
             <div className="flex flex-row justify-between">
-              <span>{item.user_id}님</span>
+              <span>{item.nickname}님</span>
               {/* 현재 로그인한 사용자의 id와 리뷰를 작성한 사용자의 id가 일치하는 경우에만 삭제 버튼을 표시합니다. */}
               {/* [TO-DO][REFACTOR] 로그인 시 백엔드에서는 사용자의 고유 _id를 다른 사용자 정보들과 함께 담아 프론트엔드에 넘겨주고, 
                                     프론트엔드는 그걸 받아서 사용자 계정 정보를 담고있는 전역 상태값 userState에 저장해서 사용자의 고유 _id를 사용하는 지금 방식 대신,
                                     사용자의 고유 _id를 파악할 필요가 있을때마다, 백엔드로 JWT 토큰을 보내고 그걸 백엔드에서 받아 사용자의 고유 _id를 반환하는 방식의
                                     별도의 API를 구축하고 사용하는 것을 보안 측면에서 고려해볼 수 있습니다.*/}
-              {item.user_id == userState.user.id
-                ? <button key={item.id} id={item.id} onClick={handleClick} className="text-slate-500 underline">
-                    리뷰 삭제
-                  </button> 
-                : <span></span>
-              }
+              {user_id != null 
+                ? (item.user_id == user_id
+                  ? <button key={item.id} id={item.id} onClick={handleClick} className="text-slate-500 underline">
+                      리뷰 삭제
+                    </button> 
+                  : <span></span>) 
+                : <span></span>}
             </div>
             <p className="">{item.description}</p>
           </div>
         ))}
 
       </div>
-    <ReviewInputForm refresh={fetchPoiReviewData} selectedPoiId={props.selectedPoiId} />
+    {user_id != null 
+      ? <ReviewInputForm refresh={fetchPoiReviewData} selectedPoiId={props.selectedPoiId} /> 
+      : <span></span>}
     </div>
   )
 }
