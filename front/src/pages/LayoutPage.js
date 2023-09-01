@@ -4,6 +4,7 @@ import Header from "../components/Layout/Header";
 import Navbar from "../components/Layout/Navbar";
 import { useEffect } from 'react';
 
+
 const LayoutPage = () => {
 
   // [참고] 자동 숨김 주소창 등의 기능으로 인해 뷰포트가 고정되지 않는 모바일 환경에서, 뷰포트의 높이를 브라우저의 실제 innerHeight로 강제해주는 코드입니다.
@@ -24,20 +25,23 @@ const LayoutPage = () => {
   }, []);
 
   return (
-    <div className="flex flex-col w-[100vw] h-[100vh]">
-      {/* 지금은 일단 React App 컴포넌트에다가 너비 100vw 높이 100vh의 CSS를 적용시켜 뷰포트로 잡아주었습니다. */}
+    <div className="flex place-content-center w-screen h-screen bg-slate-100">
+      <div className="flex flex-col w-9/12 h-[55rem] mt-6 bg-[#d3eeea]">
+      
 
-      <header className="flex-none">
-        <Header />
-      </header>
-      <nav className="flex-none">
-        <Navbar />
-      </nav>
-      <main className="grow overflow-y-auto">
-        <Outlet />
-      </main>
+        <header className="flex-none">
+          <Header />
+        </header>
+        <nav className="flex-none">
+          <Navbar />
+        </nav>
+        <main className="grow overflow-y-auto ">
+          <Outlet />
+        </main>
 
     </div>
+    </div>
+    
   );
 };
 
