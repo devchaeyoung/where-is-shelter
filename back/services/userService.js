@@ -2,7 +2,7 @@ import { UserModel } from "../db/index.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
-
+import path from "path";
 class UserService {
   /** 프로필 사진 업로드 */
   static async uploadProfile({ id, profile_image }) {
@@ -54,13 +54,16 @@ class UserService {
     const count_visit = user.count_visit;
     const profile_image = user.profile_image;
 
+    const file_path = path.join(__dirname, profile_image);
+    console.log("----------login file path----------");
+    console.log(file_path);
     const loginUser = {
       token,
       id,
       name,
       nickname,
       count_visit,
-      profile_image,
+      profile_image: file_path,
     };
 
     return loginUser;
@@ -78,6 +81,12 @@ class UserService {
     const description = user.description;
     const profile_image = user.profile_image;
 
+    console.log("----------user profile image---------");
+
+    console.log(user.profile_image);
+    const file_path = path.join(profile_image);
+    console.log("----------file path check check----------");
+    console.log(file_path);
     const userInfo = {
       user_id,
       name,
@@ -85,7 +94,7 @@ class UserService {
       address,
       count_visit,
       description,
-      profile_image,
+      profile_image: file_path,
     };
 
     return userInfo;
@@ -140,6 +149,8 @@ class UserService {
     if (toUpdate.profile_image) {
       const fieldToUpdate = "profile_image";
       const newValue = toUpdate.profile_image;
+      console.log("이미지 수정");
+      console.log(toUpdate.profile_image);
       user = await UserModel.update({ _id: id, fieldToUpdate, newValue });
     }
 

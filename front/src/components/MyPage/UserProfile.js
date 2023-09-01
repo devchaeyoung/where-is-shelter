@@ -6,16 +6,16 @@ const DEFAULT_IMAGE = "https://velog.velcdn.com/images/xiu_8/post/1fe5206b-f226-
 
 function UserProfile({ user, setReviewLevel, isEdit, handleChangeEdit, fetchUserUpdate, reviewLevel, reviewLength }) {
   /** 변경할 닉네임 상태를 관리합니다. */
-  const [nickname, setNickname] = useState(user ? user.nickname : "");
+  const [nickname, setNickname] = useState("");
 
   /** 변경할 주소 상태를 관리합니다. */
-  const [description, setDescription] = useState(user ? user.description : "");
+  const [description, setDescription] = useState("");
 
   /** 변경할 주소 상태를 관리합니다. */
-  const [address, setAddress] = useState(user ? user.address : "");
+  const [address, setAddress] = useState("");
 
   /** 변경할 프로필 이미지를 상태를 관리합니다. */
-  const [profileImage, setProfileImage] = useState(user ? user.profile_image : null);
+  const [profileImage, setProfileImage] = useState(DEFAULT_IMAGE);
 
   /** 유저 프로필 업로드하는 핸들러 함수입니다. */
   const handleFileChange = async e => {
@@ -40,6 +40,16 @@ function UserProfile({ user, setReviewLevel, isEdit, handleChangeEdit, fetchUser
     fetchUserUpdate({ nickname, description, address, profileImage });
   };
 
+  useEffect(() => {
+    console.log("-----------user-----------");
+    console.log(user);
+    if (user) {
+      setNickname(user.nickname);
+      setAddress(user.address);
+      setDescription(user.description);
+    }
+  }, [user]);
+
   return (
     <>
       {isEdit ? (
@@ -53,7 +63,7 @@ function UserProfile({ user, setReviewLevel, isEdit, handleChangeEdit, fetchUser
           </ul>
           <div className="flex items-center space-x-6 mt-8">
             <div className="shrink-0">
-              <img className="h-16 w-16 object-cover rounded-full" src={DEFAULT_IMAGE} alt="no image" />
+              <img className="h-16 w-16 object-cover rounded-full" src={profileImage} alt="no image" />
             </div>
             <label className="block">
               <span className="sr-only">Choose profile photo</span>
