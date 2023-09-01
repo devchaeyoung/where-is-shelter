@@ -14,7 +14,11 @@ const PoiItem = (props) => {
         <p className="">{props.poiData.shelter_type}</p>
         <div className="flex flex-row justify-between items-center">
           <div>
+            {props.poiData.rating !==0 &&
+            <>
             <span className="mr-2">평점:</span><span className="">{props.poiData.rating}</span>
+            </>
+          }
           </div>
         </div>
       </div>

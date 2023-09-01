@@ -1,4 +1,4 @@
-import { Routes, Route, Link, Outlet } from 'react-router-dom';
+import { Outlet, useNavigate , useLocation} from 'react-router-dom';
 
 import Header from "../components/Layout/Header";
 import Navbar from "../components/Layout/Navbar";
@@ -6,6 +6,10 @@ import { useEffect } from 'react';
 
 
 const LayoutPage = () => {
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
 
   // [참고] 자동 숨김 주소창 등의 기능으로 인해 뷰포트가 고정되지 않는 모바일 환경에서, 뷰포트의 높이를 브라우저의 실제 innerHeight로 강제해주는 코드입니다.
   //       이 코드가 없으면 footer라던가 navbar 등의 컴포넌트가 하단에 있는 경우, 주소창이 보이거나 숨겨지면서 컴포넌트를 덮어버리게 됩니다.
@@ -23,6 +27,11 @@ const LayoutPage = () => {
     mobileDocumentHeight();
 
   }, []);
+
+  useEffect(()=>{
+    if(location.pathname==='/')
+      navigate('/poi')
+  },[location])
 
   return (
     <div className="flex place-content-center w-screen h-screen bg-slate-100">
