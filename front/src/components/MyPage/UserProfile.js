@@ -15,7 +15,7 @@ function UserProfile({ user, setReviewLevel, isEdit, handleChangeEdit, fetchUser
   const [address, setAddress] = useState(user ? user.address : "");
 
   /** 변경할 프로필 이미지를 상태를 관리합니다. */
-  const [profileImage, setProfileImage] = useState(user ? user.profileImage : null);
+  const [profileImage, setProfileImage] = useState(user ? user.profile_image : null);
 
   /** 유저 프로필 업로드하는 핸들러 함수입니다. */
   const handleFileChange = async e => {
