@@ -18,8 +18,6 @@ class ReviewController {
 
     static async getReviewByShelterId(req, res, next) {
       try {
-        console.log(req.params);
-        console.log(req.body)
         const { shelter_id } = req.params;
         const result = await ReviewService.getReviewByShelterId({ shelter_id });
         res.status(StatusCodes.OK).json(result);
@@ -30,8 +28,6 @@ class ReviewController {
 
     static async addReview(req, res, next) {
       try {
-        console.log(req.parmas);
-        console.log(req.body);
         const { shelter_id } = req.params;
         const { description, rating, nickname } = req.body;
         const userToken = req.headers["authorization"]?.split(" ")[1] ?? "null";

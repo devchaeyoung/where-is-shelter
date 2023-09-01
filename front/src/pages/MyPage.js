@@ -174,8 +174,8 @@ function MyPage() {
       <div className="flex flex-col w-6/12 rounded-xl">        
         <div className="flex bg-slate-100 w-full h-full mt-10 p-8 rounded-xl">
           <p className="text-xl font-bold">내가 남긴 쉼터 후기</p>
-        </div>
           <ReviewList list={reviews} /> 
+        </div>
       </div>
     </div>
   );
