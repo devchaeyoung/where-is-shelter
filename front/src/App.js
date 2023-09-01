@@ -1,4 +1,4 @@
-import { useState, useReducer, useEffect } from "react";
+import { useReducer, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import * as Api from "./apis/api";
@@ -31,7 +31,6 @@ function App() {
       const endpoint = "/user/mypage";
       const res = await Api.getData(endpoint);
       if (res.status === 200) {
-        console.log(res.data);
         // dispatch 함수를 이용해 로그인 성공 신호와 사용자 정보를 상태값으로 저장합니다.
         dispatch({
           type: "LOGIN_SUCCESS",

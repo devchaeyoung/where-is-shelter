@@ -60,10 +60,6 @@ function MyPage() {
     try {
       const endpoint = "/review";
       const res = await Api.getData(endpoint);
-      console.log("---------------review");
-
-      console.log(res.data);
-      console.log("---------------review");
       setReviews(res.data);
     } catch (e) {
       console.log(e);
