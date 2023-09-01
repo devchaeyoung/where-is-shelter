@@ -53,7 +53,7 @@ function UserProfile({ user, setReviewLevel, isEdit, handleChangeEdit, fetchUser
           </ul>
           <div className="flex items-center space-x-6 mt-8">
             <div className="shrink-0">
-              <img className="h-16 w-16 object-cover rounded-full" src={"http://localhost:5001/uploads/leehyoree1693583343144.png"} />
+              <img className="h-16 w-16 object-cover rounded-full" src={DEFAULT_IMAGE} alt="no image" />
             </div>
             <label className="block">
               <span className="sr-only">Choose profile photo</span>
@@ -109,7 +109,7 @@ function UserProfile({ user, setReviewLevel, isEdit, handleChangeEdit, fetchUser
       ) : (
         <>
           <div className="rounded-full w-full flex items-center justify-center overflow-hidden mb-8">
-            <img src={profileImage ? profileImage : DEFAULT_IMAGE} alt={user?.nickname} className="w-full h-full" />
+            <img src={DEFAULT_IMAGE} alt={user?.nickname} className="w-full h-full" />
           </div>
           <div className="flex w-full justify-center">
             <div className="w-full h-full ">
