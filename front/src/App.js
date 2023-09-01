@@ -1,4 +1,4 @@
-import { useState, useReducer } from 'react';
+import { useState, useReducer, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import * as Api from "./apis/api";
@@ -20,11 +20,36 @@ import UserStateContext from "./contexts/UserStateContext";
 import DispatchContext from "./contexts/DispatchContext";
 
 function App() {
-
   const [userState, dispatch] = useReducer(userReducer, {
     user: null,
   });
 
+  /** 유저 정보를 받아오는 목업 API입니다.*/
+  const fetchUserInfo = async () => {
+    try {
+      // 프론트엔드에서 보내주는 헤더에 있는 JWT 값으로 사용자를 판별합니다.
+      const endpoint = "/user/mypage";
+      const res = await Api.getData(endpoint);
+      if (res.status === 200) {
+        console.log(res.data);
+        // dispatch 함수를 이용해 로그인 성공 신호와 사용자 정보를 상태값으로 저장합니다.
+        dispatch({
+          type: "LOGIN_SUCCESS",
+          payload: res.data,
+        });
+      }
+    } catch (e) {
+      console.log(e.response.data);
+    }
+  };
+
+  useEffect(() => {
+    console.log("--app mount--");
+    const token = sessionStorage.getItem("userToken");
+    if (token) {
+      fetchUserInfo();
+    }
+  }, []);
   return (
     <div>
       <DispatchContext.Provider value={dispatch}>

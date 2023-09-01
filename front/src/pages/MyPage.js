@@ -1,4 +1,4 @@
-import { React, useEffect, useState, useContext } from "react";
+import { React, useEffect, useState, useContext, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import UserProfile from "../components/MyPage/UserProfile";
@@ -34,13 +34,11 @@ const REVIEW_LEVEL = [
 ];
 
 function MyPage() {
-
   const dispatch = useContext(DispatchContext);
   const userState = useContext(UserStateContext);
 
+  const mounted = useRef(null);
   const navigate = useNavigate();
-
-  const [user, setUser] = useState(userState.user);
 
   /** 프로필을 수정중인지 검사하는 상태값입니다.*/
   const [isEdit, setIsEdit] = useState(false);
@@ -62,10 +60,13 @@ function MyPage() {
     try {
       const endpoint = "/review";
       const res = await Api.getData(endpoint);
-      setReviews(res.data); 
-      console.log(res)
+      console.log("---------------review");
+
+      console.log(res.data);
+      console.log("---------------review");
+      setReviews(res.data);
     } catch (e) {
-      console.log(e.response.message);
+      console.log(e);
     }
   };
 
@@ -77,7 +78,7 @@ function MyPage() {
       const res = await Api.getData(endpoint, params);
       setBookmarkShelters(res.data);
     } catch (e) {
-      console.log(e.response.message);
+      console.log(e);
     }
   };
 
@@ -88,7 +89,10 @@ function MyPage() {
       const endpoint = "/user/mypage";
       const res = await Api.getData(endpoint);
       if (res.status === 200) {
-        setUser(res.data);
+        dispatch({
+          type: "LOGIN_SUCCESS",
+          payload: res.data,
+        });
       }
     } catch (e) {
       console.log(e.response.data);
@@ -96,12 +100,7 @@ function MyPage() {
   };
 
   /** 유저 정보를 업데이트 하는 목업 API입니다.*/
-  const fetchUserUpdate = async ({
-    nickname,
-    description,
-    address,
-    profileImage,
-  }) => {
+  const fetchUserUpdate = async ({ nickname, description, address, profileImage }) => {
     try {
       const endpoint = "/user/update";
       const formData = new FormData();
@@ -111,9 +110,12 @@ function MyPage() {
       formData.append("profileImage", profileImage);
 
       const res = await Api.putMulter(endpoint, formData);
-      console.log(res)
+      console.log(res);
       if (res.status === 200) {
-        setUser(res.data);
+        dispatch({
+          type: "LOGIN_SUCCESS",
+          payload: res.data,
+        });
       }
     } catch (e) {
       console.log(e.response.data);
@@ -122,7 +124,7 @@ function MyPage() {
 
   /** 유저 프로필 수정 상태를 변경하는 함수입니다. */
   const handleChangeEdit = () => {
-    setIsEdit((prev) => !prev);
+    setIsEdit(prev => !prev);
   };
 
   /** 리뷰 레벨을 계산하는 함수입니다. */
@@ -131,38 +133,31 @@ function MyPage() {
     setReviewLevel(REVIEW_LEVEL[levelIndex]);
   };
 
-  // 로그인이 되어있지 않아 UserStateContext에 user값이 없을 경우 로그인 화면으로 이동시킵니다.
-  useEffect(() => {
-    if(userState.user) return;
-    
-    alert("로그인을 먼저 해주세요.")
-    navigate("/login");
-  }, [userState.user])
-
-
-  useEffect(() => {  
-    // 로그인 상태가 아니라면 useEffect 내부의 함수들을 실행하지 않습니다.
-    // 이 코드가 없으면 로그인이 되지 않은 상태에서 useEffect 내부의 함수들이 실행되어 undefined 에러를 발생시킵니다.
-    if(!userState.user) return;
-
-    fetchUserInfo();
-    fetchReviews();
-    fetchBookmarkShelter();
-  }, []);
-
   useEffect(() => {
     // 로그인 상태가 아니라면 useEffect 내부의 함수들을 실행하지 않습니다.
     // 이 코드가 없으면 로그인이 되지 않은 상태에서 useEffect 내부의 함수들이 실행되어 undefined 에러를 발생시킵니다.
-    if(!userState.user) return;
+    if (!userState.user) return;
     handleChangeReviewLevel();
   }, [reviews]);
 
- 
+  // 로그인이 되어있지 않아 UserStateContext에 user값이 없을 경우 로그인 화면으로 이동시킵니다.
+  useEffect(() => {
+    const token = sessionStorage.getItem("userToken");
+    if (!token) {
+      alert("로그인을 먼저 해주세요.");
+      navigate("/login");
+    } else {
+      fetchUserInfo();
+      fetchReviews();
+      fetchBookmarkShelter();
+    }
+  }, []);
+
   return (
     <div className="flex flex-row overflow-y-auto min-h-full p-8 justify-between ">
       <div className="flex flex-col bg-slate-100 w-5/12 p-8 items-center rounded-xl">
         <UserProfile
-          user={user}
+          user={userState.user}
           isEdit={isEdit}
           fetchUserUpdate={fetchUserUpdate}
           handleChangeEdit={handleChangeEdit}
@@ -171,10 +166,10 @@ function MyPage() {
           reviewLength={reviews.length}
         />
       </div>
-      <div className="flex flex-col w-6/12 rounded-xl">        
+      <div className="flex flex-col w-6/12 rounded-xl">
         <div className="flex bg-slate-100 w-full h-full mt-10 p-8 rounded-xl">
           <p className="text-xl font-bold">내가 남긴 쉼터 후기</p>
-          <ReviewList list={reviews} /> 
+          <ReviewList list={reviews} />
         </div>
       </div>
     </div>

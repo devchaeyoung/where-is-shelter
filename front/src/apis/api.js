@@ -8,16 +8,13 @@ import axios from "axios";
 // const serverUrl = "http://" + window.location.hostname + ":" + backendPortNumber;
 
 // 이 주소는 VM에서 구동중인 백엔드 서버입니다.
-const backendPortNumber = "5002";
-const serverUrl = "http://34.64.160.14" + ":" + backendPortNumber;
-
+const backendPortNumber = "5001";
+// const serverUrl = "http://34.64.160.14" + ":" + backendPortNumber;
+const serverUrl = "http://localhost" + ":" + backendPortNumber;
 async function postData(data, endpoint, params = "", other = "") {
   // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
   // 예시: {name: "Kim"} => {"name": "Kim"}
-  console.log(
-    `%cPOST 요청: ${serverUrl + endpoint + params + other}`,
-    "color: #296aba;"
-  );
+  console.log(`%cPOST 요청: ${serverUrl + endpoint + params + other}`, "color: #296aba;");
   console.log(`%cPOST 요청 데이터: ${data}`, "color: #296aba;");
 
   return axios.post(serverUrl + endpoint + params + other, data, {
@@ -29,10 +26,7 @@ async function postData(data, endpoint, params = "", other = "") {
 }
 
 const getData = async (endpoint, params = "", other = "") => {
-  console.log(
-    `%cGET 요청: ${serverUrl + endpoint + params + other}`,
-    "color: #a25cd1;"
-  );
+  console.log(`%cGET 요청: ${serverUrl + endpoint + params + other}`, "color: #a25cd1;");
 
   return axios.get(serverUrl + endpoint + params + other, {
     // JWT 토큰을 헤더에 담아 백엔드 서버에 보냄.
@@ -46,10 +40,7 @@ async function putData(data, endpoint, params = "", other = "") {
   // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
   // 예시: {name: "Kim"} => {"name": "Kim"}
   const bodyData = JSON.stringify(data);
-  console.log(
-    `%cPUT 요청: ${serverUrl + endpoint + params + other}`,
-    "color: #059c4b;"
-  );
+  console.log(`%cPUT 요청: ${serverUrl + endpoint + params + other}`, "color: #059c4b;");
   console.log(`%cPUT 요청 데이터: ${bodyData}`, "color: #059c4b;");
 
   return axios.put(serverUrl + endpoint + params + other, bodyData, {

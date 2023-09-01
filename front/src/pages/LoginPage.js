@@ -27,15 +27,14 @@ function LoginPage() {
     
     event.preventDefault();
 
-    const endpoint = '/user';
+    const endpoint = '/user/login';
 
-    const params = '/login';
 
     try {
       const res = await Api.postData({
         email: event.target.email.value,
         password: event.target.password.value
-      }, endpoint, params);
+      }, endpoint);
 
       const user = res.data;
       

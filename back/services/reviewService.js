@@ -1,21 +1,19 @@
 import { ReviewModel } from "../db/index";
+import { ShelterModel } from "../db/index";
 
 class ReviewService {
   // 후기 추가
-  
+
   static async addReview({ description, rating, nickname, user_id, shelter_id, name }) {
     /* 기존에 후기가 등록되어 있을 경우 오류 메시지 리턴
            한 쉼터에 여러개의 후기가 등록 가능할 경우 삭제*/
-    
-    const reviewData = await ReviewModel.findByUserIdShelterId(
-      user_id,
-      shelter_id
-    );
+
+    const reviewData = await ReviewModel.findByUserIdShelterId(user_id, shelter_id);
     if (reviewData) {
       const errorMessage = "이미 후기가 등록된 쉼터입니다.";
       return { errorMessage };
     }
-    
+
     const newReview = { description, rating, nickname, user_id, shelter_id, name };
 
     // db에 후기 저장
@@ -34,7 +32,7 @@ class ReviewService {
     const sortedReviews = reviewData.sort((a, b) => b.updatedAt - a.updatedAt);
 
     // 모든 후기를 배열로 변환
-    const reviewDataResult = sortedReviews.map((review) => ({
+    const reviewDataResult = sortedReviews.map(review => ({
       id: review._id,
       description: review.description,
       rating: review.rating,
@@ -46,7 +44,18 @@ class ReviewService {
       updatedAt: review.updatedAt,
     }));
 
-    return reviewDataResult;
+    const reviewsConvert = await Promise.all(
+      reviewDataResult.map(async review => {
+        const { shelter_id } = review;
+        const shelter = await ShelterModel.findById(shelter_id);
+        return {
+          ...review,
+          shelter,
+        };
+      })
+    );
+
+    return reviewsConvert;
   }
 
   // 특정 쉼터의 후기 가져오기
@@ -59,7 +68,7 @@ class ReviewService {
     const sortedReviews = reviewData.sort((a, b) => b.updatedAt - a.updatedAt);
 
     // 모든 후기를 배열로 변환
-    const reviewDataResult = sortedReviews.map((review) => ({
+    const reviewDataResult = sortedReviews.map(review => ({
       id: review._id,
       description: review.description,
       rating: review.rating,
