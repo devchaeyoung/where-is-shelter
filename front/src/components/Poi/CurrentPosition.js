@@ -1,4 +1,5 @@
 import { React, useState, useEffect, useRef } from 'react';
+import { useNavigate } from "react-router-dom";
 
 const CurrentPosition = ({handleState}) => {
 
@@ -19,10 +20,6 @@ const CurrentPosition = ({handleState}) => {
   function success(position) {
     setReceivedLatitude(position.coords.latitude);
     setReceivedLongitude(position.coords.longitude);
-
-    // 부모 컴포넌트인 PoiPage로부터 전달받은 handleState 함수를 사용해서,
-    // 부모 컴포넌트인 PoiPage 및 자식 컴포넌트의 PoiMap의 latitude와 longitude 상태값을 갱신시켜 줍니다.
-    handleState(receivedLatitude, receivedLongitude);
 
     // alert(`위도: ${position.coords.latitude} /` + ` 경도: ${position.coords.longitude} /` + ` 정확도: 약 ${position.coords.accuracy} 미터`);
   }
@@ -51,6 +48,17 @@ const CurrentPosition = ({handleState}) => {
     }
   }, [isActive])
 
+  useEffect(() => {
+    if (receivedLatitude && receivedLongitude) {
+
+      // 부모 컴포넌트인 PoiPage로부터 전달받은 handleState 함수를 사용해서,
+      // 부모 컴포넌트인 PoiPage 및 자식 컴포넌트의 PoiMap의 latitude와 longitude 상태값을 갱신시켜 줍니다.
+      // [주의] state handler가 setState가 있는 success() 내부에 있게 되면, 최초로 현재 위치를 파악시 새로 얻은 좌표값이 아닌 기본값(빈값)을 참조하게 되므로,
+      //       별도의 useEffect를 사용해주어야 합니다.
+      handleState(receivedLatitude, receivedLongitude);
+    }
+  }, [receivedLatitude, receivedLongitude, handleState])
+
   //
   function HandleToggle() {
     // setState() 함수에서는 이전 값을 참조할 수 있으므로, if 구문 없이도 한 줄의 코드로 이전의 boolean 상태값을 토글해줄 수 있습니다.
@@ -61,7 +69,7 @@ const CurrentPosition = ({handleState}) => {
   return (
     <div>
       <button id="current-position-btn" 
-              className={isActive ? `bg-green-400 px-3 py-1 rounded-xl` : `bg-slate-200 px-3 py-1 rounded-xl`}
+              className={isActive ? `bg-green-400 px-3 py-1 rounded-xl` : `bg-white px-3 py-1 rounded-xl absolute right-4 bottom-0`}
               onClick={HandleToggle}>
         {isActive ? `위치 표시 중...` : `현재 위치`}
       </button>

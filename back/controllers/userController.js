@@ -1,7 +1,22 @@
 import UserService from "../services/userService";
+import axios from "axios";
 import { StatusCodes } from "http-status-codes";
 
 class UserController {
+  static async uploadProfile(req, res) {
+    try {
+      const id = req.currentUserId;
+      const image = req.file.path;
+      if (!image) {
+        throw new Error("이미지가 존재하지 않습니다.");
+      }
+      const uploadProfile = await UserService.uploadProfile({ id, profile_image: image });
+      console.log(uploadProfile);
+      res.status(200).send(uploadProfile);
+    } catch (error) {
+      next(error);
+    }
+  }
   /**회원가입 */
   static async addUser(req, res, next) {
     try {
@@ -65,12 +80,16 @@ class UserController {
   /**유저 정보 수정 */
   static async setUser(req, res, next) {
     try {
-      // URI로부터 사용자 id를 추출함.
-      const { name, nickname, email, password, address, description, profile_image } = req.body;
+      // const profile_image_file = req.file.path;
       const id = req.currentUserId;
+      const user = await UserService.detailUser({id})
+      const profile_image_file = req.file ? req.file.path : user?.profile_image;
+      // URI로부터 사용자 id를 추출함.
+      // const { name, nickname, email, password, address, count_visit, description } = req.body;
+      // const toUpdate = { name, nickname, email, password, address, count_visit, description, profile_image : profile_image_file };
       // body data 로부터 업데이트할 사용자 정보를 추출함.
-
-      const toUpdate = { name, nickname, email, password, address, description, profile_image };
+      const {...props } =req.body;
+      const toUpdate = { ...props, profile_image: profile_image_file };
 
       // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
       const updatedUser = await UserService.setUser({ id, toUpdate });
@@ -100,29 +119,27 @@ class UserController {
   static async kakaoLogin(req, res, next) {
     const code = req.query.code
     try {
-      const accessTokenGet = await Axios.post('https://kauth.kakao.com/oauth/token', {}, {
+      const accessTokenGet = await axios.post('https://kauth.kakao.com/oauth/token', {}, {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         params: {
           grant_type: 'authorization_code',
-          client_id: process.env.KAKAO.RESTAPIKEY,
+          client_id: process.env.KAKAO_RESTAPIKEY,
           code,
-          redirect_uri: 'localhost:5000/user/auth/kakao'
+          redirect_uri: 'http://34.64.160.14:5002/user/auth/kakao'
         }
       })
 
-      const getKakaoUserInfo = await Axios.post('https://kapi.kakao.com/v2/user/me', {}, {
+      const getKakaoUserInfo = await axios.post('https://kapi.kakao.com/v2/user/me', {}, {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
           'Authorization': 'Bearer ' + accessTokenGet.data.access_token
         }
       })
-      console.log(getKakaoUserInfo.data)
 
-      const KakaoUserInfo = getKakaoUserInfo.data
+      const kakaoUserInfo = getKakaoUserInfo.data
       const user = await UserService.getAuthUser({ 
-        email: KakaoUserInfo.email, 
-        nickname: KakaoUserInfo.profile.nickname, 
-        name: KakaoUserInfo.name 
+        email: kakaoUserInfo.kakao_account.email, 
+        nickname: kakaoUserInfo.kakao_account.profile.nickname, 
       })
 
       res.status(200).send(user)

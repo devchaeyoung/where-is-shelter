@@ -12,9 +12,18 @@ const reviewSchema = new Schema(
     rating: {
       type: Number,
     },
+    nickname: {
+      type: String,
+      required: true,
+    },
     user_id: {
       type: Schema.Types.ObjectId,
       required: true,
+      ref: "User",
+    },
+    nickname: {
+      type: String,
+      unique: true,
       ref: "User",
     },
     shelter_id: {
@@ -22,6 +31,11 @@ const reviewSchema = new Schema(
       required: true,
       ref: "Shelter",
     },
+    name: {
+      type : String,
+      required: true,
+      ref: "Shelter",
+    }
   },
   {
     timestamps: true,

@@ -22,15 +22,15 @@ function ChartItemSelector ({handleState}) {
 
   return(
     <div className="flex flex-row">
-      <label className="mr-3">통계를 선택하세요:</label>
-      <select className="mr-3" name="category-selector" onChange={handleCategoryChange}>
+      <label className="mr-3 rounded-lg p-1">통계를 선택하세요:</label>
+      <select className="mr-3 rounded-lg p-1" name="category-selector" onChange={handleCategoryChange}>
         <option value="shelter">쉼터 관련</option>
         <option value="climate">기후 관련</option>
         <option value="energy">에너지 관련</option>
       </select>
 
       {category == 'shelter' &&
-        <select onChange={handleChartItemChange} >
+        <select className="rounded-lg p-1" onChange={handleChartItemChange} >
           <option disabled selected>선택하세요</option>
             <optgroup label="무더위 쉼터 관련">
               <option value="heatwave_shelter_population_coverage_by_district">행정구역별 인구 대비 무더위 쉼터 수용인원</option>
@@ -42,7 +42,7 @@ function ChartItemSelector ({handleState}) {
       } 
 
       {category == 'climate' &&
-        <select onChange={handleChartItemChange} >
+        <select className="rounded-lg p-1" onChange={handleChartItemChange} >
           <option disabled selected>선택하세요</option>
             <optgroup label="폭염 관련">
               <option value="temp" disabled>준비중입니다</option>
@@ -54,7 +54,7 @@ function ChartItemSelector ({handleState}) {
       } 
 
       {category == 'energy' &&
-        <select onChange={handleChartItemChange} >
+        <select className="rounded-lg p-1" onChange={handleChartItemChange} >
         <option disabled selected>선택하세요</option>
           <optgroup label="전력 사용량 관련">
             <option value="temp" disabled>준비중입니다</option>
