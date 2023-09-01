@@ -13,7 +13,7 @@ const upload = multer({
       cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
     },
   }),
-  limits: { fileSize: 5 * 1024 * 1024 },
+  limits: { fieldSize: 25 * 1024 * 1024 },
 });
 
 export default upload;

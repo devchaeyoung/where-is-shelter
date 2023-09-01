@@ -7,10 +7,10 @@ import axios from "axios";
 // const backendPortNumber = "5001";
 // const serverUrl = "http://" + window.location.hostname + ":" + backendPortNumber;
 
-// 이 주소는 VM에서 구동중인 백엔드 서버입니다.
-const backendPortNumber = "5001";
-// const serverUrl = "http://34.64.160.14" + ":" + backendPortNumber;
-const serverUrl = "http://localhost" + ":" + backendPortNumber;
+const backendPortNumber = "5002";
+/** 이 주소는 VM에서 구동중인 백엔드 서버입니다.*/
+const serverUrl = "http://34.64.160.14" + ":" + backendPortNumber;
+// const serverUrl = "http://localhost" + ":" + backendPortNumber;
 async function postData(data, endpoint, params = "", other = "") {
   // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
   // 예시: {name: "Kim"} => {"name": "Kim"}
