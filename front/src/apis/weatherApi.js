@@ -19,34 +19,32 @@ import axios from "axios";
   // searchParam.append('key', value) // append 외에 다른 메소드들에 대해서도 찾아보세요
 */
 
-const getCurrentData = async (area) => {
-  
-  const url = "http://api.openweathermap.org/data/2.5/weather" 
-              + `?q=${area}`
-              + "&units=metric"
-              + "&lang=kr"
-              + "&appid=7b26c92417fd3678d52eac12dc870222"
-  
-  console.log(`%cGET 요청: ${url}`, "color: #a25cd1;");
+const getCurrentData = async area => {
+  const searchParam = new URLSearchParams();
+  searchParam.append('q', area);
+  searchParam.append('units', 'metric');
+  searchParam.append('lang', 'kr');
+  searchParam.append('appid', '7b26c92417fd3678d52eac12dc870222');
 
-  return axios.get(url, {
-    
-  });
+  const url = `http://api.openweathermap.org/data/2.5/weather/${searchParam.toString()}`;
+
+  console.log(`%cGET 요청: ${url}`, 'color: #a25cd1;');
+
+  return axios.get(url, {});
 };
 
-const getForecastData = async (area) => {
-  
-  const url = "http://api.openweathermap.org/data/2.5/forecast" 
-              + `?q=${area}`
-              + "&units=metric"
-              + "&lang=kr"
-              + "&appid=7b26c92417fd3678d52eac12dc870222"
-  
-  console.log(`%cGET 요청: ${url}`, "color: #a25cd1;");
+const getForecastData = async area => {
+  const searchParam = new URLSearchParams();
+  searchParam.append('q', area);
+  searchParam.append('units', 'metric');
+  searchParam.append('lang', 'kr');
+  searchParam.append('appid', '7b26c92417fd3678d52eac12dc870222');
 
-  return axios.get(url, {
-    
-  });
+  const url = `http://api.openweathermap.org/data/2.5/forecast/${searchParam.toString()}`;
+
+  console.log(`%cGET 요청: ${url}`, 'color: #a25cd1;');
+
+  return axios.get(url, {});
 };
 
 export { getCurrentData, getForecastData };
