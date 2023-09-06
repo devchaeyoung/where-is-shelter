@@ -28,14 +28,14 @@ const LayoutPage = () => {
 
   return (
     <div className="flex place-content-center w-screen h-screen bg-slate-100">
-      <div className="flex flex-col w-9/12 h-[55rem] mt-6 bg-[#d3eeea]">
+      <div className="flex flex-col w-9/12 max-h-[calc(100vh)] mt-6 bg-[#d3eeea]">
         <header className="flex-none">
           <Header />
         </header>
         <nav className="flex-none">
           <Navbar />
         </nav>
-        <main className="grow overflow-y-auto ">
+        <main className="grow overflow-y-auto max-h-[calc(100vh)]">
           <Outlet />
         </main>
       </div>
