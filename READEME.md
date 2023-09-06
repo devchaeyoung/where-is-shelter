@@ -154,6 +154,12 @@ yarn dev
 - 무더위 쉼터와 한파 쉼터의 위치 정보 데이터의 형식이 경위도 좌표계와 XY좌표계로 형식이 다름
 - 하나의 데이터 테이블로 합치기 위해 한파 쉼터의 XY좌표계 값을 경위도 좌표계 값으로 변환 필요
 - 한파 쉼터의 GRS-80 XY좌표계 값을 경위도 좌표계 값으로 변환하는 수식은 찾기 어려워서 주소 값을 위경도 값으로 변환해주는 Geocode라는 구글 스프레드시트의 확장 기능을 활용
+- 활용 데이터1(날씨) https://data.kma.go.kr/data/grnd/selectAsosRltmList.do?pgmNo=36
+- 활용 데이터2(기온) https://data.kma.go.kr/stcs/grnd/grndTaList.do?pgmNo=70
+- 서울시 한파쉼터 위치정보
+  - http://data.seoul.go.kr/dataList/OA-21066/S/1/datasetView.do
+- 서울시 무더위쉼터 위치정보
+  - http://data.seoul.go.kr/dataList/OA-21065/S/1/datasetView.do
 
 ### ✔️ 프로젝트 구조
 
