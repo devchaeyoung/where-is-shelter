@@ -238,14 +238,15 @@ yarn dev
 
 ## ✔️프로젝트 멤버 구성
 
-|이름|역할|
-|김준섭(팀장)|front-end|
-|강현지|front-end|
-|박소현|front-end|
-|박영현|back-end|
-|박지호|back-end|
-|진채영|back-end|
-|황동운|back-end|
+|     이름     | 역할      |
+| :----------: | :-------- |
+| 김준섭(팀장) | front-end |
+|    강현지    | front-end |
+|    박소현    | front-end |
+|    박영현    | back-end  |
+|    박지호    | back-end  |
+|    진채영    | back-end  |
+|    황동운    | back-end  |
 
 ## 팀원별 역할
 
